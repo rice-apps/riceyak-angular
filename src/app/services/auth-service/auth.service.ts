@@ -35,4 +35,23 @@ export class AuthService {
       .catch(err => console.log(err));
   }
 
+  public logout(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      localStorage.removeItem('currentUser');
+      this.loggedIn.next(false);
+      this.router.navigate(['/']);
+      return resolve("Logged out");
+    });
+
+  }
+
+  get isLoggedIn() {
+    if (localStorage.getItem('currentUser')) {
+      this.loggedIn.next(true);
+    } else {
+      this.loggedIn.next(false);
+    }
+    return this.loggedIn.asObservable();
+  }
+
 }

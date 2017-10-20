@@ -8,12 +8,14 @@ import {AuthService} from "./services/auth-service/auth.service";
 import {PostService} from "./services/post-service/post.service";
 import { AuthComponent } from './components/auth/auth.component';
 import {HttpModule} from "@angular/http";
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
-    AuthComponent
+    AuthComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
