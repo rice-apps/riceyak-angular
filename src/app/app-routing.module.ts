@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {Routes, RouterModule} from "@angular/router";
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
+import {AuthComponent} from "./components/auth/auth.component";
 
 const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent
+  },
+
+  {
+    path: 'auth',
+    component: AuthComponent
   }
 ];
 

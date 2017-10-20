@@ -3,19 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
-import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
 import {AuthService} from "./services/auth-service/auth.service";
 import {PostService} from "./services/post-service/post.service";
+import { AuthComponent } from './components/auth/auth.component';
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpModule
   ],
   providers: [
     AuthService,
