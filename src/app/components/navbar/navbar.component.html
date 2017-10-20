@@ -8,8 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto"></ul>
 
+
       <button *ngIf="loggedIn | async" (click)="logout()" class="btn btn-outline-primary my-2 my-sm-0">Log out</button>
       <a *ngIf="!(loggedIn | async)" class="btn btn-outline-primary my-2 my-sm-0" [attr.href]="authUrl">Log in</a>
+      <a style="color: white; opacity: 0.5; margin: 0 0 0 1rem">{{username}}</a>
 
     </div>
   </div>

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import {Routes, RouterModule} from "@angular/router";
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 import {AuthComponent} from "./components/auth/auth.component";
+import {PostsComponent} from "./components/posts/posts.component";
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
   {
@@ -12,6 +14,12 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent
+  },
+
+  {
+    path: 'posts',
+    component: PostsComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

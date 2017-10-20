@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
 import {Router} from "@angular/router";
-import {Observable, Subject} from "rxjs";
+import {Observable, Subject, BehaviorSubject} from "rxjs";
 import {CONFIG} from "../../config";
 
 @Injectable()
@@ -9,7 +9,9 @@ export class AuthService {
 
   private apiUrl: string = CONFIG.api_url;
 
-  public loggedIn: Subject<boolean> = new Subject();
+  public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  public loggedInUser: BehaviorSubject<any> = new BehaviorSubject({});
 
   constructor(private http: Http, private router: Router) {
     if (localStorage.getItem('currentUser')) {
@@ -25,9 +27,10 @@ export class AuthService {
       .then(res => {
         let result = res.json();
         if (result && result.success) {
-          console.log("result");
           localStorage.setItem('currentUser', JSON.stringify(result));
+
           this.loggedIn.next(true);
+
         } else {
           console.log("Authentication failed")
         }
@@ -54,4 +57,12 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
+  get userLoggedIn() {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+      return currentUser;
+    } else {
+      return null;
+    }
+  }
 }

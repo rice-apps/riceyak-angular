@@ -9,13 +9,16 @@ import {PostService} from "./services/post-service/post.service";
 import { AuthComponent } from './components/auth/auth.component';
 import {HttpModule} from "@angular/http";
 import { NavbarComponent } from './components/navbar/navbar.component';
+import {AuthGuard} from "./guards/auth.guard";
+import { PostsComponent } from './components/posts/posts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     AuthComponent,
-    NavbarComponent
+    NavbarComponent,
+    PostsComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   ],
   providers: [
     AuthService,
-    PostService
+    PostService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
