@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   public authenticate(ticket: String): Promise<any> {
-    return this.http.get(`${this.apiUrl}?ticket=${ticket}`)
+    return this.http.get(`${this.apiUrl}/auth?ticket=${ticket}`)
       .toPromise()
       .then(res => {
         let result = res.json();
