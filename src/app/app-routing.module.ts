@@ -20,7 +20,9 @@ const routes: Routes = [
     path: 'posts',
     component: PostsComponent,
     canActivate: [AuthGuard]
-  }
+  },
+
+
 ];
 
 @NgModule({
