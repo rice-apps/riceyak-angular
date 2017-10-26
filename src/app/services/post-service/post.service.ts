@@ -24,4 +24,11 @@ export class PostService {
       .then(res => res.json() as Post[])
       .catch(err => console.log(err));
   }
+
+  postPost(title: String, body: String): Promise<any> {
+    return this.http.post(`${this.apiUrl}/posts`, {title: title, body: body}, this.jwt())
+      .toPromise()
+      .then(res => res.json() as Post)
+      .catch(err => console.log(err));
+  }
 }
