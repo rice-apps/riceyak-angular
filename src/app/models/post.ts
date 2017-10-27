@@ -6,4 +6,5 @@ export class Post {
   score: number;
   date: Date;
   comments: Comment[];
+  _id: string;
 }
