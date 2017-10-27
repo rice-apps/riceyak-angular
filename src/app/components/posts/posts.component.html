@@ -1,5 +1,5 @@
 <div class="container">
-  <div *ngFor="let post of posts" class="card">
+  <div *ngFor="let post of posts" class="card" [routerLink]="['/posts',post._id]">
     <div class="card-body">
       <h4>{{post.title}}</h4>
       <p>{{post.body}}</p>
