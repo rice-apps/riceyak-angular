@@ -3,8 +3,40 @@
   margin:0 auto;
 }
 
+.post-card {
+  box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+}
+
 @media only screen and (max-width : 768px) {
   .post-container {
     width: 100%;
   }
 }
+
+
+.vote-caret {
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.vote-caret-up:hover {
+  -webkit-transform: translateY(-5px);
+  -moz-transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  -o-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+
+.vote-caret-down:hover {
+  -webkit-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  -o-transform: translateY(5px);
+  transform: translateY(5px);
+}
+
+
+

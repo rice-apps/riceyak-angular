@@ -12,7 +12,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import {AuthGuard} from "./guards/auth.guard";
 import { PostsComponent } from './components/posts/posts.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
-import * as $ from 'jquery';
 
 @NgModule({
   declarations: [
