@@ -5,6 +5,7 @@
 
 .post-card {
   box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+  cursor: pointer;
 }
 
 @media only screen and (max-width : 768px) {
@@ -12,7 +13,6 @@
     width: 100%;
   }
 }
-
 
 .vote-caret {
   -webkit-transition: all 0.3s;

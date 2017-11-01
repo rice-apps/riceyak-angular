@@ -4,6 +4,7 @@ import {LandingPageComponent} from "./components/landing-page/landing-page.compo
 import {AuthComponent} from "./components/auth/auth.component";
 import {PostsComponent} from "./components/posts/posts.component";
 import {AuthGuard} from "./guards/auth.guard";
+import {PostDetailComponent} from "./components/post-detail/post-detail.component";
 
 const routes: Routes = [
   {
@@ -18,8 +19,21 @@ const routes: Routes = [
 
   {
     path: 'posts',
-    component: PostsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    children: [
+
+      {
+        path: '',
+        pathMatch: 'full',
+        component: PostsComponent
+      },
+
+      {
+        path: ':_id',
+        component: PostDetailComponent
+      }
+
+    ]
   },
 
 

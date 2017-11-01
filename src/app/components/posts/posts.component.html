@@ -1,6 +1,6 @@
 <div class="container post-container">
   <app-new-post></app-new-post>
-  <div *ngFor="let post of posts" class="card mb-4 post-card">
+  <div *ngFor="let post of posts" [routerLink]="['/posts', post._id]" class="card mb-4 post-card">
     <!--<img class="card-img-top" src="..." alt="Card image cap">-->
     <div class="card-body">
       <div class="row no-gutters">
@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="card-footer">
-      <small class="text-muted">0 comments</small>
+      <small class="text-muted">{{post.comments.length}} comments</small>
     </div>
   </div>
 </div>

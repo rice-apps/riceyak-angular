@@ -12,6 +12,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import {AuthGuard} from "./guards/auth.guard";
 import { PostsComponent } from './components/posts/posts.component';
 import { NewPostComponent } from './components/new-post/new-post.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -20,12 +22,15 @@ import { NewPostComponent } from './components/new-post/new-post.component';
     AuthComponent,
     NavbarComponent,
     PostsComponent,
-    NewPostComponent
+    NewPostComponent,
+    PostDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
