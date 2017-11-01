@@ -27,6 +27,7 @@
     "jquery": "^3.2.1",
     "popper.js": "^1.12.6",
     "rxjs": "^5.4.2",
+    "time-ago-pipe": "^1.2.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

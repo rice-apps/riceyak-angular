@@ -15,8 +15,17 @@
         </div>
       </div>
     </div>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let comment of post.comments" class="list-group-item">Cras justo odio</li>
+    </ul>
     <div class="card-footer">
-      <small class="text-muted">{{post.comments.length}} comments</small>
+      <div class="row">
+        <div class="col-3">
+          <a href="#" class="card-link">View</a>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3 text-right"><small class="text-muted">{{post.date | timeAgo}}</small></div>
+      </div>
     </div>
   </div>
 </div>
