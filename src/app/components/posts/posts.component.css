@@ -5,6 +5,7 @@
 
 .post-card {
   box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+  cursor: pointer;
 }
 
 .avatar {
