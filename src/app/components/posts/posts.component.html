@@ -1,6 +1,11 @@
 <div class="container post-container">
   <app-new-post></app-new-post>
-  <div *ngFor="let post of posts" [routerLink]="['/posts', post._id]" class="card mb-4 post-card">
+  <div *ngIf="loading" class="row">
+    <div class="col-5"></div>
+    <div class="col-2"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw spinner"></i></div>
+    <div class="col-5"></div>
+  </div>
+  <div *ngFor="let post of posts" class="card mb-4 post-card">
     <!--<img class="card-img-top" src="..." alt="Card image cap">-->
     <div class="card-body">
       <div class="row no-gutters">
@@ -9,9 +14,12 @@
           <span class="col-12" style="font-size: 15pt">0</span>
           <span class="fa fa-caret-down col-12 vote-caret vote-caret-down"></span>
         </div>
-        <div class="col-11">
+        <div class="col-10">
           <h4>{{post.title}}</h4>
           <p>{{post.body}}</p>
+        </div>
+        <div class="col-1">
+          <img class="avatar" [src]="post.author.avatar_url">
         </div>
       </div>
     </div>
@@ -21,7 +29,7 @@
     <div class="card-footer">
       <div class="row">
         <div class="col-3">
-          <a href="#" class="card-link">View</a>
+          <a [routerLink]="['/posts', post._id]" class="card-link">View</a>
         </div>
         <div class="col-6"></div>
         <div class="col-3 text-right"><small class="text-muted">{{post.date | timeAgo}}</small></div>

@@ -1,4 +1,5 @@
 import { Comment } from "./comment";
+import {User} from "./user";
 
 export class Post {
   _id: string;
@@ -7,4 +8,6 @@ export class Post {
   score: number;
   date: Date;
   comments: Comment[];
+  avatar_url: String;
+  author: User;
 }
