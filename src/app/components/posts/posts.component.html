@@ -1,14 +1,5 @@
 <div class="container">
   <div class="card m-2">
-    <form>
-      <div class="form-group mx-3 mt-3">
-        <input class="form-control mb-2" #post_title_entered/>
-        <textarea class="form-control" rows="3" #post_entered></textarea>
-      </div>
-      <div class = "mx-3 mb-2 text-right">
-        <button class="btn btn-light" (click)="Post(post_title_entered.value, post_entered.value)">Post</button>
-      </div>
-    </form>
   </div>
   <div *ngFor="let post of posts" class="card m-2" [routerLink]="['/posts',post._id]">
     <div class="card-body">

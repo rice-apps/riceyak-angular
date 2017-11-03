@@ -19,9 +19,4 @@ export class PostsComponent implements OnInit {
     this.postService.getPosts()
       .then(posts => this.posts = posts);
   }
-  Post(title, body) {
-    if (!title && !body) { return; }
-    this.postService.postPost(title, body)
-        .then(posts => this.posts = posts);
-  }
 }

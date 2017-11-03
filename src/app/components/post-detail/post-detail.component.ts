@@ -23,6 +23,7 @@ export class PostDetailComponent implements OnInit {
           });
   }
   Comment(comment_entered) {
-      alert("No comment funtion right now, sorry: "+ comment_entered);
+      alert(comment_entered)
   }
+  
 }
