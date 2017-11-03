@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post-service/post.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-posts',
@@ -21,5 +22,4 @@ export class PostsComponent implements OnInit {
         this.posts = posts;
       })
   }
-
 }

@@ -20,5 +20,5 @@ export class PostDetailComponent implements OnInit {
         .then(post => this.post = post);
     })
   }
-
 }
+

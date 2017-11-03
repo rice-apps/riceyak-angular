@@ -21,7 +21,6 @@ const routes: Routes = [
     path: 'posts',
     canActivate: [AuthGuard],
     children: [
-
       {
         path: '',
         pathMatch: 'full',
@@ -32,7 +31,6 @@ const routes: Routes = [
         path: ':_id',
         component: PostDetailComponent
       }
-
     ]
   },
 

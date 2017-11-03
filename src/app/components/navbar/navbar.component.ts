@@ -12,7 +12,7 @@ import {} from "bootstrap";
 })
 export class NavbarComponent implements OnInit {
   @ViewChild('netID') el: ElementRef;
-
+  
   private loggedIn: Observable<boolean>;
   private authUrl: string = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
   private username: string = '';
