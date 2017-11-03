@@ -16,12 +16,13 @@ export class PostDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.params
-      .subscribe(params => {
-          this.postService.getPost(params['id'])
-              .then(post => this.post = post);
-      });
-    }
+      this.route.params
+          .subscribe(params => {
+              this.postService.getPost(params['id'])
+                  .then(post => this.post = post);
+          });
   }
-
-
+  Comment(comment_entered) {
+      alert("No comment funtion right now, sorry: "+ comment_entered);
+  }
+}

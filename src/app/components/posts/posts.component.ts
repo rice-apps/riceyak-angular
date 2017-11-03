@@ -9,7 +9,6 @@ import {Router} from "@angular/router";
   styleUrls: ['posts.component.css']
 })
 export class PostsComponent implements OnInit {
-
   posts: Post[];
   selectedPost: Post;
   constructor(
@@ -20,5 +19,9 @@ export class PostsComponent implements OnInit {
     this.postService.getPosts()
       .then(posts => this.posts = posts);
   }
-
+  Post(title, body) {
+    if (!title && !body) { return; }
+    this.postService.postPost(title, body)
+        .then(posts => this.posts = posts);
+  }
 }
