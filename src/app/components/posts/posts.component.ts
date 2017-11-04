@@ -9,7 +9,6 @@ import {Router} from "@angular/router";
   styleUrls: ['posts.component.css']
 })
 export class PostsComponent implements OnInit {
-
   posts: Post[];
   private loading: boolean = true;
 
