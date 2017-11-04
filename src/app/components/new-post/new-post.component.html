@@ -24,7 +24,7 @@
         <button (click)="newPostForm.reset()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
         <button (click)="postPost()" [disabled]="newPostForm.invalid" type="button" class="btn btn-primary">
           <i *ngIf="!loading" class="fa fa-comments"></i>
-          <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin fa-lg fa-fw spinner"></i>
+          <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin fa-fw spinner"></i>
           {{submitButtonText}}</button>
       </div>
     </div>

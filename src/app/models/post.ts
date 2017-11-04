@@ -10,3 +10,4 @@ export class Post {
   comments: Comment[];
   avatar_url: String;
   author: User;
+}
