@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post-service/post.service";
 import {ActivatedRoute} from "@angular/router";
+import {Comment} from "../../models/comment";
+import {COMMENTS} from "../../models/comments_dummy";
 
 @Component({
   selector: 'app-post-detail',
@@ -10,6 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class PostDetailComponent implements OnInit {
   post: Post;
+  comments = COMMENTS;
   constructor(
       private postService: PostService,
       private route: ActivatedRoute
@@ -21,6 +24,7 @@ export class PostDetailComponent implements OnInit {
           this.postService.getPost(params['id'])
               .then(post => this.post = post);
       });
+    // this.comments = this.post.comments;
     }
   }
 
