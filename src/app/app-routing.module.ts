@@ -21,15 +21,16 @@ const routes: Routes = [
     path: 'posts',
     canActivate: [AuthGuard],
     children: [
-        {
-          path: '',
-          component: PostsComponent,
-          pathMatch: 'full'
-        },
-        {
-          path: ':id',
-          component: PostDetailComponent
-        }
+      {
+        path: '',
+        pathMatch: 'full',
+        component: PostsComponent
+      },
+
+      {
+        path: ':_id',
+        component: PostDetailComponent
+      }
     ]
   },
 
