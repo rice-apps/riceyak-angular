@@ -10,13 +10,15 @@ import {Router} from "@angular/router";
 })
 export class PostsComponent implements OnInit {
   posts: Post[];
-  selectedPost: Post;
-  constructor(
-      private postService: PostService,
-      private router: Router
-  ) {}
+  private loading: boolean = true;
+
+  constructor(private postService: PostService) { }
+
   ngOnInit() {
     this.postService.getPosts()
-      .then(posts => this.posts = posts);
+      .then(posts => {
+        this.loading = false;
+        this.posts = posts;
+      })
   }
 }

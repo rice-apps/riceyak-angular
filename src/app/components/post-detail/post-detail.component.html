@@ -10,7 +10,9 @@
     <div class="card m-2">
         <form>
             <div class="form-group mx-3 mt-3">
-                <textarea class="form-control" rows="3" #comment_entered></textarea>
+                <textarea placeholder="Share your thoughts..." rows="5" name="comment[text]"
+                id="comment_text" cols="40" class="ui-autocomplete-input form-control"
+                autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" #comment_entered></textarea>
             </div>
             <div class = "mx-3 mb-2 text-right">
                 <button class="btn btn-light" (click)="Comment(comment_entered.value)">Comment</button>
@@ -23,23 +25,5 @@
             {{comment}}
         </div>
     </div>
-    <div class="card m-2">
-        <div class="card-body">
-            example comment 1?
-        </div>
-    </div>
-    <div class="card m-2">
-        <div class="card-body">
-            example comment 2 which is very very very very very very very very very very very
-            very very very very very very very very very very very very very very very very very
-            very very very very very very very very very very very very very very very very very
-            very very very very very very very very Long!!!!!!!!!!!!!!!!!!1)
-        </div>
-    </div>
-    <div class="card m-2">
-        <div class="card-body">
-            example comment 3 (Example comments are hard coded into the html of this page so they appear under every post...)
-        </div>
-    </div>
-
 </div>
+

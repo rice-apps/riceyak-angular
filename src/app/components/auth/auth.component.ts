@@ -17,7 +17,7 @@ export class AuthComponent implements OnInit {
         .catch(err => console.log(err))
         .then(() => {
 
-          this.router.navigate(['/']);
+          this.router.navigate(['/posts']);
         })
     })
   }
