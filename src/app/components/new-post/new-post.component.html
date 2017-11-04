@@ -1,0 +1,39 @@
+<div class="modal fade-scale" #newPostModal id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New hoot</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newPostForm">
+          <div class="form-group">
+            <label class="col-form-label" for="inputTitle">Title</label>
+            <input [ngClass]="{'is-invalid': title.invalid && (title.dirty || title.touched)}" formControlName="title" type="text" class="form-control" id="inputTitle" placeholder="Your hoot title" required>
+            <div *ngIf="title.errors" class="invalid-feedback">Title is required</div>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" for="inputBody">Content</label>
+            <textarea formControlName="body" class="form-control" id="inputBody" placeholder="Tell us something!" style="height: 150px"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button (click)="newPostForm.reset()" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button (click)="postPost()" [disabled]="newPostForm.invalid" type="button" class="btn btn-primary">
+          <i *ngIf="!loading" class="fa fa-comments"></i>
+          <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin fa-lg fa-fw spinner"></i>
+          {{submitButtonText}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card mb-4 new-post text-center btn btn-outline-primary" data-toggle="modal" data-target="#newPostModal">
+  <div class="card-body">
+    <h4><i class="fa fa-comments"></i> Hoot!</h4>
+  </div>
+</div>

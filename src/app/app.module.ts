@@ -11,7 +11,10 @@ import {HttpModule} from "@angular/http";
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {AuthGuard} from "./guards/auth.guard";
 import { PostsComponent } from './components/posts/posts.component';
+import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {TimeAgoPipe} from "time-ago-pipe";
 
 @NgModule({
   declarations: [
@@ -20,12 +23,16 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
     AuthComponent,
     NavbarComponent,
     PostsComponent,
-    PostDetailComponent
+    NewPostComponent,
+    PostDetailComponent,
+    TimeAgoPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpModule
+    HttpModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
