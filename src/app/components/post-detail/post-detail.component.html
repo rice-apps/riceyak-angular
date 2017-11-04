@@ -3,6 +3,13 @@
   <div class="card-body">
     <h4>{{post.title}}</h4>
     <p>{{post.body}}</p>
+    <div *ngFor="let comment of comments">
+      <textarea>{{comment.body}}</textarea>
+      <label class="card-body">{{comment.score}}</label>
+    </div>
+    <textarea placeholder="Share your thoughts..." rows="20" name="comment[text]"
+              id="comment_text" cols="40" class="ui-autocomplete-input"
+              autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"></textarea>
   </div>
 </div>
 </div>
