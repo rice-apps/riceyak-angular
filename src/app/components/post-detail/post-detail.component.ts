@@ -27,7 +27,6 @@ export class PostDetailComponent implements OnInit {
       let comment: Comment = {
           body: comment_entered,
           score: 0,
-
       };
       this.route.params.subscribe(params => {
           this.postService.postComment(params['_id'], comment)

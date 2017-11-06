@@ -48,7 +48,7 @@ export class PostService {
   }
 
   edit(id: string, post: any): Promise<any> {
-    return this.http.put(`${this.apiUrl}/posts${id}`, {id: id, body: post}, this.jwt())
+    return this.http.put(`${this.apiUrl}/posts/${id}`, {id: id, body: post}, this.jwt())
         .toPromise()
         .then(res => res.json() as Post)
         .catch(err => console.log(err))
