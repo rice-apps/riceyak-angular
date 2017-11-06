@@ -23,7 +23,10 @@ export class PostDetailComponent implements OnInit {
   }
   
   Comment(comment_entered) {
-      alert(comment_entered)
-  }
+      this.post.comments.push(comment_entered);
+      this.route.params.subscribe(params => {
+          this.postService.postComment(params['_id'], this.post)
+              .then(post => this.post = post);
+  })
+};
 }
-
