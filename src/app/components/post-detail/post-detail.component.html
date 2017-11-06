@@ -15,7 +15,7 @@
                 autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" #comment_entered></textarea>
             </div>
             <div class = "mx-3 mb-2 text-right">
-                <button class="btn btn-light" (click)="Comment(comment_entered.value)">Comment</button>
+                <button class="btn btn-light" (click)="Comment(comment_entered.value);comment_entered.value=''">Comment</button>
             </div>
         </form>
     </div>
