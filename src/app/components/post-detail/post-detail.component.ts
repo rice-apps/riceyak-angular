@@ -23,7 +23,11 @@ export class PostDetailComponent implements OnInit {
   }
   
   Comment(comment_entered) {
-      this.post.comments.push(comment_entered);
+      let comment: Comment = {
+              body: comment_entered,
+              score: 0,
+          };
+      this.post.comments.push(comment);
       this.route.params.subscribe(params => {
           this.postService.postComment(params['_id'], this.post)
               .then(post => this.post = post);
