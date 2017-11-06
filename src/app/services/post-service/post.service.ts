@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
+import {Comment} from "../../models/comment";
 
 @Injectable()
 export class PostService {
@@ -40,7 +41,7 @@ export class PostService {
   }
 
   postComment(id: string, comment: Comment): Promise<any> {
-    return this.http.post(`${this.apiUrl}/posts${id}`, {id: id, comment: comment}, this.jwt())
+    return this.http.post(`${this.apiUrl}/posts/${id}/comments`, {id: id, comment: comment}, this.jwt())
         .toPromise()
         .then(res => res.json() as Post)
         .catch(err => console.log(err));

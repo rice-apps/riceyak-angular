@@ -22,8 +22,8 @@ export class PostDetailComponent implements OnInit {
     });
   }
   
-  Comment(comment_entered) {
-      let comment: Comment = {
+  Comment(comment_entered: string) {
+      const comment: Comment = {
               body: comment_entered,
               score: 0,
           };
