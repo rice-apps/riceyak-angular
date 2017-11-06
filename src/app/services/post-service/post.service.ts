@@ -39,14 +39,14 @@ export class PostService {
       .catch(err => console.log(err));
   }
 
-  postComment(id: string, post: Post): Promise<any> {
-    return this.http.put(`${this.apiUrl}/posts${id}`, {id: id, body: post}, this.jwt())
+  postComment(id: string, comment: Comment): Promise<any> {
+    return this.http.post(`${this.apiUrl}/posts${id}`, {id: id, comment: comment}, this.jwt())
         .toPromise()
         .then(res => res.json() as Post)
         .catch(err => console.log(err));
   }
 
-  edit(id: string, post: Post): Promise<any> {
+  edit(id: string, post: any): Promise<any> {
     return this.http.put(`${this.apiUrl}/posts${id}`, {id: id, body: post}, this.jwt())
         .toPromise()
         .then(res => res.json() as Post)
