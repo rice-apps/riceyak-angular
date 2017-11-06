@@ -3,6 +3,7 @@ import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
 import {ActivatedRoute} from "@angular/router";
 import {Comment} from "../../models/comment";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-post-detail',
@@ -11,7 +12,8 @@ import {Comment} from "../../models/comment";
 })
 export class PostDetailComponent implements OnInit {
 
-  private post: Post;
+  post: Post;
+  show: boolean;
 
   constructor(private postService: PostService, private route: ActivatedRoute) { }
 
@@ -20,16 +22,14 @@ export class PostDetailComponent implements OnInit {
       this.postService.getPost(params['_id'])
         .then(post => this.post = post);
     });
+
   }
   
   Comment(comment_entered: string) {
-      const comment: Comment = {
-              body: comment_entered,
-              score: 0,
-          };
+
       this.route.params.subscribe(params => {
-          this.postService.postComment(params['_id'], comment)
+          this.postService.postComment(params['_id'], comment_entered)
               .then(post => this.post = post);
-  })
-};
+  });
+}
 }
