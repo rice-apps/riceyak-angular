@@ -8,6 +8,9 @@
   </div>
 
     <div class="card m-2">
+      <ul class="list-group list-group-flush">
+            <li *ngFor="let comment of post.comments" class="list-group-item">{{comment.body}}</li>
+        </ul>
         <form>
             <div class="form-group mx-3 mt-3">
                 <textarea placeholder="Share your thoughts..." rows="5" name="comment[text]"
@@ -15,7 +18,7 @@
                 autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" #comment_entered></textarea>
             </div>
             <div class = "mx-3 mb-2 text-right">
-                <button class="btn btn-light" (click)="Comment(comment_entered.value)">Comment</button>
+                <button class="btn btn-light" (click)="Comment(comment_entered.value);comment_entered.value=''">Comment</button>
             </div>
         </form>
     </div>
