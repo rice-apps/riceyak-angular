@@ -46,18 +46,5 @@ export class PostService {
         .then(res => res.json() as Post)
         .catch(err => console.log(err));
   }
-
-  edit(id: string, post: any): Promise<any> {
-    return this.http.put(`${this.apiUrl}/posts/${id}`, {id: id, body: post}, this.jwt())
-        .toPromise()
-        .then(res => res.json() as Post)
-        .catch(err => console.log(err))
-  }
-
-  delete(id: string): Promise<any> {
-    return this.http.get(`${this.apiUrl}/posts/${id}`, this.jwt())
-        .toPromise()
-        .then(res => res.json() as Post)
-        .catch(err => console.log(err));
-   }
+  
 }

@@ -31,6 +31,5 @@ export class PostDetailComponent implements OnInit {
       this.route.params.subscribe(params => {
           this.postService.postComment(params['_id'], comment)
               .then(post => this.post = post);
-  })
-};
+  })};
 }
