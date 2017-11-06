@@ -3,6 +3,7 @@ import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
 import {ActivatedRoute} from "@angular/router";
 import {Comment} from "../../models/comment";
+import {stringify} from "querystring";
 
 @Component({
   selector: 'app-post-detail',
@@ -22,11 +23,12 @@ export class PostDetailComponent implements OnInit {
     });
   }
   
-  Comment(comment_entered) {
+  Comment(comment_entered: string) {
       let comment: Comment = {
-              body: comment_entered,
-              score: 0,
-          };
+          body: comment_entered,
+          score: 0,
+
+      };
       this.route.params.subscribe(params => {
           this.postService.postComment(params['_id'], comment)
               .then(post => this.post = post);

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
+import {Comment} from "../../models/comment";
 
 @Injectable()
 export class PostService {
