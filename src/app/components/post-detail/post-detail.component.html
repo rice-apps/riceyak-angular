@@ -1,26 +1,38 @@
-<div class="container">
+<div class="post-container">
   <div class="card mx-2 my-3">
-    <div class="card-body" >
-      <h4>{{post.title}}</h4>
-      <p class="ml-3">{{post.body}}</p>
-      <p class = "text-right text-muted">{{post.date | date: short}}</p>
-    </div>
-  </div>
+      <div class="card-body">
+          <div class="row no-gutters">
+              <div class="col-2">
+                  <img class="img-fluid avatar img-thumbnail" [src]="post.author.avatar_url">
+              </div>
+              <div class="col-10">
+                  <div class = "row">
+                      <h4>{{post.title}}</h4>
+                      <div class="col text-right"><small class="text-muted">{{post.date | timeAgo}}</small></div>
+                  </div>
+                  <div class="flex-row">
+                      <p>{{post.body}}</p>
 
-    <div class="card m-2">
+                  </div>
+              </div>
+          </div>
+      </div>
+    <div class="card m-3">
       <ul class="list-group list-group-flush">
-            <li *ngFor="let comment of post.comments" class="list-group-item">{{comment.body}}</li>
+            <li *ngFor="let comment of post.comments" class="list-group-item">
+                <img class="comment-avatar" [src]="post.author.avatar_url">
+                {{comment.body}}</li>
         </ul>
-        <form>
-            <div class="form-group mx-3 mt-3">
-                <textarea placeholder="Share your thoughts..." rows="5" name="comment[text]"
-                id="comment_text" cols="40" class="ui-autocomplete-input form-control"
-                autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" #comment_entered></textarea>
-            </div>
-            <div class = "mx-3 mb-2 text-right">
-                <button class="btn btn-light" (click)="Comment(comment_entered.value);comment_entered.value=''">Comment</button>
-            </div>
-        </form>
     </div>
+      <div class="card mx-2 my-3">
+          <form>
+              <div class="form-group mx-3 mt-3">
+                  <textarea class="form-control" placeholder="Share your thoughts!" rows="3" #comment_entered></textarea>
+              </div>
+              <div class = "mr-3 mb-4 text-right">
+                  <button class="btn btn-light" type="reset" (click)="Comment(comment_entered.value)">Comment</button>
+              </div>
+          </form>
+      </div>
 </div>
 

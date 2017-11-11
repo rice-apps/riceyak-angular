@@ -1,7 +1,16 @@
+.post-container {
+    width: 80%;
+    margin:0 auto;
+}
+
+@media only screen and (max-width : 768px) {
+    .post-container {
+        width: 100%;
+    }
+}
+
 textarea {
     margin-top: 10px;
-    margin-left: 50px;
-    width: 500px;
     height: 100px;
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
@@ -18,10 +27,19 @@ textarea {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 1em;
     line-height: 1.4em;
-    padding: 5px 8px;
     transition: background-color 0.2s ease 0s;
 }
 textarea:focus {
     background: none repeat scroll 0 0 #FFFFFF;
     outline-width: 0;
+}
+
+.avatar{
+    width:70%;
+    height: auto;
+}
+
+.comment-avatar{
+    width: 30px;
+    height: auto;
 }

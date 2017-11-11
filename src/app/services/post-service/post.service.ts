@@ -40,7 +40,7 @@ export class PostService {
       .catch(err => console.log(err));
   }
 
-  postComment(id: string, comment: Comment): Promise<any> {
+  postComment(id: string, comment: string): Promise<any> {
     return this.http.post(`${this.apiUrl}/posts/${id}/comments`, {id: id, comment: comment}, this.jwt())
         .toPromise()
         .then(res => res.json() as Post)

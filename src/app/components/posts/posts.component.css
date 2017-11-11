@@ -8,7 +8,7 @@
 }
 
 .avatar {
-  width: 50px;
+  max-width: 115%;
   height: auto;
 }
 
@@ -19,6 +19,9 @@
 @media only screen and (max-width : 768px) {
   .post-container {
     width: 100%;
+  }
+  .avatar{
+    max-width:140%;
   }
 }
 
