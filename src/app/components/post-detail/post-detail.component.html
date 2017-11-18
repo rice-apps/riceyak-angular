@@ -1,51 +1,26 @@
-<div class="container">
-  <div class="card mx-2 my-3">
-    <div class="card-body">
-      <div class="row no-gutters">
-        <div class="col-1" style="font-size: 20pt; text-align: center">
-          <span class="fa fa-caret-up col-12 vote-caret vote-caret-up"></span>
-          <span class="col-12" style="font-size: 15pt">0</span>
-          <span class="fa fa-caret-down col-12 vote-caret vote-caret-down"></span>
+<div class="container post-container">
+        <div class="card mb-4 post-card">
+            <div class="card-header">
+            <h4>{{post.title}}</h4>
+            </div>
+            <div class="card-body">
+            <p class="card-text">{{post.body}}</p>
+            </div>
         </div>
-        <div class="col-10">
-          <h4>{{post.title}}</h4>
-          <p>{{post.body}}</p>
-        </div>
-        <div class="col-1">
-          <img class="avatar" [src]="post.author.avatar_url">
-        </div>
-      </div>
-    </div> 
-    <div class="card-footer">
-      <div class="row">
-        <div class="col-6">
-          <a [routerLink]="['/posts']" class="card-link">Back to posts</a>
-        </div>
-        <div class="col-6 text-right">
-          <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
-          <small class="text-muted">{{post.date | timeAgo}}</small>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="card m-2">
-    <form>
-      <div class="form-group mx-3 mt-3">
-        <textarea placeholder="Share your thoughts..." rows="5" name="comment[text]"
-        id="comment_text" cols="40" class="ui-autocomplete-input form-control"
-        autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true" #comment_entered></textarea>
-      </div>
-      <div class = "mx-3 mb-2 text-right">
-         <button class="btn btn-light" (click)="Comment(comment_entered.value)">Comment</button>
-      </div>
-    </form>
-  </div>
+        <div class="card post-card">
+            <form class="mx-4 my-4">
+                <div class="form-group">
+                <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5'></textarea>
+                </div>
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
 
-  <div *ngFor="let comment of comments" class="card m-2">
-    <div  class="card-body">
-      {{comment}}
-    </div>
-  </div>
+        <div *ngFor="let comment of post.comments" class="card m-2">
+            <div class="card-body">
+                {{comment}}
+            </div>
+        </div>
 </div>
 

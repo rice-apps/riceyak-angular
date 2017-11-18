@@ -37,9 +37,6 @@ export class PostDetailComponent implements OnInit {
   Comment(comment_entered) {
       alert(comment_entered)
   }
-
-
-
-
+  
 }
 
