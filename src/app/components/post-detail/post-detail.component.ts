@@ -4,6 +4,7 @@ import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
 import {ActivatedRoute} from "@angular/router";
 import {Comment} from "../../models/comment";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-post-detail',
@@ -12,7 +13,8 @@ import {Comment} from "../../models/comment";
 })
 export class PostDetailComponent implements OnInit {
 
-  private post: Post;
+  post: Post;
+  show: boolean;
 
   private isMyPost: boolean = false;
 
@@ -34,12 +36,8 @@ export class PostDetailComponent implements OnInit {
     }
   }
   
-  Comment(comment_entered) {
-      alert(comment_entered)
+  Comment(comment_entered: string) {
+      this.postService.postComment(this.post._id, comment_entered)
+          .then(post => this.post = post);
   }
-
-
-
-
 }
-
