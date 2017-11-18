@@ -24,7 +24,7 @@ export class PostsComponent implements OnInit {
       })
   }
 
-  voteUp(post: Post, vote: number) {
+  voteOnPost(post: Post, vote: number) {
     this.voteLoading = true;
     this.postService.voteOnPost(post._id, vote)
       .then(newPost => {
@@ -34,15 +34,14 @@ export class PostsComponent implements OnInit {
       });
   }
 
-  // getVoted(post: Post) {
-  //   this.authService.loggedInUser.subscribe(u => {
-  //     post.votes.forEach(v => {
-  //       if (v.user === u.user.userID) {
-  //         return v.vote;
-  //       }
-  //     });
-  //     return 0;
-  //   });
-    
-  // }
+  //getVoted(post: Post) {
+  //  this.authService.loggedInUser.subscribe(u => {
+  //    post.votes.forEach(v => {
+  //      if (v.user === u.user.userID) {
+  //        return v.vote;
+  //      }
+  //    });
+  //    return 0;
+  //  });
+  //}
 }

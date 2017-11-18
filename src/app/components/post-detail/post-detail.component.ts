@@ -58,8 +58,12 @@ export class PostDetailComponent implements OnInit {
           .then(post => this.post = post);
   }
 
-
-
+  voteOnPost(vote) {
+      this.postService.voteOnPost(this.post._id, vote)
+          .then(res => {
+              this.post = res;
+          });
+  }
 
 }
 
