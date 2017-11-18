@@ -38,8 +38,12 @@ export class PostDetailComponent implements OnInit {
       alert(comment_entered)
   }
 
-
-
+  voteOnPost(vote) {
+      this.postService.voteOnPost(this.post._id, vote)
+          .then(res => {
+              this.post = res;
+          });
+  }
 
 }
 
