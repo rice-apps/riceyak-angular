@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
+import {Comment} from "../../models/comment";
 
 @Injectable()
 export class PostService {
@@ -39,6 +40,26 @@ export class PostService {
       .catch(err => console.log(err));
   }
 
+  postComment(id: string, comment: string): Promise<any> {
+    return this.http.post(`${this.apiUrl}/posts/${id}/comments`, {id: id, comment: comment}, this.jwt())
+        .toPromise()
+        .then(res => res.json() as Post)
+        .catch(err => console.log(err));
+  }
+
+  edit(id: string, post: any): Promise<any> {
+    return this.http.put(`${this.apiUrl}/posts/${id}`, {id: id, body: post}, this.jwt())
+        .toPromise()
+        .then(res => res.json() as Post)
+        .catch(err => console.log(err));
+  }
+
+  delete(id: string): Promise<any> {
+    return this.http.get(`${this.apiUrl}/posts/${id}`, this.jwt())
+        .toPromise()
+        .then(res => res.json() as Post)
+        .catch(err => console.log(err));
+   }
   voteOnPost(post_id: string, vote: number): Promise<any> {
     return this.http.put(`${this.apiUrl}/posts/${post_id}`, { vote: vote }, this.jwt())
       .toPromise()

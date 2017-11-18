@@ -24,7 +24,7 @@
       </div>
     </div>
     <ul class="list-group list-group-flush">
-      <li *ngFor="let comment of post.comments" class="list-group-item">Cras justo odio</li>
+      <li *ngFor="let comment of post.comments" class="list-group-item">{{comment.body}}</li>
     </ul>
     <div class="card-footer">
       <div class="row">
