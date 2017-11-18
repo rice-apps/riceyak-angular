@@ -2,7 +2,7 @@ import { AuthService } from './../../services/auth-service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Comment} from "../../models/comment";
 import {User} from "../../models/user";
 import {Location} from '@angular/common';
@@ -19,8 +19,9 @@ export class PostDetailComponent implements OnInit {
   private isMyPost: boolean = false;
 
   constructor(private postService: PostService,
-              private route: ActivatedRoute, private authService: AuthService,
-              private loc: Location) { }
+              private route: ActivatedRoute,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit() {
       this.route.params.subscribe(params => {
@@ -47,12 +48,11 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
-  Delete(){
-    this.postService.delete(this.post._id)
-    alert('Post Deleted!')
-    this.loc.back()
+  delete(){
+    this.postService.delete(this.post._id);
+      this.router.navigate(['/posts']);
   }
-  Comment(comment_entered: string) {
+  comment(comment_entered: string) {
 
       this.postService.postComment(this.post._id, comment_entered)
           .then(post => this.post = post);

@@ -5,7 +5,7 @@
             </div>
             <div class="card-body">
             <p class="card-text">{{getPost().body}}</p>
-            <button *ngIf="getIsMyPost()" class="btn btn-primary" (click)="Delete()">Delete</button>
+            <button *ngIf="getIsMyPost()" class="btn btn-primary" (click)="delete()">Delete</button>
             </div>
 
 
@@ -16,7 +16,7 @@
                 <div class="form-group">
                 <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5' #text></textarea>
                 </div>
-                <button class="btn btn-primary" (click)="Comment(text.value);text.value=''">Submit</button>
+                <button class="btn btn-primary" (click)="comment(text.value);text.value=''">Submit</button>
 
             </form>
         </div>
