@@ -13,7 +13,7 @@ import {User} from "../../models/user";
 })
 export class PostDetailComponent implements OnInit {
 
-  private post: Post;
+  post: Post;
 
   private isMyPost: boolean = false;
 
@@ -36,6 +36,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   Comment(comment_entered: string) {
+      alert(comment_entered)
       this.postService.postComment(this.post._id, comment_entered)
           .then(post => this.post = post);
   }
