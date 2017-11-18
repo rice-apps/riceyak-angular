@@ -1,8 +1,8 @@
 textarea {
-    margin-top: 10px;
+    /*margin-top: 10px;
     margin-left: 50px;
     width: 500px;
-    height: 100px;
+    height: 100px;*/
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
@@ -24,4 +24,9 @@ textarea {
 textarea:focus {
     background: none repeat scroll 0 0 #FFFFFF;
     outline-width: 0;
+}
+
+.avatar {
+  width: 50px;
+  height: auto;
 }

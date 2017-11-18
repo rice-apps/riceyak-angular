@@ -60,4 +60,10 @@ export class PostService {
         .then(res => res.json() as Post)
         .catch(err => console.log(err));
    }
+  voteOnPost(post_id: string, vote: number): Promise<any> {
+    return this.http.put(`${this.apiUrl}/posts/${post_id}`, { vote: vote }, this.jwt())
+      .toPromise()
+      .then(res => res.json() as Post)
+      .catch(err => console.log(err));
+  }
 }
