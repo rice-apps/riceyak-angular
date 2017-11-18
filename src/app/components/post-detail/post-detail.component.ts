@@ -35,7 +35,7 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
-  Comment(comment_entered: string) {
+  addComment(comment_entered: string) {
       this.postService.postComment(this.post._id, comment_entered)
           .then(post => this.post = post);
   }

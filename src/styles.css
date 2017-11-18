@@ -1,3 +1,58 @@
 .btn {
   cursor: pointer;
 }
+
+.spinner {
+  color: rgb(0, 22, 58);
+}
+
+.post-container {
+  width: 60%;
+  margin:0 auto;
+}
+
+.avatar {
+  width: 50px;
+  height: auto;
+  border-radius: 10px;
+}
+
+@media only screen and (max-width : 768px) {
+  .post-container {
+    width: 100%;
+  }
+}
+
+.post-card {
+  -webkit-box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+  -moz-box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+  box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+  -webkit-animation: fadein 0.4s;
+  -moz-animation: fadein 0.4s;
+  -o-animation: fadein 0.4s;
+  animation: fadein 0.4s;
+}
+
+
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0px); }
+}
+
+@-moz-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@-o-keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+

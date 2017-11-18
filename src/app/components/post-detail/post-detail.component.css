@@ -1,13 +1,4 @@
 .post-container {
-    width: 60%;
-    margin:0 auto;
-  }
-
-.avatar {
-  width: 50px;
-  height: auto;
-}
-
-.post-card {
-    box-shadow: 0 0 20px 3px rgba(129, 129, 129, 0.2)
+  width: 60%;
+  margin:0 auto;
 }

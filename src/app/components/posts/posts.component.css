@@ -3,26 +3,6 @@
   margin:0 auto;
 }
 
-.post-card {
-  box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
-}
-
-.avatar {
-  width: 50px;
-  height: auto;
-  border-radius: 10px;
-}
-
-.spinner {
-  color: rgb(0, 22, 58);
-}
-
-@media only screen and (max-width : 768px) {
-  .post-container {
-    width: 100%;
-  }
-}
-
 .vote-caret {
   -webkit-transition: transform 0.3s;
   -moz-transition: transform 0.3s;
