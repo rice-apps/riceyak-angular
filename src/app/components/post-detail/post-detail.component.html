@@ -1,11 +1,14 @@
 <div class="container post-container">
         <div class="card mb-4 post-card">
             <div class="card-header">
-            <h4>{{post.title}}</h4>
+            <h4>{{getPost().title}}</h4>
             </div>
             <div class="card-body">
-            <p class="card-text">{{post.body}}</p>
+            <p class="card-text">{{getPost().body}}</p>
+            <button *ngIf="getIsMyPost()" class="btn btn-primary" (click)="Delete()">Delete</button>
             </div>
+
+
         </div>
 
         <div class="card post-card">
@@ -14,10 +17,11 @@
                 <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5' #text></textarea>
                 </div>
                 <button class="btn btn-primary" (click)="Comment(text.value);text.value=''">Submit</button>
+
             </form>
         </div>
 
-        <div *ngFor="let comment of post.comments" class="card m-2">
+        <div *ngFor="let comment of getPost().comments" class="card m-2">
             <div class="card-body">
               {{comment.body}}
             </div>

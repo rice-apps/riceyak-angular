@@ -5,6 +5,7 @@ import {Post} from "../../models/post";
 import {ActivatedRoute} from "@angular/router";
 import {Comment} from "../../models/comment";
 import {User} from "../../models/user";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-post-detail',
@@ -13,35 +14,55 @@ import {User} from "../../models/user";
 })
 export class PostDetailComponent implements OnInit {
 
-  post: Post;
+  private post: Post;
 
   private isMyPost: boolean = false;
 
-  constructor(private postService: PostService, private route: ActivatedRoute, private authService: AuthService) { }
+  constructor(private postService: PostService,
+              private route: ActivatedRoute, private authService: AuthService,
+              private loc: Location) { }
 
   ngOnInit() {
       this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
-        .then(post => this.post = post);
+        .then(post => this.initPostStatus(post));
+
     });
+
+
+
+  }
+  initPostStatus(post: Post){
+    this.post = post;
     if (this.authService.userLoggedIn) {
-      if (this.authService.userLoggedIn.user.userID = this.post.author._id) {
-        this.isMyPost = true;
-      } else {
+
+        if (this.authService.userLoggedIn.user.userID === this.post.author._id) {
+            this.isMyPost = true;
+        } else {
+            this.isMyPost = false;
+        }
+    }
+    else {
         this.isMyPost = false;
-      }
-    } else {
-      this.isMyPost = false;
     }
   }
 
+  Delete(){
+    this.postService.delete(this.post._id)
+    alert('Post Deleted!')
+    this.loc.back()
+  }
   Comment(comment_entered: string) {
-      alert(comment_entered)
+
       this.postService.postComment(this.post._id, comment_entered)
           .then(post => this.post = post);
   }
-
-
+  getPost() {
+    return this.post;
+  }
+  getIsMyPost() {
+    return this.isMyPost;
+  }
 
 
 }
