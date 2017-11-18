@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth-service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
@@ -13,17 +14,32 @@ export class PostDetailComponent implements OnInit {
 
   private post: Post;
 
-  constructor(private postService: PostService, private route: ActivatedRoute) { }
+  private isMyPost: boolean = false;
+
+  constructor(private postService: PostService, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
       this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
         .then(post => this.post = post);
     });
+    if (this.authService.userLoggedIn) {
+      if (this.authService.userLoggedIn.user.userID = this.post.author._id) {
+        this.isMyPost = true;
+      } else {
+        this.isMyPost = false;
+      }
+    } else {
+      this.isMyPost = false;
+    }
   }
   
   Comment(comment_entered) {
       alert(comment_entered)
   }
+
+
+
+
 }
 

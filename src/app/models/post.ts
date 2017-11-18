@@ -8,6 +8,6 @@ export class Post {
   score: number;
   date: Date;
   comments: Comment[];
-  avatar_url: String;
   author: User;
+  votes: [ { user: String, vote: Number } ];
 }
