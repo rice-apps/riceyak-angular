@@ -11,7 +11,7 @@ export class AuthService {
 
   public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  public loggedInUser: BehaviorSubject<any> = new BehaviorSubject({});
+  public loggedInUserID: Subject<any> = new Subject();
 
   constructor(private http: Http, private router: Router) {
     if (localStorage.getItem('currentUser')) {
