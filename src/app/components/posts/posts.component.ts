@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
 })
 export class PostsComponent implements OnInit {
   posts: Post[];
+  votes: Object;
   private loading: boolean = true;
   private voteLoading: boolean = false;
 
@@ -21,6 +22,8 @@ export class PostsComponent implements OnInit {
       .then(posts => {
         this.loading = false;
         this.posts = posts;
+        this.votes = {};
+        this.getAllVotes();
       })
   }
 
@@ -31,17 +34,21 @@ export class PostsComponent implements OnInit {
         this.voteLoading = false;
         let idx = this.posts.findIndex(p => p._id === newPost._id);
         this.posts[idx] = newPost;
+        this.votes[newPost._id] = vote;
       });
   }
 
-  //getVoted(post: Post) {
-  //  this.authService.loggedInUser.subscribe(u => {
-  //    post.votes.forEach(v => {
-  //      if (v.user === u.user.userID) {
-  //        return v.vote;
-  //      }
-  //    });
-  //    return 0;
-  //  });
-  //}
+  getVoted(post: Post) {
+    const userID = this.authService.userLoggedIn.user.userID; // TODO: Move into getAllVotes()
+    const vote = post.votes.find(v => v.user === userID);
+    return vote ? vote.vote : 0;
+  }
+
+  getAllVotes() {
+    // const userID = this.authService.userLoggedIn.user.userID;
+    this.posts.forEach(post => {
+      this.votes[post._id] = this.getVoted(post);
+    });
+    console.log(this.votes)
+  }
 }
