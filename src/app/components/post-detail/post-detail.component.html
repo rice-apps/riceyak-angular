@@ -5,7 +5,7 @@
             </div>
             <div class="card-body">
             <p class="card-text">{{post.body}}</p>
-            <button *ngIf="getIsMyPost()" class="btn btn-primary" (click)="delete()">Delete</button>
+            <button *ngIf="isMyPost" class="btn btn-primary" (click)="delete()">Delete</button>
             </div>
 
 
