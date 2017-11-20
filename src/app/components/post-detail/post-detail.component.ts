@@ -57,12 +57,8 @@ export class PostDetailComponent implements OnInit {
       this.postService.postComment(this.post._id, comment_entered)
           .then(post => this.post = post);
   }
-  getPost() {
-    return this.post;
-  }
-  getIsMyPost() {
-    return this.isMyPost;
-  }
+
+
 
 
 }
