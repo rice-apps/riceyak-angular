@@ -50,7 +50,7 @@ export class PostDetailComponent implements OnInit {
 
   delete(){
     this.postService.delete(this.post._id);
-      this.router.navigate(['/posts']);
+    this.router.navigate(['/posts']);
   }
   comment(comment_entered: string) {
 
