@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert.service';
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -15,7 +16,10 @@ export class NewPostComponent implements OnInit {
   private loading: boolean = false;
   private submitButtonText: String = "Hoot!";
 
-  constructor(private postService: PostService, private fb: FormBuilder, private router: Router) { }
+  constructor(private postService: PostService, 
+    private fb: FormBuilder, private router: Router,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit() {
     this.newPostForm = this.fb.group({
@@ -32,6 +36,7 @@ export class NewPostComponent implements OnInit {
         this.loading = false;
         this.newPostModal.nativeElement.click();
         this.router.navigate([`/posts/${post._id}`]);
+        this.alertService.pushAlert('alert-success', 'Posted!')
       });
   }
 

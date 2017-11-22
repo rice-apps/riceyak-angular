@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post-service/post.service";
@@ -14,13 +15,13 @@ export class PostsComponent implements OnInit {
   private loading: boolean = true;
   private voteLoading: boolean = false;
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService, private authService: AuthService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.postService.getPosts()
       .then(posts => {
         this.loading = false;
-        this.posts = posts;
+        this.posts = posts;        
       })
   }
 

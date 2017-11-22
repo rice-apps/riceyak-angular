@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { AuthService } from './../../services/auth-service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import {CONFIG} from "../../config";
 
@@ -9,10 +11,12 @@ import {CONFIG} from "../../config";
 export class LandingPageComponent implements OnInit {
 
   private authUrl: string = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
+  private loggedIn: Observable<boolean>;  
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.loggedIn = this.authService.isLoggedIn;
   }
 
 }

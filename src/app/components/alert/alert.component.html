@@ -1,0 +1,6 @@
+<div *ngFor="let alert of alerts | async" [ngClass]="alert.alertClass" class="alert text-center" role="alert">
+  {{alert.text}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>

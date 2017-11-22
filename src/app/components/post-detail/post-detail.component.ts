@@ -13,26 +13,28 @@ import {User} from "../../models/user";
 })
 export class PostDetailComponent implements OnInit {
 
-  private post: Post;
-
-  private isMyPost: boolean = false;
+  post: Post;
+  isMyPost: boolean = false;
 
   constructor(private postService: PostService, private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
       this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
-        .then(post => this.post = post);
+        .then(post => {
+          this.post = post;
+          if (this.authService.userLoggedIn) {
+            if (this.authService.userLoggedIn.user.userID == this.post.author._id) {
+              this.isMyPost = true;
+            } else {
+              this.isMyPost = false;
+            }
+          } else {
+            this.isMyPost = false;
+          }
+        });
     });
-    if (this.authService.userLoggedIn) {
-      if (this.authService.userLoggedIn.user.userID = this.post.author._id) {
-        this.isMyPost = true;
-      } else {
-        this.isMyPost = false;
-      }
-    } else {
-      this.isMyPost = false;
-    }
+    
   }
 
   addComment(comment_entered: string) {
