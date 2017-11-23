@@ -5,21 +5,25 @@
             </div>
             <div class="card-body">
             <p class="card-text">{{post.body}}</p>
+            <button *ngIf="isMyPost" class="btn btn-primary" (click)="delete()">Delete</button>
             </div>
+
+
         </div>
 
         <div class="card post-card">
             <form class="mx-4 my-4">
                 <div class="form-group">
-                <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5'></textarea>
+                <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5' #text></textarea>
                 </div>
-                <button class="btn btn-primary">Submit</button>
+                <button class="btn btn-primary" (click)="comment(text.value);text.value=''">Submit</button>
+
             </form>
         </div>
 
         <div *ngFor="let comment of post.comments" class="card m-2">
             <div class="card-body">
-                {{comment}}
+              {{comment.body}}
             </div>
         </div>
 </div>
