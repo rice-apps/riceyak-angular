@@ -1,30 +1,50 @@
 <div class="container post-container">
-        <div class="card mb-4 post-card">
+    <div class="card mb-4 post-card">
+        <div *ngIf="isEdit; else other_one">
             <div class="card-header">
-            <h4>{{getPost().title}}</h4>
-            </div>
-            <div class="card-body">
-            <p class="card-text">{{getPost().body}}</p>
-            <button *ngIf="getIsMyPost()" class="btn btn-primary" (click)="delete()">Delete</button>
-            </div>
-
-
-        </div>
-
-        <div class="card post-card">
-            <form class="mx-4 my-4">
-                <div class="form-group">
-                <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5' #text></textarea>
+                <div #fake_textarea  contenteditable>
+                    <h4>{{post.title}}</h4>
                 </div>
-                <button class="btn btn-primary" (click)="comment(text.value);text.value=''">Submit</button>
-
-            </form>
-        </div>
-
-        <div *ngFor="let comment of getPost().comments" class="card m-2">
+            </div>
             <div class="card-body">
-              {{comment.body}}
+                <div class="form-group">
+                    <textarea #body type="email" class="form-control" id="commentInput" value = {{post.body}}></textarea>
+                </div>
+                <button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText,body.value)">Submit Changes</button>
+                <button class="btn btn-primary" (click)="delete()">Delete</button>
+                <button class="btn btn-primary" (click)="edit()">Cancel Edit</button>
             </div>
         </div>
+
+        <ng-template #other_one>
+            <div class="card-header">
+                <h4>{{post.title}}</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{post.body}}</p>
+                <button *ngIf="isMyPost" class="btn btn-primary" (click)="delete()">Delete</button>
+                <button *ngIf="isMyPost" class="btn btn-primary" (click)="edit()">Edit</button>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="card post-card">
+        <form class="mx-4 my-4">
+            <div class="form-group">
+                <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5' #text></textarea>
+            </div>
+            <button class="btn btn-primary" (click)="comment(text.value);text.value=''">Submit</button>
+
+        </form>
+    </div>
+
+    <div *ngFor="let comment of post.comments" class="card m-2">
+        <div class="card-body">
+            {{comment.body}}
+        </div>
+    </div>
 </div>
+
+
+
 
