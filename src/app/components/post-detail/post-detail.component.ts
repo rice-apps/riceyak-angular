@@ -15,6 +15,7 @@ import {Location} from '@angular/common';
 export class PostDetailComponent implements OnInit {
 
   private post: Post;
+  vote: Number;
 
   private isMyPost: boolean = false;
 
@@ -24,17 +25,15 @@ export class PostDetailComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-      this.route.params.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
         .then(post => this.initPostStatus(post));
-
     });
-
-
-
   }
+
   initPostStatus(post: Post){
     this.post = post;
+    this.vote = this.getVoted();
     if (this.authService.userLoggedIn) {
 
         if (this.authService.userLoggedIn.user.userID === this.post.author._id) {
@@ -62,8 +61,14 @@ export class PostDetailComponent implements OnInit {
       this.postService.voteOnPost(this.post._id, vote)
           .then(res => {
               this.post = res;
+              this.vote = vote;
           });
   }
 
-}
+  getVoted() {
+    const userID = this.authService.userLoggedIn.user.userID; // TODO: Move into getAllVotes()
+    const vote = this.post.votes.find(v => v.user === userID);
+    return vote ? vote.vote : 0;
+  }
 
+}
