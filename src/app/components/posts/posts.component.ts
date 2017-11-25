@@ -10,23 +10,49 @@ import { AuthService } from '../../services/auth-service/auth.service';
   styleUrls: ['posts.component.css']
 })
 export class PostsComponent implements OnInit {
+  /**
+   * Array of all posts.
+   */
   posts: Post[];
-  votes: Object;
+
+  /**
+   * Maps each post._id to the user's vote for that post.
+   */
+  userVotes: Object;
+
+  /**
+   * Is true iff the page is loading posts.
+   */
   private loading: boolean = true;
+
+  /**
+   * Is true iff the page is voting.
+   * TODO: Use this value to animate pagewide vote loading, or create a new
+   *       value for a per-post voting basis.
+   */
   private voteLoading: boolean = false;
 
   constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit() {
+    /**
+     * Gets all the posts, loads them into the array, and gets the user's vote
+     * for each post.
+     */
     this.postService.getPosts()
       .then(posts => {
         this.loading = false;
         this.posts = posts;
-        this.votes = {};
         this.getAllVotes();
       })
   }
 
+  /**
+   * Sends a request to change the user's vote for a given post to a given vote
+   * value.
+   * TODO: Consider updating userVotes with the actual vote in newPost, instead
+   * of what we expect it to be.
+   */
   voteOnPost(post: Post, vote: number) {
     this.voteLoading = true;
     this.postService.voteOnPost(post._id, vote)
@@ -34,21 +60,21 @@ export class PostsComponent implements OnInit {
         this.voteLoading = false;
         let idx = this.posts.findIndex(p => p._id === newPost._id);
         this.posts[idx] = newPost;
-        this.votes[newPost._id] = vote;
+        this.userVotes[newPost._id] = vote;
+        // TODO: Use the actual vote in newPost
       });
   }
 
-  getVoted(post: Post) {
-    const userID = this.authService.userLoggedIn.user.userID; // TODO: Move into getAllVotes()
-    const vote = post.votes.find(v => v.user === userID);
-    return vote ? vote.vote : 0;
-  }
-
+  /**
+   * Initializes this.userVotes as a mapping for each post, from its ID to
+   * the user's vote on that post.
+   */
   getAllVotes() {
-    // const userID = this.authService.userLoggedIn.user.userID;
+    this.userVotes = {};
+    const userID = this.authService.userLoggedIn.user.userID;
     this.posts.forEach(post => {
-      this.votes[post._id] = this.getVoted(post);
+      const vote = post.votes.find(v => v.user === userID);
+      this.userVotes[post._id] = vote ? vote.vote : 0;
     });
-    console.log(this.votes)
   }
 }
