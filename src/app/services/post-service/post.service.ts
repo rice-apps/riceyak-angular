@@ -32,21 +32,18 @@ export class PostService {
       .then(res => res.json() as Post)
       .catch(err => console.log(err));
   }
-
+  postComment(id: string, comment: string): Promise<any> {
+    return this.http.post(`${this.apiUrl}/posts/${id}/comments`, {id: id, comment: comment}, this.jwt())
+      .toPromise()
+      .then(res => res.json() as Post)
+      .catch(err => console.log(err));
+}
   getPost(id: string): Promise<any> {
     return this.http.get(`${this.apiUrl}/posts/${id}`, this.jwt())
       .toPromise()
       .then(res => res.json() as Post)
       .catch(err => console.log(err));
   }
-
-  postComment(id: string, comment: string): Promise<any> {
-    return this.http.post(`${this.apiUrl}/posts/${id}/comments`, {id: id, comment: comment}, this.jwt())
-        .toPromise()
-        .then(res => res.json() as Post)
-        .catch(err => console.log(err));
-  }
-
   edit(id: string, post: any): Promise<any> {
     return this.http.put(`${this.apiUrl}/posts/${id}`, {id: id, body: post}, this.jwt())
         .toPromise()
@@ -55,13 +52,13 @@ export class PostService {
   }
 
   delete(id: string): Promise<any> {
-    return this.http.get(`${this.apiUrl}/posts/${id}`, this.jwt())
+    return this.http.delete(`${this.apiUrl}/posts/${id}`, this.jwt())
         .toPromise()
         .then(res => res.json() as Post)
         .catch(err => console.log(err));
    }
   voteOnPost(post_id: string, vote: number): Promise<any> {
-    return this.http.put(`${this.apiUrl}/posts/${post_id}`, { vote: vote }, this.jwt())
+    return this.http.put(`${this.apiUrl}/posts/${post_id}/vote`, { vote: vote }, this.jwt())
       .toPromise()
       .then(res => res.json() as Post)
       .catch(err => console.log(err));

@@ -35,3 +35,10 @@
   transform: translateY(5px);
 }
 
+.upvoted {
+  color: #0000FF;
+}
+
+.downvoted {
+  color: #FF0000;
+}
