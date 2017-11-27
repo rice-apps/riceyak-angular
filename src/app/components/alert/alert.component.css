@@ -2,15 +2,6 @@
     width: 100%;
     border-radius: 0;
     margin-bottom: 0;
-    position: fixed;
-    bottom: 0;
-    z-index: 10;
-    animation: alert-slide 1s ease-in-out;
 }
 
-@keyframes alert-slide {
-    from { transform: translateY(100px); }
-    to { transform: translateY(0); }
-}
-  
-  
+

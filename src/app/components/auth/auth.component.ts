@@ -11,23 +11,23 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class AuthComponent implements OnInit {
 
   greetings: string[] = [
-    'WRWS', 
-    'Welcome!', 
-    'Be nice! Or else', 
-    'Jones Wins Again', 
-    'Hello!', 
-    'EOLRRF', 
-    'JIBA', 
-    'Brown Has Poorly Maintained Facilities', 
-    'Stumpy will find you', 
+    'WRWS',
+    'Welcome!',
+    'Be nice! Or else',
+    'Jones Wins Again',
+    'Hello!',
+    'EOLRRF',
+    'JIBA',
+    'Brown Has Poorly Maintained Facilities',
+    'Stumpy will find you',
     'Keep an eye out for the ancient scrolls',
     'MCMURTRY IS BANANAS',
     'I saw your mom smoking cra- I saw your mom loving and supporting you.',
     ''
   ]
 
-  constructor(private authService: AuthService, 
-    private route: ActivatedRoute, 
+  constructor(private authService: AuthService,
+    private route: ActivatedRoute,
     private router: Router,
     private alertService: AlertService
   ) { }
@@ -38,7 +38,7 @@ export class AuthComponent implements OnInit {
         .catch(err => console.log(err))
         .then(() => {
           this.router.navigate(['/posts']);
-          this.alertService.pushAlert('alert-primary', this.greetings[ Math.floor(Math.random() * this.greetings.length) ]);        
+          // this.alertService.pushAlert('alert-primary', this.greetings[ Math.floor(Math.random() * this.greetings.length) ]);
         })
     })
   }
