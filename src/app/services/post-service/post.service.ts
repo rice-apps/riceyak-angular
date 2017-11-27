@@ -3,19 +3,26 @@ import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
 import {Comment} from "../../models/comment";
+import {AlertService} from "../alert.service";
 
 @Injectable()
 export class PostService {
 
   private apiUrl: string = CONFIG.api_url;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private alertService: AlertService) { }
 
   private jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.user.token) {
       let headers = new Headers({ 'x-access-token': currentUser.user.token });
       return new RequestOptions({ headers: headers });
+    }
+  }
+
+  private handleErr(err: any) {
+    if (err.status === 500) {
+      this.alertService.pushAlert('alert-danger', 'Something went wrong on our end :(');
     }
   }
 
