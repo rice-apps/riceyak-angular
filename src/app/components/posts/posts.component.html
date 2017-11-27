@@ -10,9 +10,13 @@
     <div class="card-body">
       <div class="row no-gutters">
         <div class="col-1" style="font-size: 20pt; text-align: center">
-          <span class="fa fa-caret-up col-12 vote-caret vote-caret-up"></span>
+          <span class="fa fa-caret-up col-12 vote-caret vote-caret-up"
+                [ngClass]="{'upvoted': (userVotes[post._id] === 1)}"
+                (click)="voteOnPost(post, 1)"></span>
           <span class="col-12" style="font-size: 15pt">{{post.score}}</span>
-          <span class="fa fa-caret-down col-12 vote-caret vote-caret-down"></span>
+          <span class="fa fa-caret-down col-12 vote-caret vote-caret-down"
+                [ngClass]="{'downvoted': (userVotes[post._id] === -1)}"
+                (click)="voteOnPost(post, -1)"></span>
         </div>
         <div class="col-10">
           <h4>{{post.title}}</h4>
@@ -37,5 +41,3 @@
     </div>
   </div>
 </div>
-
-

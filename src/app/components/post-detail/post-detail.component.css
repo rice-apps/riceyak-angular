@@ -11,3 +11,37 @@
 .post-card {
     box-shadow: 0 0 20px 3px rgba(129, 129, 129, 0.2)
 }
+
+.vote-caret {
+  -webkit-transition: transform 0.3s;
+  -moz-transition: transform 0.3s;
+  -ms-transition: transform 0.3s;
+  -o-transition: transform 0.3s;
+  transition: transform 0.3s;
+  cursor: pointer;
+  color: gray;
+}
+
+.vote-caret-up:hover {
+  -webkit-transform: translateY(-5px);
+  -moz-transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  -o-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+
+.vote-caret-down:hover {
+  -webkit-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  -o-transform: translateY(5px);
+  transform: translateY(5px);
+}
+
+.upvoted {
+  color: #0000FF;
+}
+
+.downvoted {
+  color: #FF0000;
+}
