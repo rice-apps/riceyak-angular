@@ -23,6 +23,8 @@ export class PostService {
   private handleErr(err: any) {
     if (err.status === 500) {
       this.alertService.pushAlert('alert-danger', 'Something went wrong on our end :(');
+    } else if (err.status === 429) {
+      this.alertService.pushAlert('alert-warning', 'You\'re doing that too much!');
     }
   }
 

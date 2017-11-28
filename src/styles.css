@@ -55,4 +55,38 @@
   to   { opacity: 1; transform: translateY(0px); }
 }
 
+.vote-caret {
+  -webkit-transition: transform 0.3s;
+  -moz-transition: transform 0.3s;
+  -ms-transition: transform 0.3s;
+  -o-transition: transform 0.3s;
+  transition: transform 0.3s;
+  cursor: pointer;
+  color: lightgray;
+}
+
+.vote-caret-up:hover {
+  -webkit-transform: translateY(-5px);
+  -moz-transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  -o-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+
+.vote-caret-down:hover {
+  -webkit-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  -o-transform: translateY(5px);
+  transform: translateY(5px);
+}
+
+.upvoted {
+  color: #000000;
+}
+
+.downvoted {
+  color: #000000;
+}
+
 

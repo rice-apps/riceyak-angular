@@ -16,7 +16,7 @@ export class NewPostComponent implements OnInit {
   private loading: boolean = false;
   private submitButtonText: String = "Hoot!";
 
-  constructor(private postService: PostService, 
+  constructor(private postService: PostService,
     private fb: FormBuilder, private router: Router,
     private alertService: AlertService
   ) { }
@@ -33,10 +33,9 @@ export class NewPostComponent implements OnInit {
     this.submitButtonText = "Submitting...";
     this.postService.postPost(this.newPostForm.value['title'], this.newPostForm.value['body'])
       .then(post => {
-        this.loading = false;
         this.newPostModal.nativeElement.click();
+        this.loading = false;
         this.router.navigate([`/posts/${post._id}`]);
-        this.alertService.pushAlert('alert-success', 'Posted!')
       });
   }
 
