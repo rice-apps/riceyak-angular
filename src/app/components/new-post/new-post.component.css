@@ -15,7 +15,7 @@
   box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.3);
 }
 
-.fade-scale {
+.bounce-modal {
   -moz-animation: moz-animation 500ms linear both;
   -webkit-animation: webkit-animation 500ms linear both;
   animation: animation 500ms linear both;

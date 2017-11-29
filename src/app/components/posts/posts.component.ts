@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post-service/post.service";
@@ -32,7 +33,7 @@ export class PostsComponent implements OnInit {
    */
   private voteLoading: boolean = false;
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService, private authService: AuthService, private alertService: AlertService) { }
 
   ngOnInit() {
     /**

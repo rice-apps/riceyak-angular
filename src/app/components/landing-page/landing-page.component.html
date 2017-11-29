@@ -4,26 +4,43 @@
     <p class="lead text-center">The anonymous social network for Rice</p>
     <hr class="my-4">
     <p class="lead ">
-      <a class="btn btn-primary btn-lg" [attr.href]="authUrl" role="button">Login with netID</a>
+      <a *ngIf="!(loggedIn | async)" class="btn btn-primary btn-lg" [attr.href]="authUrl" role="button"><span class="fa fa-lock"></span>&nbsp;&nbsp;&nbsp;Login with netID</a>
     </p>
   </div>
 </div>
 
-<div class="jumbotron jumbotron-fluid">
+<div class="container-fluid mb-0 py-5 text-white" style="background-color: rgb(0, 22, 58); height: 400px">
   <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <h4>text</h4>
-        <p>text text text text text text text text text text text text text text text text text </p>
+      <h2>Miss Yik Yak?</h2>      
+      <h2>Us too.</h2>
+      <h2>So we made it ourselves, but better.</h2>
+  </div>
+</div>
+
+
+<div class="container container-fluid mb-0" style="height: 400px;">
+  <div class="container">
+    <div class="row my-0">
+      <div class="col-lg-8 my-5">
+        <div class="row">
+            <h4>Totally anonymous</h4>
+            <p>text text text text text text text text text text text text text text text text text </p>
+        </div>
+        <div class="row">
+            <h4>Totally anonymous</h4>
+            <p>text text text text text text text text text text text text text text text text text </p>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h4>text text</h4>
-        <p>text text text text text text text text text text text text text text text text text text text text text text text </p>
-      </div>
-      <div class="col-md-4">
-        <h4>text</h4>
-        <p>text text text text text text text text text text text text text text text text text text text </p>
+      <div class="col-4 mt-4" style="z-index: -1;">
+        <img class="mb-2" width="400px" src="/assets/demo-post.svg">
+        <img class="mb-2" width="400px" src="/assets/demo-post.svg">
+        <img class="mb-2" width="400px" src="/assets/demo-post.svg">
       </div>
     </div>
+  </div>
+</div>
+
+<div class="container-fluid" style="background-color: grey; height: 400px;">
+  <div class="container">
   </div>
 </div>

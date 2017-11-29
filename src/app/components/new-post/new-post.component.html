@@ -1,4 +1,10 @@
-<div class="modal fade-scale" #newPostModal id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="card mb-4 new-post text-center btn btn-outline-primary" data-toggle="modal" data-target="#newPostModal">
+  <div class="card-body">
+    <h4><i class="fa fa-comments"></i> Hoot!</h4>
+  </div>
+</div>
+
+<div class="modal bounce-modal" #newPostModal id="newPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -28,12 +34,5 @@
           {{submitButtonText}}</button>
       </div>
     </div>
-  </div>
-</div>
-
-
-<div class="card mb-4 new-post text-center btn btn-outline-primary" data-toggle="modal" data-target="#newPostModal">
-  <div class="card-body">
-    <h4><i class="fa fa-comments"></i> Hoot!</h4>
   </div>
 </div>

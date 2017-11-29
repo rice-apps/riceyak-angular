@@ -1,10 +1,10 @@
 <div class="container post-container">
-  <div class="card mb-4 post-card">
-    <div class="card-header">
-      <h4>{{post.title}}</h4>
-    </div>
-    <div class="card-body">
-      <div class="row no-gutters">
+        <div class="card mb-4 post-card">
+            <div class="card-header">
+            <h4>{{post?.title}}</h4>
+            </div>
+            <div class="card-body">
+            <div class="row no-gutters">
         <div class="col-1" style="font-size: 20pt; text-align: center">
           <span class="fa fa-caret-up col-12 vote-caret vote-caret-up"
                 [ngClass]="{'upvoted': (userVote === 1)}"
@@ -15,8 +15,7 @@
                 (click)="voteOnPost(-1)"></span>
         </div>
         <div class="col-10">
-          <p class="card-text">{{post.body}}</p>
-          <button *ngIf="isMyPost" class="btn btn-primary" (click)="delete()">Delete</button>
+          <p class="card-text">{{post?.body}}</p><button *ngIf="isMyPost" class="btn btn-primary" (click)="delete()">Delete</button>
         </div>
         <div class="col-1">
           <img class="avatar" [src]="post.author.avatar_url">
@@ -33,21 +32,25 @@
           <small class="text-muted">{{post.date | timeAgo}}</small>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="card post-card">
-    <form class="mx-4 my-4">
-      <div class="form-group">
-        <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5' #text></textarea>
+            </div>
+        <div class="card-footer d-flex justify-content-end">
+        <a *ngIf="!isMyPost" href="#" class="btn btn-outline-danger">Report</a>
+        <a *ngIf="isMyPost" href="#" class="btn btn-outline-secondary mr-1">Edit</a>
+        <a *ngIf="isMyPost" href="#" class="btn btn-outline-danger">Delete</a>
       </div>
-      <button class="btn btn-primary" (click)="comment(text.value);text.value=''">Submit</button>
-    </form>
-  </div>
 
-  <div *ngFor="let comment of post.comments" class="card m-2">
-    <div class="card-body">
-      {{comment.body}}
-    </div>
-  </div>
+      </div>  <div class="card post-cardmb-4">
+            <form class="mx-4 my-4">
+                <div class="form-group">
+                <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5'#text></textarea>
+                </div>
+                <button class="btn btn-primary"(click)="comment(text.value);text.value=''">Submit</button>
+            </form>
+        </div>
+
+        <div *ngFor="let comment of post.comments" class="card post-card mb-4">
+            <div class="card-body">
+                {{comment.body}}
+            </div>
+        </div>
 </div>

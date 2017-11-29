@@ -1,3 +1,4 @@
+import { AlertService } from './../../services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../services/auth-service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -9,15 +10,35 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
+  greetings: string[] = [
+    'WRWS',
+    'Welcome!',
+    'Be nice! Or else',
+    'Jones Wins Again',
+    'Hello!',
+    'EOLRRF',
+    'JIBA',
+    'Brown Has Poorly Maintained Facilities',
+    'Stumpy will find you',
+    'Keep an eye out for the ancient scrolls',
+    'MCMURTRY IS BANANAS',
+    'I saw your mom smoking cra- I saw your mom loving and supporting you.',
+    ''
+  ]
+
+  constructor(private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.authService.authenticate(params['ticket'])
         .catch(err => console.log(err))
         .then(() => {
-
           this.router.navigate(['/posts']);
+          // this.alertService.pushAlert('alert-primary', this.greetings[ Math.floor(Math.random() * this.greetings.length) ]);
         })
     })
   }
