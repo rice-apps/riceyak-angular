@@ -24,7 +24,7 @@ export class AuthComponent implements OnInit {
     'MCMURTRY IS BANANAS',
     'I saw your mom smoking cra- I saw your mom loving and supporting you.',
     ''
-  ]
+  ];
 
   constructor(private authService: AuthService,
     private route: ActivatedRoute,
