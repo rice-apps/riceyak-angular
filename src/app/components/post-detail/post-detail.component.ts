@@ -6,6 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Comment} from "../../models/comment";
 import {User} from "../../models/user";
 import {Location} from '@angular/common';
+import {forEachComment} from "tslint";
+import {post} from "selenium-webdriver/http";
 
 @Component({
   selector: 'app-post-detail',
@@ -40,28 +42,28 @@ export class PostDetailComponent implements OnInit {
     });
   }
 
-  initPostStatus(post: Post){
-    this.post = post;
-    this.userVote = this.getVoted();
-    if (this.authService.userLoggedIn) {
+  initPostStatus(post: Post) {
+      this.post = post;
+      this.userVote = this.getVoted();
+      if (this.authService.userLoggedIn) {
 
-        if (this.authService.userLoggedIn.user.userID === this.post.author._id) {
-            this.isMyPost = true;
-        } else {
-            this.isMyPost = false;
-        }
-    }
-    else {
-        this.isMyPost = false;
-    }
+          if (this.authService.userLoggedIn.user.userID === this.post.author._id) {
+              this.isMyPost = true;
+          } else {
+              this.isMyPost = false;
+          }
+      }
+      else {
+          this.isMyPost = false;
+      }
   }
 
-  delete(){
+  deletePost(){
     this.postService.delete(this.post._id);
     this.router.navigate(['/posts']);
   }
-  comment(comment_entered: string) {
 
+  comment(comment_entered: string) {
       this.postService.postComment(this.post._id, comment_entered)
           .then(post => this.post = post);
   }

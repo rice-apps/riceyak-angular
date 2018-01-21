@@ -50,7 +50,6 @@ export class PostService {
         .then(res => res.json() as Post)
         .catch(err => console.log(err));
   }
-
   delete(id: string): Promise<any> {
     return this.http.delete(`${this.apiUrl}/posts/${id}`, this.jwt())
         .toPromise()

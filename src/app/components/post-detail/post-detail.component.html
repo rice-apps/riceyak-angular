@@ -16,7 +16,7 @@
         </div>
         <div class="col-10">
           <p class="card-text">{{post.body}}</p>
-          <button *ngIf="isMyPost" class="btn btn-primary" (click)="delete()">Delete</button>
+          <button *ngIf="isMyPost" class="btn btn-primary" (click)="deletePost()">Delete</button>
         </div>
         <div class="col-1">
           <img class="avatar" [src]="post.author.avatar_url">
@@ -44,10 +44,28 @@
       <button class="btn btn-primary" (click)="comment(text.value);text.value=''">Submit</button>
     </form>
   </div>
-
   <div *ngFor="let comment of post.comments" class="card m-2">
+
+
     <div class="card-body">
-      {{comment.body}}
+      <div class="container">
+        <div class="row">
+          <div class="col-2">
+            <img class="avatar" [src]="comment.author.avatar_url">
+          </div>
+          <div class="col-10">
+            <p class="card-text">{{comment.body}}</p>
+          </div>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+          <div class="col-10"></div>
+          <div class="col">
+            <small class="text-muted">{{post.date | timeAgo}}</small>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
