@@ -13,6 +13,7 @@ import {Location} from '@angular/common';
   styleUrls: ['./post-detail.component.css']
 })
 export class PostDetailComponent implements OnInit {
+
   /**
    * The Post displayed in detail by the component.
    */
@@ -28,6 +29,11 @@ export class PostDetailComponent implements OnInit {
    */
   private isMyPost: boolean = false;
 
+  /**
+   * Loading boolean.
+   */
+  private loading: boolean = true;
+
   constructor(private postService: PostService,
               private route: ActivatedRoute,
               private authService: AuthService,
@@ -36,7 +42,10 @@ export class PostDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
-        .then(post => this.initPostStatus(post));
+        .then(post => {
+          this.loading = false;
+          this.initPostStatus(post);
+        });
     });
   }
 
@@ -44,7 +53,6 @@ export class PostDetailComponent implements OnInit {
     this.post = post;
     this.userVote = this.getVoted();
     if (this.authService.userLoggedIn) {
-
         if (this.authService.userLoggedIn.user.userID === this.post.author._id) {
             this.isMyPost = true;
         } else {
@@ -56,12 +64,12 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
-  delete(){
-    this.postService.delete(this.post._id);
-    this.router.navigate(['/posts']);
+  deletePost() {
+    this.postService.deletePost(this.post._id)
+      .then(() => this.router.navigate(['/posts']));
   }
-  comment(comment_entered: string) {
 
+  commentOnPost(comment_entered: string) {
       this.postService.postComment(this.post._id, comment_entered)
           .then(post => this.post = post);
   }
