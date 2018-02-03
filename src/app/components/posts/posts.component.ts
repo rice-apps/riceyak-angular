@@ -44,7 +44,7 @@ export class PostsComponent implements OnInit {
         this.loading = false;
         this.posts = posts;
         this.getAllVotes();
-      })
+      });
   }
 
   /**

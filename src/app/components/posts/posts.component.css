@@ -7,8 +7,20 @@
   box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
 }
 
+.list-group{
+  max-height: 200px;
+  overflow: auto;
+}
+
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .avatar {
-  width: 50px;
+  max-width: 115%;
   height: auto;
   border-radius: 10px;
 }
@@ -20,6 +32,9 @@
 @media only screen and (max-width : 768px) {
   .post-container {
     width: 100%;
+  }
+  .avatar{
+    max-width:140%;
   }
 }
 
