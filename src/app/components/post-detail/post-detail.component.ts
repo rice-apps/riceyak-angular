@@ -8,9 +8,9 @@ import {User} from "../../models/user";
 import {Location} from '@angular/common';
 
 @Component({
-  selector: 'app-post-detail',
-  templateUrl: './post-detail.component.html',
-  styleUrls: ['./post-detail.component.css']
+    selector: 'app-post-detail',
+    templateUrl: './post-detail.component.html',
+    styleUrls: ['./post-detail.component.css']
 })
 export class PostDetailComponent implements OnInit {
   /**
@@ -28,10 +28,12 @@ export class PostDetailComponent implements OnInit {
    */
   private isMyPost: boolean = false;
 
-  constructor(private postService: PostService,
-              private route: ActivatedRoute,
-              private authService: AuthService,
-              private router: Router) { }
+  private isEdit: boolean = false;
+
+    constructor(private postService: PostService,
+                private route: ActivatedRoute,
+                private authService: AuthService,
+                private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -56,7 +58,7 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
-  delete(){
+  deletePost(){
     this.postService.delete(this.post._id);
     this.router.navigate(['/posts']);
   }
@@ -86,4 +88,18 @@ export class PostDetailComponent implements OnInit {
     return vote ? vote.vote : 0;
   }
 
+  edit(){
+    this.isEdit=!this.isEdit;
+  }
+
+  submitChanges(title: string, body: string){
+    this.post.title = title.trim();
+    this.post.body = body;
+    this.edit();
+    this.postService.edit(this.post._id, this.post);
+  }
+
+
 }
+
+

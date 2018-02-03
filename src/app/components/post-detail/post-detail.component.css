@@ -11,6 +11,12 @@
 .post-card {
     box-shadow: 0 0 20px 3px rgba(129, 129, 129, 0.2)
 }
+.color {
+    background: rgba(129, 129, 129, 0.01);
+}
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
 
 .vote-caret {
   -webkit-transition: transform 0.3s;
