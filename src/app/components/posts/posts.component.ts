@@ -5,9 +5,9 @@ import {Router} from "@angular/router";
 import { AuthService } from '../../services/auth-service/auth.service';
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: 'posts.component.html',
-  styleUrls: ['posts.component.css']
+    selector: 'app-posts',
+    templateUrl: 'posts.component.html',
+    styleUrls: ['posts.component.css']
 })
 export class PostsComponent implements OnInit {
   /**
@@ -32,7 +32,7 @@ export class PostsComponent implements OnInit {
    */
   private voteLoading: boolean = false;
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+    constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit() {
     /**
