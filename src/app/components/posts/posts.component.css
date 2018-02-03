@@ -3,8 +3,71 @@
   margin:0 auto;
 }
 
+.post-card {
+  box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+}
+
+.list-group{
+  max-height: 200px;
+  overflow: auto;
+}
+
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.avatar {
+  max-width: 115%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.spinner {
+  color: rgb(0, 22, 58);
+}
+
 @media only screen and (max-width : 768px) {
   .post-container {
     width: 100%;
   }
+  .avatar{
+    max-width:140%;
+  }
+}
+
+.vote-caret {
+  -webkit-transition: transform 0.3s;
+  -moz-transition: transform 0.3s;
+  -ms-transition: transform 0.3s;
+  -o-transition: transform 0.3s;
+  transition: transform 0.3s;
+  cursor: pointer;
+  color: gray;
+}
+
+.vote-caret-up:hover {
+  -webkit-transform: translateY(-5px);
+  -moz-transform: translateY(-5px);
+  -ms-transform: translateY(-5px);
+  -o-transform: translateY(-5px);
+  transform: translateY(-5px);
+}
+
+.vote-caret-down:hover {
+  -webkit-transform: translateY(5px);
+  -moz-transform: translateY(5px);
+  -ms-transform: translateY(5px);
+  -o-transform: translateY(5px);
+  transform: translateY(5px);
+}
+
+.upvoted {
+  color: #0000FF;
+}
+
+.downvoted {
+  color: #FF0000;
 }

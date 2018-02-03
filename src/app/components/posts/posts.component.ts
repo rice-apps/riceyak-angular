@@ -1,4 +1,3 @@
-import { AlertService } from './../../services/alert.service';
 import { Component, OnInit } from '@angular/core';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post-service/post.service";
@@ -6,9 +5,9 @@ import {Router} from "@angular/router";
 import { AuthService } from '../../services/auth-service/auth.service';
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: 'posts.component.html',
-  styleUrls: ['posts.component.css']
+    selector: 'app-posts',
+    templateUrl: 'posts.component.html',
+    styleUrls: ['posts.component.css']
 })
 export class PostsComponent implements OnInit {
   /**
@@ -33,7 +32,7 @@ export class PostsComponent implements OnInit {
    */
   private voteLoading: boolean = false;
 
-  constructor(private postService: PostService, private authService: AuthService, private alertService: AlertService) { }
+    constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit() {
     /**
@@ -45,7 +44,7 @@ export class PostsComponent implements OnInit {
         this.loading = false;
         this.posts = posts;
         this.getAllVotes();
-      })
+      });
   }
 
   /**
