@@ -3,11 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Comment} from "../../models/comment";
-import {User} from "../../models/user";
-import {Location} from '@angular/common';
-import {forEachComment} from "tslint";
-import {post} from "selenium-webdriver/http";
 
 @Component({
   selector: 'app-post-detail',
@@ -69,7 +64,10 @@ export class PostDetailComponent implements OnInit {
   /**
    * Sends a request to change the user's vote to a given vote value.
    */
-  voteOnPost(vote: number) {
+  voteOnPost(vote) {
+    if (this.userVote == vote) {
+      vote = 0;
+    }
     this.postService.voteOnPost(this.post._id, vote)
       .then(res => {
         this.post = res;

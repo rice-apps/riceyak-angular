@@ -1,108 +1,66 @@
 <div class="container post-container">
-    <div class="card mb-4 post-card">
-        <div *ngIf="isEdit; else other_one">
-            <div class="card-header">
-                <div #fake_textarea  contenteditable>
-                    <h4>{{post.title}}</h4>
-                </div>
-            </div>
-
-            <div class="card-body">
-                <div class="row no-gutters">
-                    <div class="col-1" style="font-size: 20pt">
-                        <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
-                              [ngClass]="{'upvoted': (userVote === 1)}"
-                                (click)="voteOnPost(1)"></span>
-                        <span class="row center-block" style="font-size: 15pt; text-align: left">{{post.score}}</span>
-                        <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
-                              [ngClass]="{'downvoted': (userVote === -1)}"
-                              (click)="voteOnPost(-1)"></span>
-                    </div>
-                    <div class="col-10">
-                        <div class="form-group">
-                            <textarea #body type="email" class="form-control" id="commentInput" value = {{post.body}}></textarea>
-                        </div>
-                    </div>
-                    <div class="col-1">
-                        <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText, body.value)">Submit Changes</button>
-                    <button class="btn btn-primary" (click)="deletePost()">Delete</button>
-                    <button class="btn btn-primary" (click)="editPost()">Cancel Edit</button>
-                    <div class="col-6 text-right">
-                        <small class="text-muted">{{post.date | timeAgo}}</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <ng-template #other_one>
-            <div class="card-header">
-                <h4>{{post.title}}</h4>
-            </div>
-            <div class="card-body">
-                <div class="row no-gutters">
-                    <div class="col-1" style="font-size: 20pt">
-                         <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
-                               [ngClass]="{'upvoted': (userVote === 1)}"
-                               (click)="voteOnPost(1)"></span>
-                        <span class="row center-block" style="font-size: 15pt; text-align: left">{{post.score}}</span>
-                        <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
-                              [ngClass]="{'downvoted': (userVote === -1)}"
-                              (click)="voteOnPost(-1)"></span>
-                    </div>
-                    <div class="col-10">
-                        <p class="card-text">{{post.body}}</p>
-                        <button *ngIf="isMyPost" class="btn btn-primary" (click)="deletePost()">Delete</button>
-                        <button *ngIf="isMyPost" class="btn btn-primary" (click)="editPost()">Edit</button>
-                    </div>
-                    <div class="col-1">
-                        <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-6">
-                        <a [routerLink]="['/posts']" class="card-link">Back to posts</a>
-                    </div>
-                    <div class="col-6 text-right">
-                        <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
-                        <small class="text-muted">{{post.date | timeAgo}}</small>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
+  <div class="card mb-4 post-card">
+    <div class="card-header">
+      <div contenteditable>
+        <h4>{{post.title}}</h4>
+      </div>
     </div>
+
+    <div class="card-body">
+      <div class="row no-gutters">
+        <div class="col-1" style="font-size: 20pt">
+                      <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
+                            [ngClass]="{'upvoted': (userVote === 1)}"
+                            (click)="voteOnPost(1)"></span>
+          <span class="row center-block" style="font-size: 15pt; text-align: left">{{post.score}}</span>
+          <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
+                [ngClass]="{'downvoted': (userVote === -1)}"
+                (click)="voteOnPost(-1)"></span>
+        </div>
+        <div class="col-10">
+          <div class="form-group">
+            <textarea #body type="text" class="form-control" id="commentBody" [(ngClass)]="post.body"></textarea>
+          </div>
+        </div>
+        <div class="col-1">
+          <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText, body.value)">Submit Changes
+      </button>
+      <button class="btn btn-primary" (click)="deletePost()">Delete</button>
+      <button class="btn btn-primary" (click)="editPost()">Cancel Edit</button>
+      <small class="pull-right text-muted">{{post.date | timeAgo}}</small>
+    </div>
+  </div>
 
   <div class="card post-card mb-4">
     <form class="mx-4 my-4">
       <div class="form-group">
-        <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5' #text></textarea>
+        <textarea type="text" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5'
+                  #commentInput></textarea>
       </div>
-      <button class="btn btn-primary" (click)="commentOnPost(text.value);text.value=''">Submit</button>
+      <button class="btn btn-primary" (click)="commentOnPost(commentInput.value); commentInput.value=''">Submit</button>
     </form>
   </div>
 
-  <div *ngFor="let commentOnPost of post.comments" class="card mb-1">
+  <div *ngFor="let comment of post.comments" class="card mb-1">
     <div class="card-body">
-        <div class="row no-gutters">
-          <div class="col-1 mr-4">
-            <img class="avatar img-thumbnail" [src]="commentOnPost.author.avatar_url">
-          </div>
-          <div class="col-10">
-            <p class="card-text">{{commentOnPost.body}}</p>
-          </div>
+      <div class="row no-gutters">
+        <div class="col-1 mr-4">
+          <img class="avatar img-thumbnail" [src]="comment.author.avatar_url">
         </div>
-        <div class="row">
-          <div class="col text-right">
-            <small class="text-muted">{{post.date | timeAgo}}</small>
-          </div>
+        <div class="col-10">
+          <p class="card-text">{{comment.body}}</p>
         </div>
+      </div>
+      <div class="row">
+        <div class="col text-right">
+          <small class="text-muted">{{post.date | timeAgo}}</small>
+        </div>
+      </div>
     </div>
   </div>
 
