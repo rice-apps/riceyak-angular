@@ -74,6 +74,9 @@ export class PostDetailComponent implements OnInit {
    * Sends a request to change the user's vote to a given vote value.
    */
   voteOnPost(vote) {
+      if (this.userVote == vote){
+          vote = 0;
+      }
       this.postService.voteOnPost(this.post._id, vote)
           .then(res => {
               this.post = res;
