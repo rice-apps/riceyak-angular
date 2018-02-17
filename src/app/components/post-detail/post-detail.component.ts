@@ -1,5 +1,5 @@
-import { AuthService } from './../../services/auth-service/auth.service';
-import { Component, OnInit } from '@angular/core';
+import {AuthService} from './../../services/auth-service/auth.service';
+import {Component, OnInit} from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,15 +10,15 @@ import {forEachComment} from "tslint";
 import {post} from "selenium-webdriver/http";
 
 @Component({
-    selector: 'app-post-detail',
-    templateUrl: './post-detail.component.html',
-    styleUrls: ['./post-detail.component.css']
+  selector: 'app-post-detail',
+  templateUrl: './post-detail.component.html',
+  styleUrls: ['./post-detail.component.css']
 })
 export class PostDetailComponent implements OnInit {
   /**
    * The Post displayed in detail by the component.
    */
-  private post: Post;
+  post: Post;
 
   /**
    * The user's vote for this Post.
@@ -28,14 +28,15 @@ export class PostDetailComponent implements OnInit {
   /**
    * Is true iff the user created this post.
    */
-  private isMyPost: boolean = false;
+  isMyPost: boolean = false;
 
-  private isEdit: boolean = false;
+  isEdit: boolean = false;
 
-    constructor(private postService: PostService,
-                private route: ActivatedRoute,
-                private authService: AuthService,
-                private router: Router) { }
+  constructor(private postService: PostService,
+              private route: ActivatedRoute,
+              private authService: AuthService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -45,40 +46,35 @@ export class PostDetailComponent implements OnInit {
   }
 
   initPostStatus(post: Post) {
-      this.post = post;
-      this.userVote = this.getVoted();
-      if (this.authService.userLoggedIn) {
-
-          if (this.authService.userLoggedIn.user.userID === this.post.author._id) {
-              this.isMyPost = true;
-          } else {
-              this.isMyPost = false;
-          }
-      }
-      else {
-          this.isMyPost = false;
-      }
+    this.post = post;
+    this.userVote = this.getVoted();
+    if (this.authService.userLoggedIn) {
+      this.isMyPost = this.authService.userLoggedIn.user.userID === this.post.author._id;
+    }
+    else {
+      this.isMyPost = false;
+    }
   }
 
-  deletePost(){
+  deletePost() {
     this.postService.delete(this.post._id);
     this.router.navigate(['/posts']);
   }
 
-  comment(comment_entered: string) {
-      this.postService.postComment(this.post._id, comment_entered)
-          .then(post => this.post = post);
+  commentOnPost(comment_entered: string) {
+    this.postService.postComment(this.post._id, comment_entered)
+      .then(post => this.post = post);
   }
 
   /**
    * Sends a request to change the user's vote to a given vote value.
    */
-  voteOnPost(vote) {
-      this.postService.voteOnPost(this.post._id, vote)
-          .then(res => {
-              this.post = res;
-              this.userVote = vote;
-          });
+  voteOnPost(vote: number) {
+    this.postService.voteOnPost(this.post._id, vote)
+      .then(res => {
+        this.post = res;
+        this.userVote = vote;
+      });
   }
 
   /**
@@ -90,18 +86,16 @@ export class PostDetailComponent implements OnInit {
     return vote ? vote.vote : 0;
   }
 
-  edit(){
-    this.isEdit=!this.isEdit;
+  editPost() {
+    this.isEdit = !this.isEdit;
   }
 
-  submitChanges(title: string, body: string){
+  submitChanges(title: string, body: string) {
     this.post.title = title.trim();
     this.post.body = body;
-    this.edit();
+    this.editPost();
     this.postService.edit(this.post._id, this.post);
   }
-
-
 }
 
 
