@@ -54,6 +54,9 @@ export class PostsComponent implements OnInit {
    * of what we expect it to be.
    */
   voteOnPost(post: Post, vote: number) {
+      if (post._id in this.userVotes && this.userVotes[post._id] == vote){
+          vote = 0;
+      }
     this.voteLoading = true;
     this.postService.voteOnPost(post._id, vote)
       .then(newPost => {
