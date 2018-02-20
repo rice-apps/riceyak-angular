@@ -1,7 +1,8 @@
 .post-container {
     width: 60%;
     margin:0 auto;
-  }
+    max-width: 750px;
+}
 
 .center-block {
   display: block;
