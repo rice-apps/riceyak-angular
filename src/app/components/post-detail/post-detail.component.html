@@ -2,7 +2,6 @@
   <div class="card mb-4 post-card">
     <div class="card-body">
       <div class="row no-gutters">
-
         <div class="col-1 mx-auto" style="font-size: 20pt">
           <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
                 [ngClass]="{'upvoted': (userVote === 1)}"
@@ -19,18 +18,6 @@
           </div>
           <img class="rounded" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
         </div>
-
-        <!--<div class="col-10">-->
-          <!--<h4 class="mb-4">{{post.title}}</h4>-->
-          <!--<div class="form-group">-->
-            <!--<textarea #body type="text" class="form-control" id="commentBody" [(ngClass)]="post.body"></textarea>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="col-1">-->
-          <!--<img class="avatar img-thumbnail" [src]="post.author.avatar_url">-->
-        <!--</div>-->
-
       </div>
     </div>
 
@@ -61,20 +48,24 @@
 
   <div class="card p-3 post-card mb-4 bg-light comment-card">
     <small class="text-muted text-center" *ngIf="!post.comments.length">No comments yet</small>
-    <div *ngFor="let comment of post.comments" class="card mb-2">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-1">
-            <img class="avatar" [src]="comment.author.avatar_url">
+    <div *ngFor="let comment of post.comments" class="card mb-2 p-3">
+      <div class="row no-gutters">
+        <div class="col-1 mx-auto" style="font-size: 15pt">
+          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up">
+                <!--[ngClass]="{'upvoted': (userVote === 1)}"-->
+                <!--(click)="voteOnPost(1)">-->
+          </span>
+          <span class="row center-block" style="font-size: 10pt;">{{comment.score}}</span>
+          <span class="fa fa-caret-down row center-block vote-caret vote-caret-down">
+                <!--[ngClass]="{'downvoted': (userVote === -1)}"-->
+                <!--(click)="voteOnPost(-1)">-->
+          </span>
+        </div>
+        <div class="media col-11">
+          <div class="media-body">
+            {{comment.body}}
           </div>
-          <div class="col-8">
-            <p class="card-text">{{comment.body}}</p>
-          </div>
-          <div class="col-3 text-right">
-            <small class="text-muted">{{comment.date | timeAgo}}</small>
-          </div>
-        <div class="row">
-
+          <img class="rounded" [src]="comment.author.avatar_url" width="32" height="32" alt="Avatar">
         </div>
       </div>
     </div>
