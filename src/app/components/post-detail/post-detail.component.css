@@ -23,7 +23,7 @@
 }
 
 .comment-card {
-  border: 2px solid rgba(0,0,0,.125);
+  border: 2px solid rgba(0, 0, 0, .125);
 }
 
 .vote-caret {
@@ -33,7 +33,7 @@
   -o-transition: transform 0.3s;
   transition: transform 0.3s;
   cursor: pointer;
-  color: gray;
+  color: lightgray;
 }
 
 .vote-caret-up:hover {
@@ -69,9 +69,9 @@
 }
 
 .upvoted {
-  color: #F2A32A;
+  color: #535353;
 }
 
 .downvoted {
-  color: #0D5CD5;
+  color: #535353;
 }

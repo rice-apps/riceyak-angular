@@ -13,11 +13,11 @@
       <div class="row no-gutters">
         <div class="col-1 mx-auto" style="font-size: 20pt">
           <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
-                [ngClass]="{'upvoted': (userVote === 1)}"
+                [ngClass]="{'upvoted': (userVotes[post._id] === 1)}"
                 (click)="voteOnPost(post, 1)"></span>
           <span class="row center-block" style="font-size: 15pt;">{{post.score}}</span>
           <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
-                [ngClass]="{'downvoted': (userVote === -1)}"
+                [ngClass]="{'downvoted': (userVotes[post._id] === -1)}"
                 (click)="voteOnPost(post, -1)"></span>
         </div>
         <div class="media col-11">
