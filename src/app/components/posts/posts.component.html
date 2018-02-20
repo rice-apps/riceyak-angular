@@ -1,5 +1,6 @@
 <div class="container post-container">
-  <app-new-post></app-new-post>
+  <!-- This adds a post object to the posts array after the new post has been submitted -->
+  <app-new-post (submitted)="posts.unshift($event)"></app-new-post>
   <div *ngIf="loading" class="row">
     <div class="col-5"></div>
     <div class="col-2"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw spinner"></i></div>
@@ -23,15 +24,15 @@
           <h4 class="mx-3">{{post.title}}</h4>
           <p class="mx-3">{{post.body}}</p>
         </div>
-        <div class="col-1 text-left">
+        <div class="col-1 mx-auto">
           <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
         </div>
       </div>
     </div>
 
-      <ul class="list-group list-group-flush m-3">
-        <li *ngFor="let commentOnPost of post.comments" class="list-group-item">{{commentOnPost.body}}</li>
-      </ul>
+    <ul class="list-group list-group-flush">
+      <li *ngFor="let commentOnPost of post.comments" class="list-group-item">{{commentOnPost.body}}</li>
+    </ul>
 
     <div class="card-footer">
       <div class="row">

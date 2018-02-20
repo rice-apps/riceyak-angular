@@ -4,6 +4,7 @@
   -ms-transition: transform 0.3s, box-shadow 0.3s;
   -o-transition: transform 0.3s, box-shadow 0.3s;
   transition: transform 0.3s, box-shadow 0.3s;
+  border: 3px solid rgba(0,0,0,.125);
 }
 
 .new-post:hover {
