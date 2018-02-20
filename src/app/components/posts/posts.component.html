@@ -11,27 +11,29 @@
     <!-- <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Little_Owl-2.jpg/220px-Little_Owl-2.jpg" alt="Card image cap"> -->
     <div class="card-body">
       <div class="row no-gutters">
-        <div class="col-1 ml-2" style="font-size: 20pt">
+        <div class="col-1 mx-auto" style="font-size: 20pt">
           <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
-                [ngClass]="{'upvoted': (userVotes[post._id] === 1)}"
+                [ngClass]="{'upvoted': (userVote === 1)}"
                 (click)="voteOnPost(post, 1)"></span>
-          <span class="row center-block" style="font-size: 15pt; text-align: left">{{post.score}}</span>
+          <span class="row center-block" style="font-size: 15pt;">{{post.score}}</span>
           <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
-                [ngClass]="{'downvoted': (userVotes[post._id] === -1)}"
+                [ngClass]="{'downvoted': (userVote === -1)}"
                 (click)="voteOnPost(post, -1)"></span>
         </div>
-        <div class="col-9">
-          <h4 class="mx-3">{{post.title}}</h4>
-          <p class="mx-3">{{post.body}}</p>
-        </div>
-        <div class="col-1 mx-auto">
-          <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
+        <div class="media col-11">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">{{post.title}}</h5>
+            {{post.body}}
+          </div>
+          <img class="rounded" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
         </div>
       </div>
     </div>
 
     <ul class="list-group list-group-flush">
-      <li *ngFor="let commentOnPost of post.comments" class="list-group-item">{{commentOnPost.body}}</li>
+      <li *ngFor="let commentOnPost of post.comments" class="list-group-item">
+        <small>{{commentOnPost.body}}</small>
+      </li>
     </ul>
 
     <div class="card-footer">
