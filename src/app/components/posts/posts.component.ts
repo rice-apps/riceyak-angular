@@ -33,7 +33,7 @@ export class PostsComponent implements OnInit {
    */
   private voteLoading: boolean = false;
 
-    constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService, private authService: AuthService) { }
 
   ngOnInit() {
     /**
