@@ -5,3 +5,7 @@
 body {
   background-color: rgb(245, 245, 245) !important;
 }
+
+.media-heading, .media-body > p, .media-body > span, .media-body {
+  word-break: break-all;
+}
