@@ -1,32 +1,39 @@
 <div class="container post-container">
   <div class="card mb-4 post-card">
-    <div class="card-header">
-      <div contenteditable>
-        <h4>{{post.title}}</h4>
-      </div>
-    </div>
-
     <div class="card-body">
       <div class="row no-gutters">
-        <div class="col-1" style="font-size: 20pt">
-                      <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
-                            [ngClass]="{'upvoted': (userVote === 1)}"
-                            (click)="voteOnPost(1)"></span>
-          <span class="row center-block" style="font-size: 15pt; text-align: left">{{post.score}}</span>
+
+        <div class="col-1 mx-auto" style="font-size: 20pt">
+          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
+                [ngClass]="{'upvoted': (userVote === 1)}"
+                (click)="voteOnPost(1)"></span>
+          <span class="row center-block" style="font-size: 15pt;">{{post.score}}</span>
           <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
                 [ngClass]="{'downvoted': (userVote === -1)}"
                 (click)="voteOnPost(-1)"></span>
         </div>
-        <div class="col-10">
-          <div class="form-group">
-            <textarea #body type="text" class="form-control" id="commentBody" [(ngClass)]="post.body"></textarea>
+        <div class="media col-11">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">{{post.title}}</h5>
+            {{post.body}}
           </div>
+          <img class="rounded" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
         </div>
-        <div class="col-1">
-          <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
-        </div>
+
+        <!--<div class="col-10">-->
+          <!--<h4 class="mb-4">{{post.title}}</h4>-->
+          <!--<div class="form-group">-->
+            <!--<textarea #body type="text" class="form-control" id="commentBody" [(ngClass)]="post.body"></textarea>-->
+          <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="col-1">-->
+          <!--<img class="avatar img-thumbnail" [src]="post.author.avatar_url">-->
+        <!--</div>-->
+
       </div>
     </div>
+
     <div class="card-footer">
       <button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText, body.value)">Submit Changes
       </button>
@@ -36,33 +43,44 @@
     </div>
   </div>
 
-  <div class="card post-card mb-4">
-    <form class="mx-4 my-4">
-      <div class="form-group">
-        <textarea type="text" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5'
-                  #commentInput></textarea>
-      </div>
-      <button class="btn btn-primary" (click)="commentOnPost(commentInput.value); commentInput.value=''">Submit</button>
-    </form>
+
+  <div class="card p-3 mb-4 post-card bg-light comment-card">
+    <div class="card">
+      <form class="mx-4 my-4">
+        <div class="form-group">
+        <input type="text" class="form-control form-control-sm" id="commentInput" placeholder="Write a comment..." #commentInput>
+        </div>
+        <button class="btn btn-sm btn-hover btn-primary pull-right"
+                (click)="commentOnPost(commentInput.value); commentInput.value=''"
+                (keyup.enter)="commentOnPost(commentInput.value); commentInput.value=''">
+          Comment
+        </button>
+      </form>
+    </div>
   </div>
 
-  <div *ngFor="let comment of post.comments" class="card mb-1">
-    <div class="card-body">
-      <div class="row no-gutters">
-        <div class="col-1 mr-4">
-          <img class="avatar img-thumbnail" [src]="comment.author.avatar_url">
-        </div>
-        <div class="col-10">
-          <p class="card-text">{{comment.body}}</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col text-right">
-          <small class="text-muted">{{post.date | timeAgo}}</small>
+  <div class="card p-3 post-card mb-4 bg-light comment-card">
+    <small class="text-muted text-center" *ngIf="!post.comments.length">No comments yet</small>
+    <div *ngFor="let comment of post.comments" class="card mb-2">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-1">
+            <img class="avatar" [src]="comment.author.avatar_url">
+          </div>
+          <div class="col-8">
+            <p class="card-text">{{comment.body}}</p>
+          </div>
+          <div class="col-3 text-right">
+            <small class="text-muted">{{comment.date | timeAgo}}</small>
+          </div>
+        <div class="row">
+
         </div>
       </div>
     </div>
   </div>
+
+
 
 </div>
 

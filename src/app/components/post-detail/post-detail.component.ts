@@ -52,8 +52,8 @@ export class PostDetailComponent implements OnInit {
   }
 
   deletePost() {
-    this.postService.delete(this.post._id);
-    this.router.navigate(['/posts']);
+    this.postService.delete(this.post._id)
+      .then(() => this.router.navigate(['/posts']));
   }
 
   commentOnPost(comment_entered: string) {
