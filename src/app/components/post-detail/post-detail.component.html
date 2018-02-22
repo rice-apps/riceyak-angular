@@ -1,4 +1,36 @@
+<!-- Are you sure? Report modal-->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Centered loading spinner -->
 <div class="container post-container">
+  <div *ngIf="loading" class="row">
+    <div class="col-5"></div>
+    <div class="col-2"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw spinner"></i></div>
+    <div class="col-5"></div>
+  </div>
+</div>
+
+<div *ngIf="!loading" class="container post-container">
+
+  <!-- Post -->
   <div class="card mb-4 post-card">
     <div class="card-body">
       <div class="row no-gutters">
@@ -21,16 +53,20 @@
       </div>
     </div>
 
+    <!-- Post footer -->
     <div class="card-footer">
-      <button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText, body.value)">Submit Changes
+      <!--<button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText, body.value)">Submit Changes</button>-->
+      <!--<button class="btn btn-primary" (click)="deletePost()">Delete</button>-->
+      <!--<button class="btn btn-primary" (click)="editPost()">Cancel Edit</button>-->
+      <button title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
+        <i class="fa fa-exclamation-triangle"></i>
       </button>
-      <button class="btn btn-primary" (click)="deletePost()">Delete</button>
-      <button class="btn btn-primary" (click)="editPost()">Cancel Edit</button>
-      <small class="pull-right text-muted">{{post.date | timeAgo}}</small>
+      <button class="btn btn-sm btn-outline-secondary pull-right">Edit</button>
+      <small class="text-muted">{{post.date | timeAgo}}</small>
     </div>
   </div>
 
-
+  <!-- Comment form -->
   <div class="card p-3 mb-4 post-card bg-light comment-card">
     <div class="card">
       <form class="mx-4 my-4">
@@ -46,6 +82,7 @@
     </div>
   </div>
 
+  <!-- Comments -->
   <div class="card p-3 post-card mb-4 bg-light comment-card">
     <small class="text-muted text-center" *ngIf="!post.comments.length">No comments yet</small>
     <div *ngFor="let comment of post.comments" class="card mb-2 p-3">
@@ -70,8 +107,5 @@
       </div>
     </div>
   </div>
-
-
-
 </div>
 

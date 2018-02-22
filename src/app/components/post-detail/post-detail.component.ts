@@ -1,5 +1,5 @@
 import {AuthService} from './../../services/auth-service/auth.service';
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,6 +10,8 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./post-detail.component.css']
 })
 export class PostDetailComponent implements OnInit {
+  @ViewChild('reportPopover') popover: ElementRef;
+
   /**
    * The Post displayed in detail by the component.
    */
@@ -27,6 +29,8 @@ export class PostDetailComponent implements OnInit {
 
   isEdit: boolean = false;
 
+  loading: boolean = true;
+
   constructor(private postService: PostService,
               private route: ActivatedRoute,
               private authService: AuthService,
@@ -36,7 +40,10 @@ export class PostDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
-        .then(post => this.initPostStatus(post));
+        .then(post => {
+          this.initPostStatus(post);
+          this.loading = false;
+        });
     });
   }
 
