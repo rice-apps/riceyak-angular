@@ -31,7 +31,8 @@
     </div>
 
     <ul class="list-group list-group-flush">
-      <li *ngFor="let commentOnPost of post.comments" class="list-group-item py-2">
+      <li class="list-group-item py-2 text-muted" style="border-top: none;">{{post.comments.length}} comments</li>
+      <li *ngFor="let commentOnPost of post.comments.slice(0, 5)" class="list-group-item py-2">
         <small>{{commentOnPost.body}}</small>
       </li>
     </ul>

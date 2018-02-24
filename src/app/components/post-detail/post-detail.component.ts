@@ -59,7 +59,7 @@ export class PostDetailComponent implements OnInit {
   }
 
   deletePost() {
-    this.postService.delete(this.post._id)
+    this.postService.deletePost(this.post._id)
       .then(() => this.router.navigate(['/posts']));
   }
 
@@ -99,7 +99,7 @@ export class PostDetailComponent implements OnInit {
     this.post.title = title.trim();
     this.post.body = body;
     this.editPost();
-    this.postService.edit(this.post._id, this.post);
+    this.postService.editPost(this.post._id, this.post);
   }
 }
 
