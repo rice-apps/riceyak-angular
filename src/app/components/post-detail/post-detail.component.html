@@ -72,13 +72,15 @@
       <!--<button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText, body.value)">Submit Changes</button>-->
       <!--<button class="btn btn-primary" (click)="deletePost()">Delete</button>-->
       <!--<button class="btn btn-primary" (click)="editPost()">Cancel Edit</button>-->
-      <button title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
+      <button *ngIf="!isMyPost" title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
         <i class="fa fa-exclamation-triangle"></i>
       </button>
+      <button *ngIf="isMyPost && !isEdit" class="btn btn-sm btn-outline-danger pull-right ml-1" (click)="deletePost()">Delete</button>
       <button *ngIf="!isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">Edit</button>
       <button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-primary pull-right ml-1" (click)="submitChanges()">
         Submit
-        <i class="fa fa-check"></i>
+        <i *ngIf="!editLoading" class="fa fa-check"></i>
+        <i *ngIf="editLoading" class="fa fa-circle-o-notch fa-spin fa-fw spinner"></i>
       </button>
       <button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">
         Cancel

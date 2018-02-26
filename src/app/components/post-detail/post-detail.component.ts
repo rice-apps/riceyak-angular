@@ -37,6 +37,8 @@ export class PostDetailComponent implements OnInit {
    */
   loading: boolean = true;
 
+  editLoading: boolean = false;
+
   constructor(private postService: PostService,
               private route: ActivatedRoute,
               private authService: AuthService,
@@ -111,11 +113,17 @@ export class PostDetailComponent implements OnInit {
     return vote ? vote.vote : 0;
   }
 
-
+  /**
+   * Submits changes to the post.
+   */
   submitChanges() {
     this.post.title = this.post.title.trim();
-    this.isEdit = !this.isEdit;
-    this.postService.editPost(this.post._id, this.post);
+    this.editLoading = true;
+    this.postService.editPost(this.post._id, this.post)
+      .then(() => {
+        this.editLoading = false;
+        this.isEdit = !this.isEdit;
+      });
   }
 }
 
