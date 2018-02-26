@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
     styleUrls: ['posts.component.css']
 })
 export class PostsComponent implements OnInit {
+
   /**
    * Array of all posts.
    */
@@ -28,17 +29,18 @@ export class PostsComponent implements OnInit {
   /**
    * Is true iff the page is voting.
    * TODO: Use this value to animate pagewide vote loading, or create a new
-   *       value for a per-post voting basis.
+   * value for a per-post voting basis.
    */
   private voteLoading: boolean = false;
 
   constructor(private postService: PostService, private authService: AuthService) { }
 
+  /**
+   * Gets all the posts, loads them into the array, and gets the user's vote
+   * for each post.
+   */
   ngOnInit() {
-    /**
-     * Gets all the posts, loads them into the array, and gets the user's vote
-     * for each post.
-     */
+    $('#agreementModal').modal('show');
     this.postService.getPosts()
       .then(posts => {
         this.loading = false;

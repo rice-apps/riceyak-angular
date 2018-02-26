@@ -11,14 +11,20 @@ import {} from "bootstrap";
   styleUrls: ['navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  @ViewChild('netID') el: ElementRef;
 
+  /**
+   * Observable boolean whether user is logged in or not.
+   */
   loggedIn: Observable<boolean>;
+
   authUrl: string = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
   avatarURL: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService) { }
 
+  /**
+   * Initialization lifecycle hook.
+   */
   ngOnInit() {
     this.loggedIn = this.authService.isLoggedIn;
     this.loggedIn.subscribe(val => {
@@ -26,11 +32,13 @@ export class NavbarComponent implements OnInit {
     })
   }
 
+  /**
+   * Logs user out and redirects to CAS logout page.
+   */
   logout() {
     this.authService.logout()
       .then(() => {
         window.location.href = CONFIG.cas_logout_url;
       });
   }
-
 }

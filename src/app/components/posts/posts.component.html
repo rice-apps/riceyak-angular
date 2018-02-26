@@ -1,3 +1,26 @@
+<!-- Terms agreement modal -->
+<div class="modal fade" id="agreementModal" tabindex="-1" role="dialog" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Terms and conditions</h5>
+      </div>
+      <div class="modal-body">
+        <p>By using this application, you are agreeing to the following rules.</p>
+        <ul>
+          <li>Be respectful of others at all times.</li>
+          <li>Do NOT use names. This is an anonymous service.</li>
+        </ul>
+        <p class="text-danger">Failure to follow the above will result in a ban.</p>
+        <p>Let's keep this place wholesome!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">I agree</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container post-container">
   <!-- This adds a post object to the posts array after the new post has been submitted -->
   <app-new-post (submitted)="posts.unshift($event)"></app-new-post>
