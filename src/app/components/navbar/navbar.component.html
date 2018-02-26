@@ -12,6 +12,7 @@
       <ul class="navbar-nav mr-auto"></ul>
 
       <button *ngIf="loggedIn | async" (click)="logout()" class="btn btn-outline-secondary my-2 my-sm-0">Log out</button>
+      <img *ngIf="loggedIn | async" [src]="(userLoggedIn | async)">
       <a *ngIf="!(loggedIn | async)" class="btn btn-outline-secondary my-2 my-sm-0" [attr.href]="authUrl">Log in</a>
 
     </div>

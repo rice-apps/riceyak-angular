@@ -11,13 +11,16 @@ export class AuthService {
 
   public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  public loggedInUserID: Subject<any> = new Subject();
+  public loggedInUser: Subject<any> = new Subject<any>();
 
   constructor(private http: Http, private router: Router) {
-    if (localStorage.getItem('currentUser')) {
+    let usr = localStorage.getItem('currentUser');
+    if (usr) {
       this.loggedIn.next(true);
+      this.loggedInUser.next(usr)
     } else {
       this.loggedIn.next(false);
+      this.loggedInUser.next({});
     }
   }
 
@@ -28,9 +31,8 @@ export class AuthService {
         let result = res.json();
         if (result && result.success) {
           localStorage.setItem('currentUser', JSON.stringify(result));
-
           this.loggedIn.next(true);
-
+          this.userLoggedIn.next(result);
         } else {
           console.log("Authentication failed")
         }
@@ -64,5 +66,15 @@ export class AuthService {
     } else {
       return null;
     }
+  }
+
+  get userLoggedInAsync() {
+    let usr = localStorage.getItem('currentUser');
+    if (usr) {
+      this.loggedInUser.next(usr);
+    } else {
+      this.loggedInUser.next({});
+    }
+    return this.loggedInUser.asObservable();
   }
 }

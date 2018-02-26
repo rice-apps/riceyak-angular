@@ -12,24 +12,21 @@ import {} from "bootstrap";
 })
 export class NavbarComponent implements OnInit {
   @ViewChild('netID') el: ElementRef;
-  
-  private loggedIn: Observable<boolean>;
-  private authUrl: string = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
-  private username: string = '';
+
+  loggedIn: Observable<boolean>;
+  authUrl: string = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
+  userLoggedIn: Observable<any>;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loggedIn = this.authService.isLoggedIn;
-    if (this.authService.userLoggedIn) {
-      this.username = this.authService.userLoggedIn.user.username;
-    }
+    this.userLoggedIn = this.authService.userLoggedInAsync;
   }
 
   logout() {
     this.authService.logout()
       .then(() => {
-        this.username = '';
         window.location.href = CONFIG.cas_logout_url;
       });
   }

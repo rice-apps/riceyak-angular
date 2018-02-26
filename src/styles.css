@@ -8,4 +8,8 @@ body {
 
 .media-heading, .media-body > p, .media-body > span, .media-body {
   word-break: break-all;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
+
