@@ -15,13 +15,15 @@ export class NavbarComponent implements OnInit {
 
   loggedIn: Observable<boolean>;
   authUrl: string = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
-  userLoggedIn: Observable<any>;
+  avatarURL: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loggedIn = this.authService.isLoggedIn;
-    this.userLoggedIn = this.authService.userLoggedInAsync;
+    this.loggedIn.subscribe(val => {
+      if (val) this.avatarURL = JSON.parse(localStorage.getItem('currentUser')).user.avatarURL;
+    })
   }
 
   logout() {
