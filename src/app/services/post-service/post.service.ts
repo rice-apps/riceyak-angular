@@ -2,17 +2,19 @@ import {Injectable} from '@angular/core';
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
-import {Comment} from "../../models/comment";
 
 @Injectable()
 export class PostService {
 
   private apiUrl: string = CONFIG.api_url;
 
-  constructor(private http: Http) {
-  }
+  constructor(private http: Http) {}
 
-  private jwt() {
+  /**
+   * Creates headers with the user's access token. We attach these headers to each request.
+   * @returns {RequestOptions}
+   */
+  private jwt(): RequestOptions {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.user.token) {
       let headers = new Headers({'x-access-token': currentUser.user.token});

@@ -38,6 +38,8 @@
   <div class="card mb-4 post-card">
     <div class="card-body">
       <div class="row no-gutters">
+
+        <!-- Vote arrows -->
         <div class="col-1 mx-auto" style="font-size: 20pt">
           <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
                 [ngClass]="{'upvoted': (userVote === 1)}"
@@ -47,12 +49,20 @@
                 [ngClass]="{'downvoted': (userVote === -1)}"
                 (click)="voteOnPost(-1)"></span>
         </div>
+
+        <!-- Post text -->
         <div class="media col-11">
           <div class="media-body">
-            <h5 class="mt-0 mb-1">{{post.title}}</h5>
-            {{post.body}}
+            <div *ngIf="!isEdit; else postEditTemplate">
+              <h5 class="mt-0 mb-1">{{post.title}}</h5>
+              <p>{{post.body}}</p>
+            </div>
+            <ng-template #postEditTemplate>
+              <input class="form-control form-control-lg mb-2" [(ngModel)]="post.title">
+              <textarea class="form-control" [(ngModel)]="post.body"></textarea>
+            </ng-template>
           </div>
-          <img class="rounded" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
+          <img class="rounded ml-2" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
         </div>
       </div>
     </div>
@@ -65,7 +75,15 @@
       <button title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
         <i class="fa fa-exclamation-triangle"></i>
       </button>
-      <button class="btn btn-sm btn-outline-secondary pull-right">Edit</button>
+      <button *ngIf="!isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">Edit</button>
+      <button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-primary pull-right ml-1" (click)="submitChanges()">
+        Submit
+        <i class="fa fa-check"></i>
+      </button>
+      <button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">
+        Cancel
+        <i class="fa fa-times"></i>
+      </button>
       <small class="text-muted">{{post.date | timeAgo}}</small>
     </div>
   </div>

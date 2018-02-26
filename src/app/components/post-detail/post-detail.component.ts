@@ -23,12 +23,18 @@ export class PostDetailComponent implements OnInit {
   userVote: Number;
 
   /**
-   * Is true iff the user created this post.
+   * Is true if the user created this post.
    */
   isMyPost: boolean = false;
 
+  /**
+   * True if the user has toggled the edit button 'on.'
+   */
   isEdit: boolean = false;
 
+  /**
+   * True if the request to retrieve this post has not completed yet.
+   */
   loading: boolean = true;
 
   constructor(private postService: PostService,
@@ -37,6 +43,9 @@ export class PostDetailComponent implements OnInit {
               private router: Router) {
   }
 
+  /**
+   * Init lifecycle hook. Retrieves data.
+   */
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
@@ -47,6 +56,10 @@ export class PostDetailComponent implements OnInit {
     });
   }
 
+  /**
+   * Helper fn for initializing the component.
+   * @param {Post} post - post object
+   */
   initPostStatus(post: Post) {
     this.post = post;
     this.userVote = this.getVoted();
@@ -58,11 +71,18 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
+  /**
+   * Deletes the post
+   */
   deletePost() {
     this.postService.deletePost(this.post._id)
       .then(() => this.router.navigate(['/posts']));
   }
 
+  /**
+   * Comments on the post
+   * @param {string} comment_entered
+   */
   commentOnPost(comment_entered: string) {
     this.postService.postComment(this.post._id, comment_entered)
       .then(post => this.post = post);
@@ -91,14 +111,10 @@ export class PostDetailComponent implements OnInit {
     return vote ? vote.vote : 0;
   }
 
-  editPost() {
-    this.isEdit = !this.isEdit;
-  }
 
-  submitChanges(title: string, body: string) {
-    this.post.title = title.trim();
-    this.post.body = body;
-    this.editPost();
+  submitChanges() {
+    this.post.title = this.post.title.trim();
+    this.isEdit = !this.isEdit;
     this.postService.editPost(this.post._id, this.post);
   }
 }
