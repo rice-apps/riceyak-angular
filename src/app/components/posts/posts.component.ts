@@ -20,6 +20,11 @@ export class PostsComponent implements OnInit {
    */
   userVotes: Object;
 
+    /**
+     *  get reacts map
+     */
+
+  reacts: Object;
   /**
    * Is true iff the page is loading posts.
    */
@@ -44,6 +49,7 @@ export class PostsComponent implements OnInit {
         this.loading = false;
         this.posts = posts;
         this.getAllVotes();
+        this.reacts = this.postService.reacts;
       })
   }
 
@@ -77,4 +83,6 @@ export class PostsComponent implements OnInit {
       this.userVotes[post._id] = vote ? vote.vote : 0;
     });
   }
+
+
 }

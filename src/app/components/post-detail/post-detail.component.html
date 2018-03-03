@@ -19,7 +19,7 @@
                     </div>
                     <div class="col-10">
                         <div class="form-group">
-                            <textarea #body type="email" class="form-control" id="commentInput" value = {{post.body}}></textarea>
+                            <textarea #body style = "width:800px; height:125px" type="email" class="form-control" id="commentInput" value = {{post.body}}></textarea>
                         </div>
                     </div>
                     <div class="col-1">
@@ -29,9 +29,13 @@
             </div>
             <div class="card-footer">
                 <div class="row">
-                    <button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText,body.value)">Submit Changes</button>
-                    <button class="btn btn-primary" (click)="deletePost()">Delete</button>
-                    <button class="btn btn-primary" (click)="edit()">Cancel Edit</button>
+                    <div class="col-6">
+                        <button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText,body.value)">Submit Changes</button>
+                        <button class="btn btn-primary" (click)="deletePost()">Delete</button>
+                        <button class="btn btn-primary" (click)="edit()">Cancel Edit</button>
+                        <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
+
+                    </div>
                     <div class="col-6 text-right">
                         <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
                         <small class="text-muted">{{post.date | timeAgo}}</small>
@@ -57,8 +61,6 @@
                     </div>
                     <div class="col-10">
                         <p class="card-text">{{post.body}}</p>
-                        <button *ngIf="isMyPost" class="btn btn-primary" (click)="deletePost()">Delete</button>
-                        <button *ngIf="isMyPost" class="btn btn-primary" (click)="edit()">Edit</button>
                     </div>
                     <div class="col-1">
                         <img class="avatar" [src]="post.author.avatar_url">
@@ -69,8 +71,15 @@
                 <div class="row">
                     <div class="col-6">
                         <a [routerLink]="['/posts']" class="card-link">Back to posts</a>
+                        <button *ngIf="isMyPost" class="btn btn-primary" (click)="deletePost()">Delete</button>
+                        <button *ngIf="isMyPost" class="btn btn-primary" (click)="edit()">Edit</button>
                     </div>
                     <div class="col-6 text-right">
+                        <ul class="nav nav-pills justify-content-sm-end">
+                            <li class="nav-item" *ngFor="let key of objectKeys(reacts)">
+                                <a class="nav-link"  (click)="changeReact(key)" [ngClass] = "{'active': (userReact == key)}"><i class="em {{reacts[key]}}"></i></a>
+                            </li>
+                        </ul>
                         <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
                         <small class="text-muted">{{post.date | timeAgo}}</small>
                     </div>

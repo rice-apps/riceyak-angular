@@ -19,22 +19,25 @@ export class PostDetailComponent implements OnInit {
   private post: Post;
 
   /**
-   * The user's vote for this Post.
+   * The collection of reacts
+   **/
+   reacts: Object;
+  /**
+   * The user's vote and react for this Post.
    */
-  userVote: Number;
-
+  private userVote: Number;
+  private userReact: string;
   /**
    * Is true iff the user created this post.
    */
   private isMyPost: boolean = false;
-
   private isEdit: boolean = false;
 
-    constructor(private postService: PostService,
-                private route: ActivatedRoute,
-                private authService: AuthService,
-                private router: Router) { }
 
+  constructor(private postService: PostService,
+            private route: ActivatedRoute,
+            private authService: AuthService,
+            private router: Router) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
@@ -42,9 +45,12 @@ export class PostDetailComponent implements OnInit {
     });
   }
 
-  initPostStatus(post: Post){
+  initPostStatus(post: Post) {
     this.post = post;
     this.userVote = this.getVoted();
+    this.userReact = 'angry';
+    this.reacts = this.postService.reacts;
+
     if (this.authService.userLoggedIn) {
 
         if (this.authService.userLoggedIn.user.userID === this.post.author._id) {
@@ -58,20 +64,21 @@ export class PostDetailComponent implements OnInit {
     }
   }
 
-  deletePost(){
-    this.postService.delete(this.post._id);
-    this.router.navigate(['/posts']);
+  deletePost() {
+    this.postService.delete(this.post._id).then(post =>
+        this.router.navigate(['/posts']));
   }
   comment(comment_entered: string) {
 
       this.postService.postComment(this.post._id, comment_entered)
           .then(post => this.post = post);
+
   }
 
   /**
    * Sends a request to change the user's vote to a given vote value.
    */
-  voteOnPost(vote) {
+  voteOnPost(vote: number) {
       this.postService.voteOnPost(this.post._id, vote)
           .then(res => {
               this.post = res;
@@ -79,6 +86,13 @@ export class PostDetailComponent implements OnInit {
           });
   }
 
+  reactOnPost(post: Post, react: string){
+      this.postService.reactOnPost(this.post._id, react)
+          .then(res => {
+              this.post = res;
+              this.userReact = react;
+          });
+  }
   /**
    * Returns the user's vote on Post.
    */
@@ -97,8 +111,21 @@ export class PostDetailComponent implements OnInit {
     this.post.body = body;
     this.edit();
     this.postService.edit(this.post._id, this.post);
+
   }
 
+  changeReact(emote: string){
+      if (this.userReact == emote){
+          this.userReact = null;
+      }
+      else{
+          this.userReact = emote;
+      }
+      this.postService.reactOnPost(this.post._id, emote);
+  }
+  objectKeys(obj: Object){
+      return Object.keys(obj)
+  }
 
 }
 
