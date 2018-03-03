@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -10,10 +10,11 @@ import {Router} from "@angular/router";
 })
 export class NewPostComponent implements OnInit {
   @ViewChild('newPostModal') newPostModal: ElementRef;
+  @Output() submitted = new EventEmitter<any>();
 
-  public newPostForm: FormGroup;
-  private loading: boolean = false;
-  private submitButtonText: String = "Hoot!";
+  newPostForm: FormGroup;
+  loading: boolean = false;
+  submitButtonText: String = "Post!";
 
   constructor(private postService: PostService, private fb: FormBuilder, private router: Router) { }
 
@@ -28,10 +29,10 @@ export class NewPostComponent implements OnInit {
     this.loading = true;
     this.submitButtonText = "Submitting...";
     this.postService.postPost(this.newPostForm.value['title'], this.newPostForm.value['body'])
-      .then(post => {
+      .then((post) => {
         this.loading = false;
         this.newPostModal.nativeElement.click();
-        this.router.navigate([`/posts/${post._id}`]);
+        this.submitted.emit(post);
       });
   }
 
