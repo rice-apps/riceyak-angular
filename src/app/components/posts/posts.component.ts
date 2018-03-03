@@ -19,6 +19,7 @@ export class PostsComponent implements OnInit {
    * Maps each post._id to the user's vote for that post.
    */
   userVotes: Object;
+  userReacts: Object;
 
     /**
      *  get reacts map
@@ -84,5 +85,12 @@ export class PostsComponent implements OnInit {
     });
   }
 
+  getAllReacts(){
+    this.userReacts = {}
+    const userID = this.authService.userLoggedIn.user.userID
+    this.posts.forEach(post => {
+        //const react = post.reac
+    })
+  }
 
 }

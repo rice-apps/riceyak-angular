@@ -38,6 +38,7 @@ export class PostDetailComponent implements OnInit {
             private route: ActivatedRoute,
             private authService: AuthService,
             private router: Router) { }
+
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.postService.getPost(params['_id'])
@@ -48,7 +49,7 @@ export class PostDetailComponent implements OnInit {
   initPostStatus(post: Post) {
     this.post = post;
     this.userVote = this.getVoted();
-    this.userReact = 'angry';
+    this.userReact = this.getReacted()
     this.reacts = this.postService.reacts;
 
     if (this.authService.userLoggedIn) {
@@ -87,10 +88,10 @@ export class PostDetailComponent implements OnInit {
   }
 
   reactOnPost(post: Post, react: string){
+      this.userReact = react;
       this.postService.reactOnPost(this.post._id, react)
           .then(res => {
               this.post = res;
-              this.userReact = react;
           });
   }
   /**
@@ -114,7 +115,7 @@ export class PostDetailComponent implements OnInit {
 
   }
 
-  changeReact(emote: string){
+  private changeReact(emote: string){
       if (this.userReact == emote){
           this.userReact = null;
       }
@@ -123,10 +124,18 @@ export class PostDetailComponent implements OnInit {
       }
       this.postService.reactOnPost(this.post._id, emote);
   }
+
   objectKeys(obj: Object){
       return Object.keys(obj)
   }
-
+  /**
+   * Returns the user's react
+   */
+  private getReacted() {
+      const userID = this.authService.userLoggedIn.user.userID;
+      this.userReact = this.post.reacts.hasOwnProperty(userID) ? this.post.reacts[userID].name : null
+      return this.userReact
+  }
 }
 
 

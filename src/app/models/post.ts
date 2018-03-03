@@ -10,4 +10,5 @@ export class Post {
   comments: Comment[];
   author: User;
   votes: [ { user: String, vote: Number } ];
+  reacts: {};
 }
