@@ -91,7 +91,6 @@ export class PostDetailComponent implements OnInit {
               this.post = res;
               // comment.userVote = vote;
           });
-      console.log(comment.votes)
   }
 
   /**
