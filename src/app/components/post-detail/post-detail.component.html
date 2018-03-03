@@ -88,14 +88,14 @@
     <div *ngFor="let comment of post.comments" class="card mb-2 p-3">
       <div class="row no-gutters">
         <div class="col-1 mx-auto" style="font-size: 15pt">
-          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up">
-                <!--[ngClass]="{'upvoted': (userVote === 1)}"-->
-                <!--(click)="voteOnPost(1)">-->
+          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
+                [ngClass]="{'upvoted': (getVotedComment(comment) === 1)}"
+                (click)="voteOnComment(1, comment)">
           </span>
           <span class="row center-block" style="font-size: 10pt;">{{comment.score}}</span>
-          <span class="fa fa-caret-down row center-block vote-caret vote-caret-down">
-                <!--[ngClass]="{'downvoted': (userVote === -1)}"-->
-                <!--(click)="voteOnPost(-1)">-->
+          <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
+                [ngClass]="{'downvoted': (getVotedComment(comment) === -1)}"
+                (click)="voteOnComment(-1, comment)">
           </span>
         </div>
         <div class="media col-11 ">

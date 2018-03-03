@@ -6,4 +6,5 @@ export class Comment {
   score: number;
   date: Date;
   author: User;
+  votes: [ { user: String, vote: Number } ];
 }
