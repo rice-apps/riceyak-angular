@@ -72,14 +72,14 @@ export class PostService {
   }
 
   getReportedPosts(): Promise<any> {
-    return this.http.get(`${this.apiUrl}/reports/posts`, this.jwt())
+    return this.http.get(`${this.apiUrl}/reports`, this.jwt())
       .toPromise()
       .then(res => res.json() as Post[])
       .catch(err => console.log(err));
   }
 
   postReport(post_id: string, reason: string): Promise<any> {
-    return this.http.post(`${this.apiUrl}/reports/posts`, this.jwt())
+    return this.http.post(`${this.apiUrl}/reports`, this.jwt())
       .toPromise()
       .then(res => res.json())
       .catch(err => console.log(err));
