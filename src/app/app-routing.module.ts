@@ -3,6 +3,7 @@ import {Routes, RouterModule} from "@angular/router";
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 import {AuthComponent} from "./components/auth/auth.component";
 import {PostsComponent} from "./components/posts/posts.component";
+import { AdminComponent } from "./components/admin/admin.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {PostDetailComponent} from "./components/post-detail/post-detail.component";
 
@@ -15,6 +16,11 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent
+  },
+
+  {
+    path: 'admin',
+    component: AdminComponent
   },
 
   {
