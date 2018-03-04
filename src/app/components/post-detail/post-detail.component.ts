@@ -127,9 +127,10 @@ export class PostDetailComponent implements OnInit {
     }
 
     /**
-     * Report this post*/
-     postReport(reason: string) {
-    this.postService.postReport(this.post._id, reason)
-        .then(post => this.post = post);
-  }
-     }
+     * Report this post
+     */
+    postReport(reason: string) {
+        this.postService.postReport(this.post._id, reason)
+            .then(post => this.post = post);
+    }
+}

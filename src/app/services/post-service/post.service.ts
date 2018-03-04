@@ -79,7 +79,7 @@ export class PostService {
   }
 
   postReport(post_id: string, reason: string): Promise<any> {
-    return this.http.post(`${this.apiUrl}/reports`, this.jwt())
+    return this.http.post(`${this.apiUrl}/reports`, reason, this.jwt())
       .toPromise()
       .then(res => res.json())
       .catch(err => console.log(err));
