@@ -55,3 +55,6 @@
   padding: 5px;
   margin: 7px;
 }
+.nav>li>a>span{
+    margin-left: 15px;
+}

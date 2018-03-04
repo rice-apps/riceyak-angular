@@ -11,4 +11,5 @@ export class Post {
   author: User;
   votes: [ { user: String, vote: Number } ];
   reacts: {};
+  reactCounts: {}
 }

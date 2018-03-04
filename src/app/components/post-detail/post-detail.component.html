@@ -76,8 +76,8 @@
                     </div>
                     <div class="col-6 text-right">
                         <ul class="nav nav-pills justify-content-sm-end">
-                            <li class="nav-item" *ngFor="let key of objectKeys(reacts)">
-                                <a class="nav-link"  (click)="changeReact(key)" [ngClass] = "{'active': (userReact == key)}"><i class="em {{reacts[key]}}"></i></a>
+                            <li class="nav-item" *ngFor="let key of objectKeys(post.reactCounts)">
+                                <a class="nav-link"  (click)="changeReact(key)" [ngClass] = "{'active': (userReact == key)}"><i class="em {{reactCss[key]}}"></i><span class="badge">{{post.reactCounts[key]}}</span></a>
                             </li>
                         </ul>
                         <!-- <small class="text-muted">{{post.date | date: short}}</small> -->

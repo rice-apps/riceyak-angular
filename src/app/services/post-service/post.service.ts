@@ -13,12 +13,7 @@ export class PostService {
 
   reacts: Object;
 
-  constructor(private http: Http) {
-    this.http.get(`${this.apiUrl}/posts/react/retrieve`, this.jwt())
-        .toPromise()
-        .then(res => this.reacts = res.json())
-        .catch(err => console.log(err));
-  }
+  constructor(private http: Http) {}
 
   private jwt() {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));

@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Comment} from "../../models/comment";
 import {User} from "../../models/user";
 import {Location} from '@angular/common';
+import {reactCss} from "../../models/react";
 
 @Component({
     selector: 'app-post-detail',
@@ -18,10 +19,7 @@ export class PostDetailComponent implements OnInit {
    */
   private post: Post;
 
-  /**
-   * The collection of reacts
-   **/
-   reacts: Object;
+  reactCss: Object;
   /**
    * The user's vote and react for this Post.
    */
@@ -50,7 +48,7 @@ export class PostDetailComponent implements OnInit {
     this.post = post;
     this.userVote = this.getVoted();
     this.userReact = this.getReacted()
-    this.reacts = this.postService.reacts;
+    this.reactCss = reactCss
 
     if (this.authService.userLoggedIn) {
 
@@ -117,10 +115,13 @@ export class PostDetailComponent implements OnInit {
 
   private changeReact(emote: string){
       if (this.userReact == emote){
+          this.post.reactCounts[this.userReact]-=1;
           this.userReact = null;
       }
       else{
+          if(this.userReact != null) this.post.reactCounts[this.userReact]-=1;
           this.userReact = emote;
+          this.post.reactCounts[emote]+=1;
       }
       this.postService.reactOnPost(this.post._id, emote);
   }
@@ -133,7 +134,7 @@ export class PostDetailComponent implements OnInit {
    */
   private getReacted() {
       const userID = this.authService.userLoggedIn.user.userID;
-      this.userReact = this.post.reacts.hasOwnProperty(userID) ? this.post.reacts[userID].name : null
+      this.userReact = this.post.reacts.hasOwnProperty(userID) ? this.post.reacts[userID] : null
       return this.userReact
   }
 }
