@@ -56,3 +56,10 @@
 .downvoted {
   color: #FF0000;
 }
+.nav>li>a {
+  padding: 5px;
+  margin: 7px;
+}
+.nav>li>a>span{
+  margin-left: 15px;
+}

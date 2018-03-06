@@ -126,9 +126,6 @@ export class PostDetailComponent implements OnInit {
       this.postService.reactOnPost(this.post._id, emote);
   }
 
-  objectKeys(obj: Object){
-      return Object.keys(obj)
-  }
   /**
    * Returns the user's react
    */
@@ -137,6 +134,10 @@ export class PostDetailComponent implements OnInit {
       this.userReact = this.post.reacts.hasOwnProperty(userID) ? this.post.reacts[userID] : null
       return this.userReact
   }
+
+  objectKeys(obj: Object){
+      return Object.keys(obj)
+    }
 }
 
 

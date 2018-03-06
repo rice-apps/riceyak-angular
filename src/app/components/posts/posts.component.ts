@@ -3,6 +3,7 @@ import {Post} from "../../models/post";
 import {PostService} from "../../services/post-service/post.service";
 import {Router} from "@angular/router";
 import { AuthService } from '../../services/auth-service/auth.service';
+import {reactCss} from "../../models/react";
 
 @Component({
     selector: 'app-posts',
@@ -20,12 +21,13 @@ export class PostsComponent implements OnInit {
    */
   userVotes: Object;
   userReacts: Object;
+  reactCounts: Object;
 
     /**
      *  get reacts map
      */
 
-  reacts: Object;
+  reactCss: Object;
   /**
    * Is true iff the page is loading posts.
    */
@@ -45,12 +47,13 @@ export class PostsComponent implements OnInit {
      * Gets all the posts, loads them into the array, and gets the user's vote
      * for each post.
      */
+    this.reactCss = reactCss
     this.postService.getPosts()
       .then(posts => {
         this.loading = false;
         this.posts = posts;
         this.getAllVotes();
-        this.reacts = this.postService.reacts;
+        this.getAllReacts();
       })
   }
 
@@ -87,10 +90,29 @@ export class PostsComponent implements OnInit {
 
   getAllReacts(){
     this.userReacts = {}
+    this.reactCounts = {}
     const userID = this.authService.userLoggedIn.user.userID
     this.posts.forEach(post => {
-        //const react = post.reac
+        const react = post.reacts.hasOwnProperty(userID) ? post.reacts[userID] : null
+        this.userReacts[post._id] = react;
+        this.reactCounts[post._id] = post.reactCounts;
     })
+  }
+  private changeReact(emote: string, post_id: string){
+      if (this.userReacts[post_id] === emote) {
+          this.reactCounts[post_id][emote] -= 1;
+          this.userReacts[post_id] = null;
+      }
+      else {
+          if (this.userReacts[post_id] != null) this.reactCounts[post_id][this.userReacts[post_id]] -= 1;
+          this.userReacts[post_id] = emote;
+          this.reactCounts[post_id][emote] += 1;
+      }
+      this.postService.reactOnPost(post_id, emote);
+    }
+
+  objectKeys(obj: Object){
+    return Object.keys(obj)
   }
 
 }
