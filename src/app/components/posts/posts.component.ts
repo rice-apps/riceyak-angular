@@ -41,7 +41,13 @@ export class PostsComponent implements OnInit {
    * for each post.
    */
   ngOnInit() {
-    $('#agreementModal').modal('show');
+    let curUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (curUser.user.isNew) {
+      $('#agreementModal').modal('show');
+      curUser.user.isNew = false;
+      localStorage.setItem('currentUser', JSON.stringify(curUser));
+    }
+
     this.postService.getPosts()
       .then(posts => {
         this.loading = false;
