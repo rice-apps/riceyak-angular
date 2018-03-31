@@ -15,6 +15,7 @@ import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TimeAgoPipe} from "time-ago-pipe";
+import {AdminComponent} from "./components/admin/admin.component";
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {TimeAgoPipe} from "time-ago-pipe";
     PostsComponent,
     NewPostComponent,
     PostDetailComponent,
-    TimeAgoPipe
+    TimeAgoPipe,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

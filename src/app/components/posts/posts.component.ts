@@ -3,6 +3,7 @@ import {Post} from "../../models/post";
 import {PostService} from "../../services/post-service/post.service";
 import {Router} from "@angular/router";
 import { AuthService } from '../../services/auth-service/auth.service';
+import {post} from "selenium-webdriver/http";
 
 @Component({
     selector: 'app-posts',
@@ -51,8 +52,17 @@ export class PostsComponent implements OnInit {
       .then(posts => {
         this.loading = false;
         this.posts = posts;
+        this.sortPost();
         this.getAllVotes();
       });
+  }
+  sortPost() {
+        this.posts.sort(function (a,b) {
+            var time1 = new Date(a.date).getTime();
+            var time2 = new Date(b.date).getTime();
+            var s = 100000000*(1/(Date.now()-time2)-1/(Date.now()-time1))+(b.score-a.score);
+            return s;
+        });
   }
 
   /**

@@ -22,12 +22,12 @@ export class PostService {
     }
   }
 
-  getPosts(): Promise<any> {
-    return this.http.get(`${this.apiUrl}/posts`, this.jwt())
-      .toPromise()
-      .then(res => res.json() as Post[])
-      .catch(err => console.log(err));
-  }
+    getPosts(): Promise<any> {
+      return this.http.get(`${this.apiUrl}/posts`, this.jwt())
+        .toPromise()
+        .then(res => res.json() as Post[])
+        .catch(err => console.log(err));
+    }
 
   postPost(title: string, body: string): Promise<any> {
     return this.http.post(`${this.apiUrl}/posts`, {title: title, body: body}, this.jwt())
