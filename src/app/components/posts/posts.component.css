@@ -1,13 +1,15 @@
 .post-container {
   width: 60%;
   margin:0 auto;
+  max-width: 750px;
 }
 
 .post-card {
   box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+  border: 3px solid rgba(0,0,0,.125);
 }
 
-.list-group{
+.list-group {
   max-height: 200px;
   overflow: auto;
 }
@@ -45,7 +47,7 @@
   -o-transition: transform 0.3s;
   transition: transform 0.3s;
   cursor: pointer;
-  color: gray;
+  color: lightgray;
 }
 
 .vote-caret-up:hover {
@@ -65,10 +67,9 @@
 }
 
 .upvoted {
-  color: #F2A32A;
+  color: #535353;
 }
 
 .downvoted {
-  color: #0D5CD5;
-
+  color: #535353;
 }
