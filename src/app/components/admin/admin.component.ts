@@ -13,18 +13,19 @@ import {Report} from "../../models/report";
 export class AdminComponent implements OnInit {
 
     reports: Report[];
+
     constructor(private postService: PostService,
-              private route: ActivatedRoute,
-              private authService: AuthService,
-              private router: Router) { }
+                private route: ActivatedRoute,
+                private authService: AuthService,
+                private router: Router) {
+    }
 
-  ngOnInit() {
-      this.route.params.subscribe(params => {
-          this.postService.getReportedPosts()
-              .then(report => {
-                  this.reports = report;
-              });
-      });
-  }
-
+    ngOnInit() {
+        this.route.params.subscribe(params => {
+            this.postService.getReportedPosts()
+                .then(report => {
+                    this.reports = report;
+                });
+        });
+    }
 }
