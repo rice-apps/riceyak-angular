@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
+import {Report} from "../../models/report";
 
 @Injectable()
 export class PostService {
@@ -83,5 +84,12 @@ export class PostService {
       .toPromise()
       .then(res => res.json())
       .catch(err => console.log(err));
+  }
+
+  postReportReview(result: boolean, report: Report): Promise<any>{
+    return this.http.put(`${this.apiUrl}/reports`, {result: result, report: report}, this.jwt())
+        .toPromise()
+        .then(res=>res.json())
+        .catch(err=>console.log(err));
   }
 }
