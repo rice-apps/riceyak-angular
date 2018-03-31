@@ -53,14 +53,22 @@
         <!-- Post text -->
         <div class="media col-11">
           <div class="media-body">
-            <div *ngIf="!isEdit; else postEditTemplate">
+
+            <!-- Editing is not currently supported -->
+
+            <!--<div *ngIf="!isEdit; else postEditTemplate">-->
+              <!--<h5 class="mt-0 mb-1">{{post.title}}</h5>-->
+              <!--<p>{{post.body}}</p>-->
+            <!--</div>-->
+            <!--<ng-template #postEditTemplate>-->
+              <!--<input class="form-control form-control-lg mb-2" [(ngModel)]="post.title">-->
+              <!--<textarea class="form-control" [(ngModel)]="post.body"></textarea>-->
+            <!--</ng-template>-->
+            
+            <div>
               <h5 class="mt-0 mb-1">{{post.title}}</h5>
               <p>{{post.body}}</p>
             </div>
-            <ng-template #postEditTemplate>
-              <input class="form-control form-control-lg mb-2" [(ngModel)]="post.title">
-              <textarea class="form-control" [(ngModel)]="post.body"></textarea>
-            </ng-template>
           </div>
           <img class="rounded ml-2" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
         </div>
@@ -69,23 +77,25 @@
 
     <!-- Post footer -->
     <div class="card-footer">
-      <!--<button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText, body.value)">Submit Changes</button>-->
-      <!--<button class="btn btn-primary" (click)="deletePost()">Delete</button>-->
-      <!--<button class="btn btn-primary" (click)="editPost()">Cancel Edit</button>-->
       <button *ngIf="!isMyPost" title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
         <i class="fa fa-exclamation-triangle"></i>
       </button>
       <button *ngIf="isMyPost && !isEdit" class="btn btn-sm btn-outline-danger pull-right ml-1" (click)="deletePost()">Delete</button>
-      <button *ngIf="!isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">Edit</button>
-      <button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-primary pull-right ml-1" (click)="submitChanges()">
-        Submit
-        <i *ngIf="!editLoading" class="fa fa-check"></i>
-        <i *ngIf="editLoading" class="fa fa-circle-o-notch fa-spin fa-fw spinner"></i>
-      </button>
-      <button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">
-        Cancel
-        <i class="fa fa-times"></i>
-      </button>
+
+      <!-- Editing is not currently supported -->
+
+      <!--<button *ngIf="!isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">Edit</button>-->
+      <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-primary pull-right ml-1" (click)="submitChanges()">-->
+        <!--Submit-->
+        <!--<i *ngIf="!editLoading" class="fa fa-check"></i>-->
+        <!--<i *ngIf="editLoading" class="fa fa-circle-o-notch fa-spin fa-fw spinner"></i>-->
+      <!--</button>-->
+      <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">-->
+        <!--Cancel-->
+        <!--<i class="fa fa-times"></i>-->
+      <!--</button>-->
+
+
       <small class="text-muted">{{post.date | timeAgo}}</small>
     </div>
   </div>
