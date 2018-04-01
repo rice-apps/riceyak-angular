@@ -1,14 +1,28 @@
 .post-container {
   width: 60%;
   margin:0 auto;
+  max-width: 750px;
 }
 
 .post-card {
   box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+  border: 3px solid rgba(0,0,0,.125);
+}
+
+.list-group {
+  max-height: 200px;
+  overflow: auto;
+}
+
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .avatar {
-  width: 50px;
+  max-width: 115%;
   height: auto;
   border-radius: 10px;
 }
@@ -21,6 +35,9 @@
   .post-container {
     width: 100%;
   }
+  .avatar{
+    max-width:140%;
+  }
 }
 
 .vote-caret {
@@ -30,7 +47,7 @@
   -o-transition: transform 0.3s;
   transition: transform 0.3s;
   cursor: pointer;
-  color: gray;
+  color: lightgray;
 }
 
 .vote-caret-up:hover {
@@ -50,11 +67,11 @@
 }
 
 .upvoted {
-  color: #0000FF;
+  color: #535353;
 }
 
 .downvoted {
-  color: #FF0000;
+  color: #535353;
 }
 .nav>li>a {
   padding: 5px;

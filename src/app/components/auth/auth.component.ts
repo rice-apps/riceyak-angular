@@ -19,6 +19,7 @@ export class AuthComponent implements OnInit {
 
           this.router.navigate(['/posts']);
         })
+
     })
   }
 

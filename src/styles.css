@@ -1,3 +1,25 @@
 .btn {
   cursor: pointer;
 }
+
+body {
+  background-color: rgb(245, 245, 245) !important;
+}
+
+.media-heading, .media-body > p, .media-body > span, .media-body {
+  word-break: break-all;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
+
+.post-card {
+  animation: fade-in 0.3s;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
