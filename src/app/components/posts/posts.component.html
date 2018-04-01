@@ -61,23 +61,19 @@
     </ul>
 
     <div class="card-footer">
-      <div class="row">
-        <div class="col-3">
-          <a [routerLink]="['/posts', post._id]" class="card-link">View</a>
-        </div>
-        <div class="col-3"></div>
-        <div class="col-6 text-right">
-          <ul class="nav nav-pills justify-content-sm-end">
-            <li class="nav-item" *ngFor="let key of objectKeys(reactCss)">
-              <a class="nav-link"  (click)="changeReact(key,post._id)" [ngClass] = "{'active': (userReacts[post._id] == key)}">
-                <i class="em {{reactCss[key]}}"></i>
-                <span class="badge">{{reactCounts[post._id][key]}}</span>
-              </a>
-            </li>
-          </ul>
-          <small class="text-muted">{{post.date | timeAgo}}</small>
-        </div>
-      </div>
+      <a [routerLink]="['/posts', post._id]" class="card-link">View</a>
+      <small class="text-muted pull-right">{{post.date | timeAgo}}</small>
+    </div>
+
+    <div class="card-footer">
+      <ul class="nav nav-pills justify-content-sm-end">
+        <li class="nav-item" *ngFor="let key of objectKeys(reactCss)">
+          <a class="nav-link"  (click)="changeReact(key,post._id)" [ngClass] = "{'active': (userReacts[post._id] == key)}">
+            <i class="em {{reactCss[key]}}"></i>
+            <span class="badge">{{reactCounts[post._id][key]}}</span>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

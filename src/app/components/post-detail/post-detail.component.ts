@@ -162,9 +162,9 @@ export class PostDetailComponent implements OnInit {
       return this.userReact
   }
 
-  objectKeys(obj: Object){
+  objectKeys(obj: Object) {
       return Object.keys(obj)
-    }
+  }
 }
 
 

@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Post} from "../../models/post";
 import {PostService} from "../../services/post-service/post.service";
-import {Router} from "@angular/router";
-import { AuthService } from '../../services/auth-service/auth.service';
+import {AuthService} from '../../services/auth-service/auth.service';
 import {reactCss} from "../../models/react";
 
 @Component({
-    selector: 'app-posts',
-    templateUrl: 'posts.component.html',
-    styleUrls: ['posts.component.css']
+  selector: 'app-posts',
+  templateUrl: 'posts.component.html',
+  styleUrls: ['posts.component.css']
 })
 export class PostsComponent implements OnInit {
   /**
@@ -23,9 +22,9 @@ export class PostsComponent implements OnInit {
   userReacts: Object;
   reactCounts: Object;
 
-    /**
-     *  get reacts map
-     */
+  /**
+   *  get reacts map
+   */
 
   reactCss: Object;
   /**
@@ -40,7 +39,8 @@ export class PostsComponent implements OnInit {
    */
   private voteLoading: boolean = false;
 
-  constructor(private postService: PostService, private authService: AuthService) { }
+  constructor(private postService: PostService, private authService: AuthService) {
+  }
 
   /**
    * Gets all the posts, loads them into the array, and gets the user's vote
@@ -66,12 +66,11 @@ export class PostsComponent implements OnInit {
   }
 
   sortPost() {
-        this.posts.sort(function (a,b) {
-            var time1 = new Date(a.date).getTime();
-            var time2 = new Date(b.date).getTime();
-            var s = 100000000*(1/(Date.now()-time2)-1/(Date.now()-time1))+(b.score-a.score);
-            return s;
-        });
+    this.posts.sort(function (a, b) {
+      let time1 = new Date(a.date).getTime();
+      let time2 = new Date(b.date).getTime();
+      return 100000000 * (1 / (Date.now() - time2) - 1 / (Date.now() - time1)) + (b.score - a.score);
+    });
   }
 
   /**
@@ -81,8 +80,8 @@ export class PostsComponent implements OnInit {
    * of what we expect it to be.
    */
   voteOnPost(post: Post, vote: number) {
-    if (post._id in this.userVotes && this.userVotes[post._id] == vote){
-        vote = 0;
+    if (post._id in this.userVotes && this.userVotes[post._id] == vote) {
+      vote = 0;
     }
     this.voteLoading = true;
     this.postService.voteOnPost(post._id, vote)
@@ -113,22 +112,25 @@ export class PostsComponent implements OnInit {
     this.reactCounts = {};
     const userID = this.authService.userLoggedIn.user.userID;
     this.posts.forEach(post => {
-        const react = post.reacts.hasOwnProperty(userID) ? post.reacts[userID] : null;
-        this.userReacts[post._id] = react;
-        this.reactCounts[post._id] = post.reactCounts;
+      this.userReacts[post._id] = post.reacts.hasOwnProperty(userID) ? post.reacts[userID] : null;
+      this.reactCounts[post._id] = post.reactCounts;
     })
   }
 
-  private changeReact(emote: string, post_id: string){
-      if (this.userReacts[post_id] === emote) {
-          this.reactCounts[post_id][emote] -= 1;
-          this.userReacts[post_id] = null;
-      }
-      else {
-          if (this.userReacts[post_id] != null) this.reactCounts[post_id][this.userReacts[post_id]] -= 1;
-          this.userReacts[post_id] = emote;
-          this.reactCounts[post_id][emote] += 1;
-      }
-      this.postService.reactOnPost(post_id, emote);
+  private changeReact(emote: string, post_id: string) {
+    if (this.userReacts[post_id] === emote) {
+      this.reactCounts[post_id][emote] -= 1;
+      this.userReacts[post_id] = null;
     }
+    else {
+      if (this.userReacts[post_id] != null) this.reactCounts[post_id][this.userReacts[post_id]] -= 1;
+      this.userReacts[post_id] = emote;
+      this.reactCounts[post_id][emote] += 1;
+    }
+    this.postService.reactOnPost(post_id, emote);
+  }
+
+  objectKeys(obj: Object) {
+    return Object.keys(obj)
+  }
 }

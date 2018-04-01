@@ -79,11 +79,7 @@
     <div class="card-footer">
       <div class="row">
         <div class="col-6 text-left">
-          <ul class="nav nav-pills justify-content-sm-end">
-            <li class="nav-item" *ngFor="let key of objectKeys(post.reactCounts)">
-              <a class="nav-link"  (click)="changeReact(key)" [ngClass] = "{'active': (userReact == key)}"><i class="em {{reactCss[key]}}"></i><span class="badge">{{post.reactCounts[key]}}</span></a>
-            </li>
-          </ul>
+
           <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
           <small class="text-muted">{{post.date | timeAgo}}</small>
         </div>
@@ -107,9 +103,16 @@
             <!--<i class="fa fa-times"></i>-->
           <!--</button>-->
 
-
-          <small class="text-muted">{{post.date | timeAgo}}</small>
         </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <ul class="nav nav-pills justify-content-sm-end">
+        <li class="nav-item" *ngFor="let key of objectKeys(post.reactCounts)">
+          <a class="nav-link"  (click)="changeReact(key)" [ngClass] = "{'active': (userReact == key)}"><i class="em {{reactCss[key]}}"></i><span class="badge">{{post.reactCounts[key]}}</span></a>
+        </li>
+      </ul>
     </div>
   </div>
 
