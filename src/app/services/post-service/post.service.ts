@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
@@ -71,6 +71,13 @@ export class PostService {
       .then(res => res.json() as Post)
       .catch(err => console.log(err));
   }
+
+    voteOnComment(comment_id: string, post_id: string, vote: number): Promise<any> {
+        return this.http.put(`${this.apiUrl}/posts/${post_id}/voteComment`, { vote: vote, comment_id:comment_id }, this.jwt())
+            .toPromise()
+            .then(res => res.json() as Comment)
+            .catch(err => console.log(err));
+    }
 
   getReportedPosts(): Promise<any> {
     return this.http.get(`${this.apiUrl}/reports`, this.jwt())

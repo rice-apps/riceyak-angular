@@ -3,6 +3,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Comment} from "../../models/comment";
 
 @Component({
   selector: 'app-post-detail',
@@ -104,12 +105,28 @@ export class PostDetailComponent implements OnInit {
             });
     }
 
+    voteOnComment(vote, comment) {
+        if (this.getVotedComment(comment) === vote) {
+            vote = 0;
+        }
+        this.postService.voteOnComment(comment._id, this.post._id, vote)
+            .then(res => {
+                this.post = res;
+                // comment.userVote = vote;
+        });
+    }
     /**
      * Returns the user's vote on Post.
      */
     getVoted() {
         const userID = this.authService.userLoggedIn.user.userID;
         const vote = this.post.votes.find(v => v.user === userID);
+        return vote ? vote.vote : 0;
+    }
+
+    getVotedComment(comment: Comment) {
+        const userID = this.authService.userLoggedIn.user.userID;
+        const vote = comment.votes.find(v => v.user === userID);
         return vote ? vote.vote : 0;
     }
 
