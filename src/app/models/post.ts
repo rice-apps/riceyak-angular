@@ -10,6 +10,7 @@ export class Post {
   comments: Comment[];
   author: User;
   votes: [ { user: String, vote: Number } ];
+  removed: boolean;
   reacts: {};
   reactCounts: {};
 }
