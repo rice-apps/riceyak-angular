@@ -1,111 +1,180 @@
-<div class="container post-container">
-    <a [routerLink]="['/posts']" class="btn btn-primary">Back to posts</a>
-    <div class="card mb-4 mt-3 post-card">
-        <div *ngIf="isEdit; else other_one">
-            <div class="card-header">
-                <div #fake_textarea  contenteditable>
-                    <h4>{{post.title}}</h4>
-                </div>
+<!-- Are you sure? Report modal-->
+<div class="modal fade" id="reportModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure you want to report this post?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <form role="form" #reportForm="ngForm" novalidate>
+                <div class="modal-body">
+                    <p>Reporting this post alerts the moderators. Your report will be reviewed shortly.</p>
+                    <input required placeholder="Tell us your reason for reporting this post..." id="reason"
+                           class="form-control mb-5" #reason>
+                    <small class="text-muted">Please note that abuse of this feature may result in a ban.</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" [disabled]="reportForm.form.invalid"
+                            (click)="postReport(reason.value)">Report post
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-            <div class="card-body">
-                <div class="row no-gutters">
-                    <div class="col-1" style="font-size: 20pt">
-                        <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
-                              [ngClass]="{'upvoted': (userVote === 1)}"
-                                (click)="voteOnPost(1)"></span>
-                        <span class="row center-block" style="font-size: 15pt; text-align: left">{{post.score}}</span>
-                        <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
-                              [ngClass]="{'downvoted': (userVote === -1)}"
-                              (click)="voteOnPost(-1)"></span>
-                    </div>
-                    <div class="col-10">
-                        <div class="form-group">
-                            <textarea #body type="email" class="form-control" id="commentInput" value = {{post.body}}></textarea>
+<!-- Centered loading spinner -->
+<div class="container post-container">
+    <div *ngIf="loading" class="row">
+        <div class="col-5"></div>
+        <div class="col-2"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw spinner"></i></div>
+        <div class="col-5"></div>
+    </div>
+</div>
+
+<div *ngIf="!loading" class="container post-container">
+
+    <!-- Post -->
+    <div class="card mb-4 post-card">
+        <div class="card-body">
+            <div class="row no-gutters">
+
+                <!-- Vote arrows -->
+                <div class="col-1 mx-auto" style="font-size: 20pt">
+          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
+                [ngClass]="{'upvoted': (userVote === 1)}"
+                (click)="voteOnPost(1)"></span>
+                    <span class="row center-block" style="font-size: 15pt;">{{post.score}}</span>
+                    <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
+                          [ngClass]="{'downvoted': (userVote === -1)}"
+                          (click)="voteOnPost(-1)"></span>
+                </div>
+
+                <!-- Post text -->
+                <div class="media col-11">
+                    <div class="media-body">
+
+                        <!-- Editing is not currently supported -->
+
+                        <!--<div *ngIf="!isEdit; else postEditTemplate">-->
+                        <!--<h5 class="mt-0 mb-1">{{post.title}}</h5>-->
+                        <!--<p>{{post.body}}</p>-->
+                        <!--</div>-->
+                        <!--<ng-template #postEditTemplate>-->
+                        <!--<input class="form-control form-control-lg mb-2" [(ngModel)]="post.title">-->
+                        <!--<textarea class="form-control" [(ngModel)]="post.body"></textarea>-->
+                        <!--</ng-template>-->
+
+                        <div>
+                            <h5 class="mt-0 mb-1">{{post.title}}</h5>
+                            <p>{{post.body}}</p>
                         </div>
                     </div>
-                    <div class="col-1">
-                        <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText,body.value)">Submit Changes</button>
-                    <button class="btn btn-primary" (click)="deletePost()">Delete</button>
-                    <button class="btn btn-primary" (click)="edit()">Cancel Edit</button>
-                    <div class="col-6 row text-right">
-                        <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
-                        <small class=" text-muted">{{post.date | timeAgo}}</small>
-                    </div>
+                    <img class="rounded ml-2" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
                 </div>
             </div>
         </div>
 
-        <ng-template #other_one>
-            <div class="card-header">
-                <h4>{{post.title}}</h4>
-            </div>
-            <div class="card-body">
-                <div class="row no-gutters">
-                    <div class="col-1" style="font-size: 20pt">
-                         <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
-                               [ngClass]="{'upvoted': (userVote === 1)}"
-                               (click)="voteOnPost(1)"></span>
-                        <span class="row center-block" style="font-size: 15pt; text-align: left">{{post.score}}</span>
-                        <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
-                              [ngClass]="{'downvoted': (userVote === -1)}"
-                              (click)="voteOnPost(-1)"></span>
-                    </div>
-                    <div class="col-10">
-                        <p class="card-text">{{post.body}}</p>
-                    </div>
-                    <div class="col-1">
-                        <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
-                    </div>
+        <!-- Post footer -->
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6 text-left">
+
+                    <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
+                    <small class="text-muted">{{post.date | timeAgo}}</small>
+
+                </div>
+
+                <div class="col-6">
+                    <button *ngIf="!isMyPost" title="Report this post"
+                            class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal"
+                            data-target="#reportModal">
+                        <i class="fa fa-exclamation-triangle"></i>
+                    </button>
+                    <button *ngIf="isMyPost && !isEdit" class="btn btn-sm btn-outline-danger pull-right ml-1"
+                            (click)="deletePost()">Delete
+                    </button>
+
+                    <!-- Editing is not currently supported -->
+
+                    <!--<button *ngIf="!isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">Edit</button>-->
+                    <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-primary pull-right ml-1" (click)="submitChanges()">-->
+                    <!--Submit-->
+                    <!--<i *ngIf="!editLoading" class="fa fa-check"></i>-->
+                    <!--<i *ngIf="editLoading" class="fa fa-circle-o-notch fa-spin fa-fw spinner"></i>-->
+                    <!--</button>-->
+                    <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">-->
+                    <!--Cancel-->
+                    <!--<i class="fa fa-times"></i>-->
+                    <!--</button>-->
+
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-6">
-                        <button *ngIf="isMyPost" class="btn btn-link btn-sm" (click)="deletePost()">Delete</button>
-                        <button *ngIf="isMyPost" class="btn btn-link btn-sm" (click)="edit()">Edit</button>
-                    </div>
-                    <div class="col-6 text-right">
-                        <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
-                        <small class="text-muted">{{post.date | timeAgo}}</small>
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </div>
-
-  <div class="card post-card mb-4">
-    <form class="mx-4 my-4">
-      <div class="form-group">
-        <textarea type="email" class="form-control" id="commentInput" placeholder="Share your thoughts..." rows='5' #text></textarea>
-      </div>
-      <button class="btn btn-primary" (click)="comment(text.value);text.value=''">Submit</button>
-    </form>
-  </div>
-
-  <div *ngFor="let comment of post.comments" class="card mb-1">
-    <div class="card-body">
-        <div class="row no-gutters">
-          <div class="col-1 mr-4">
-            <img class="avatar img-thumbnail" [src]="comment.author.avatar_url">
-          </div>
-          <div class="col-10">
-            <p class="card-text">{{comment.body}}</p>
-          </div>
         </div>
-        <div class="row">
-          <div class="col text-right">
-            <small class="text-muted">{{post.date | timeAgo}}</small>
-          </div>
+
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6">
+                    <a [routerLink]="['/posts']" class="card-link text-left">Back</a>
+                </div>
+                <div class="col-6">
+                    <ul class="nav nav-pills justify-content-sm-end" style="font-size: 15px;">
+                        <li class="nav-item" *ngFor="let key of objectKeys(post.reactCounts)">
+                            <a class="nav-link" (click)="changeReact(key)" [ngClass]="{'active': (userReact == key)}"><i
+                                    class="em {{reactCss[key]}}"></i><span
+                                    class="badge">{{post.reactCounts[key]}}</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
 
+    <!-- Comment form -->
+    <div class="card p-3 mb-4 post-card bg-light comment-card">
+        <div class="card">
+            <form class="mx-4 my-4">
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-sm" id="commentInput"
+                           placeholder="Write a comment..." #commentInput>
+                </div>
+                <button class="btn btn-sm btn-hover btn-primary pull-right"
+                        (click)="commentOnPost(commentInput.value); commentInput.value=''"
+                        (keyup.enter)="commentOnPost(commentInput.value); commentInput.value=''">
+                    Comment
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="card p-3 post-card mb-4 bg-light comment-card">
+        <small class="text-muted text-center" *ngIf="!post.comments.length">No comments yet</small>
+        <div *ngFor="let comment of post.comments" class="card mb-2 p-3">
+            <div class="row no-gutters">
+                <div class="col-1 mx-auto" style="font-size: 15pt">
+          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
+                [ngClass]="{'upvoted': (getVotedComment(comment) === 1)}"
+                (click)="voteOnComment(1, comment)">
+          </span>
+                    <span class="row center-block" style="font-size: 10pt;">{{comment.score}}</span>
+                    <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
+                          [ngClass]="{'downvoted': (getVotedComment(comment) === -1)}"
+                          (click)="voteOnComment(-1, comment)">
+          </span>
+                </div>
+                <div class="media col-11 ">
+                    <div class="media-body ">
+                        {{comment.body}}
+                    </div>
+                    <img class="rounded align-self-center" [src]="comment.author.avatar_url" width="32" height="32"
+                         alt="Avatar">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

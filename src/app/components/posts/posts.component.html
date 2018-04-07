@@ -1,5 +1,29 @@
+<!-- Terms agreement modal -->
+<div class="modal fade" id="agreementModal" tabindex="-1" role="dialog" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Terms and conditions</h5>
+      </div>
+      <div class="modal-body">
+        <p>By using this application, you are agreeing to the following rules.</p>
+        <ul>
+          <li>Be respectful of others at all times.</li>
+          <li>Do NOT use names. This is an anonymous service.</li>
+        </ul>
+        <p class="text-danger">Failure to follow the above will result in a ban.</p>
+        <p>Let's keep this place wholesome!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">I agree</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container post-container">
-  <app-new-post></app-new-post>
+  <!-- This adds a post object to the posts array after the new post has been submitted -->
+  <app-new-post (submitted)="reactCounts[$event._id] = {}; posts.unshift($event)"></app-new-post>
   <div *ngIf="loading" class="row">
     <div class="col-5"></div>
     <div class="col-2"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw spinner"></i></div>
@@ -10,37 +34,46 @@
     <!-- <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Little_Owl-2.jpg/220px-Little_Owl-2.jpg" alt="Card image cap"> -->
     <div class="card-body">
       <div class="row no-gutters">
-        <div class="col-1 ml-2" style="font-size: 20pt">
+        <div class="col-1 mx-auto" style="font-size: 20pt">
           <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
                 [ngClass]="{'upvoted': (userVotes[post._id] === 1)}"
                 (click)="voteOnPost(post, 1)"></span>
-          <span class="row center-block" style="font-size: 15pt; text-align: left">{{post.score}}</span>
+          <span class="row center-block" style="font-size: 15pt;">{{post.score}}</span>
           <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
                 [ngClass]="{'downvoted': (userVotes[post._id] === -1)}"
                 (click)="voteOnPost(post, -1)"></span>
         </div>
-        <div class="col-9">
-          <h4 class="mx-3">{{post.title}}</h4>
-          <p class="mx-3">{{post.body}}</p>
-        </div>
-        <div class="col-1 text-left">
-          <img class="avatar img-thumbnail" [src]="post.author.avatar_url">
+        <div class="media col-11">
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">{{post.title}}</h5>
+            {{post.body}}
+          </div>
+          <img class="rounded" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
         </div>
       </div>
     </div>
 
-      <ul class="list-group list-group-flush m-3">
-        <li *ngFor="let comment of post.comments" class="list-group-item">{{comment.body}}</li>
-      </ul>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item py-2 text-muted" style="border-top: none;">{{post.comments.length}} comments</li>
+      <li *ngFor="let commentOnPost of post.comments.slice(0, 5)" class="list-group-item py-2">
+        <small>{{commentOnPost.body}}</small>
+      </li>
+    </ul>
 
     <div class="card-footer">
-      <div class="row">
-        <div class="col-3">
-          <a [routerLink]="['/posts', post._id]" class="card-link">View</a>
-        </div>
-        <div class="col-6"></div>
-        <div class="col-3 text-right"><small class="text-muted">{{post.date | timeAgo}}</small></div>
-      </div>
+      <a [routerLink]="['/posts', post._id]" class="card-link">View</a>
+      <small class="text-muted pull-right">{{post.date | timeAgo}}</small>
+    </div>
+
+    <div class="card-footer">
+    <ul class="nav nav-pills justify-content-sm-end" style="font-size: 12px;">
+        <li class="nav-item" *ngFor="let key of objectKeys(reactCss)">
+          <a class="nav-link"  (click)="changeReact(key,post._id)" [ngClass] = "{'active': (userReacts[post._id] == key)}">
+            <i class="em {{reactCss[key]}}"></i>
+            <span class="badge">{{reactCounts[post._id][key]}}</span>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

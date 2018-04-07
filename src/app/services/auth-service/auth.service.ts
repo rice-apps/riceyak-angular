@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Http} from "@angular/http";
-import {Router} from "@angular/router";
-import {Observable, Subject, BehaviorSubject} from "rxjs";
-import {CONFIG} from "../../config";
+import {Http} from '@angular/http';
+import {Router} from '@angular/router';
+import {Observable, Subject, BehaviorSubject} from 'rxjs';
+import {CONFIG} from '../../config';
 
 @Injectable()
 export class AuthService {
@@ -11,13 +11,16 @@ export class AuthService {
 
   public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  public loggedInUserID: Subject<any> = new Subject();
+  public loggedInUser: Subject<any> = new Subject<any>();
 
   constructor(private http: Http, private router: Router) {
-    if (localStorage.getItem('currentUser')) {
+    const usr = localStorage.getItem('currentUser');
+    if (usr) {
       this.loggedIn.next(true);
+      this.loggedInUser.next(usr);
     } else {
       this.loggedIn.next(false);
+      this.loggedInUser.next({});
     }
   }
 
@@ -25,14 +28,13 @@ export class AuthService {
     return this.http.get(`${this.apiUrl}/auth?ticket=${ticket}`)
       .toPromise()
       .then(res => {
-        let result = res.json();
+        const result = res.json();
         if (result && result.success) {
           localStorage.setItem('currentUser', JSON.stringify(result));
-
           this.loggedIn.next(true);
-
+          this.userLoggedIn.next(result);
         } else {
-          console.log("Authentication failed")
+          console.log('Authentication failed');
         }
       })
       .catch(err => console.log(err));
@@ -43,7 +45,7 @@ export class AuthService {
       localStorage.removeItem('currentUser');
       this.loggedIn.next(false);
       this.router.navigate(['/']);
-      return resolve("Logged out");
+      return resolve('Logged out');
     });
 
   }
@@ -58,11 +60,21 @@ export class AuthService {
   }
 
   get userLoggedIn() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser) {
       return currentUser;
     } else {
       return null;
     }
+  }
+
+  get userLoggedInAsync() {
+    const usr = localStorage.getItem('currentUser');
+    if (usr) {
+      this.loggedInUser.next(usr);
+    } else {
+      this.loggedInUser.next({});
+    }
+    return this.loggedInUser.asObservable();
   }
 }

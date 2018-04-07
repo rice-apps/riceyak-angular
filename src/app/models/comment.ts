@@ -1,4 +1,4 @@
-import {User} from "./user";
+import {User} from './user';
 
 export class Comment {
   _id: string;
@@ -6,4 +6,5 @@ export class Comment {
   score: number;
   date: Date;
   author: User;
+  votes: [ { user: String, vote: Number } ];
 }

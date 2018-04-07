@@ -1,0 +1,16 @@
+<div class = "container post-container">
+    <div class = "card mb-4 post-card" *ngFor="let report of reports">
+        <div class = "card-body" >
+       <p> reason: {{report.reason}}</p>
+        <p>reviewed: {{report.reviewed}}</p>
+            <p>review result: {{report.post.removed}}</p>
+            <div class = "card my-4">
+            <div class = "card-body">
+                <p *ngIf="report.post">title:{{report.post.title}}</p>
+                <p *ngIf="report.post">body:{{report.post.body}}</p>
+            </div></div>
+        <button type="button" class="btn btn-outline-secondary" (click)="ReportReviewed(true, report)">Good Post</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="ReportReviewed(false, report)">Bad Post</button>
+        </div>
+    </div>
+</div>
