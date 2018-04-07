@@ -3,18 +3,23 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <h5 class="modal-title">Are you sure you want to report this post?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+      <form role="form" #reportForm="ngForm" novalidate>
+        <div class="modal-body">
+          <p>Reporting this post alerts the moderators. Your report will be reviewed shortly.</p>
+            <input required placeholder="Tell us your reason for reporting this post..." id="reason" class="form-control mb-5" #reason>
+          <small class="text-muted">Please note that abuse of this feature may result in a ban.</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" [disabled]="reportForm.form.invalid"
+                  (click)="postReport(reason.value)">Report post</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
@@ -34,6 +39,8 @@
   <div class="card mb-4 post-card">
     <div class="card-body">
       <div class="row no-gutters">
+
+        <!-- Vote arrows -->
         <div class="col-1 mx-auto" style="font-size: 20pt">
           <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
                 [ngClass]="{'upvoted': (userVote === 1)}"
@@ -43,25 +50,53 @@
                 [ngClass]="{'downvoted': (userVote === -1)}"
                 (click)="voteOnPost(-1)"></span>
         </div>
+
+        <!-- Post text -->
         <div class="media col-11">
           <div class="media-body">
-            <h5 class="mt-0 mb-1">{{post.title}}</h5>
-            {{post.body}}
+
+            <!-- Editing is not currently supported -->
+
+            <!--<div *ngIf="!isEdit; else postEditTemplate">-->
+              <!--<h5 class="mt-0 mb-1">{{post.title}}</h5>-->
+              <!--<p>{{post.body}}</p>-->
+            <!--</div>-->
+            <!--<ng-template #postEditTemplate>-->
+              <!--<input class="form-control form-control-lg mb-2" [(ngModel)]="post.title">-->
+              <!--<textarea class="form-control" [(ngModel)]="post.body"></textarea>-->
+            <!--</ng-template>-->
+
+            <div>
+              <h5 class="mt-0 mb-1">{{post.title}}</h5>
+              <p>{{post.body}}</p>
+            </div>
           </div>
-          <img class="rounded" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
+          <img class="rounded ml-2" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
         </div>
       </div>
     </div>
 
     <!-- Post footer -->
     <div class="card-footer">
-      <!--<button class="btn btn-primary" (click)="submitChanges(fake_textarea.innerText, body.value)">Submit Changes</button>-->
-      <!--<button class="btn btn-primary" (click)="deletePost()">Delete</button>-->
-      <!--<button class="btn btn-primary" (click)="editPost()">Cancel Edit</button>-->
-      <button title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
+      <button *ngIf="!isMyPost" title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
         <i class="fa fa-exclamation-triangle"></i>
       </button>
-      <button class="btn btn-sm btn-outline-secondary pull-right">Edit</button>
+      <button *ngIf="isMyPost && !isEdit" class="btn btn-sm btn-outline-danger pull-right ml-1" (click)="deletePost()">Delete</button>
+
+      <!-- Editing is not currently supported -->
+
+      <!--<button *ngIf="!isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">Edit</button>-->
+      <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-primary pull-right ml-1" (click)="submitChanges()">-->
+        <!--Submit-->
+        <!--<i *ngIf="!editLoading" class="fa fa-check"></i>-->
+        <!--<i *ngIf="editLoading" class="fa fa-circle-o-notch fa-spin fa-fw spinner"></i>-->
+      <!--</button>-->
+      <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">-->
+        <!--Cancel-->
+        <!--<i class="fa fa-times"></i>-->
+      <!--</button>-->
+
+
       <small class="text-muted">{{post.date | timeAgo}}</small>
     </div>
   </div>
@@ -88,13 +123,13 @@
     <div *ngFor="let comment of post.comments" class="card mb-2 p-3">
       <div class="row no-gutters">
         <div class="col-1 mx-auto" style="font-size: 15pt">
-          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
+          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up">
                 [ngClass]="{'upvoted': (getVotedComment(comment) === 1)}"
                 (click)="voteOnComment(1, comment)">
           </span>
           <span class="row center-block" style="font-size: 10pt;">{{comment.score}}</span>
-          <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
-                [ngClass]="{'downvoted': (getVotedComment(comment) === -1)}"
+          <span class="fa fa-caret-down row center-block vote-caret vote-caret-down">
+                < [ngClass]="{'downvoted': (getVotedComment(comment) === -1)}"
                 (click)="voteOnComment(-1, comment)">
           </span>
         </div>
