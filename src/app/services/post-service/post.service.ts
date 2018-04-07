@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
@@ -10,6 +10,8 @@ export class PostService {
   private apiUrl: string = CONFIG.api_url;
 
   constructor(private http: Http) {}
+
+  reacts: Object;
 
   /**
    * Creates headers with the user's access token. We attach these headers to each request.
@@ -72,6 +74,13 @@ export class PostService {
       .catch(err => console.log(err));
   }
 
+    voteOnComment(comment_id: string, post_id: string, vote: number): Promise<any> {
+        return this.http.put(`${this.apiUrl}/posts/${post_id}/voteComment`, { vote: vote, comment_id:comment_id }, this.jwt())
+            .toPromise()
+            .then(res => res.json() as Comment)
+            .catch(err => console.log(err));
+    }
+
   getReportedPosts(): Promise<any> {
     return this.http.get(`${this.apiUrl}/reports`, this.jwt())
       .toPromise()
@@ -91,5 +100,12 @@ export class PostService {
         .toPromise()
         .then(res=>res.json())
         .catch(err=>console.log(err));
+  }
+
+  reactOnPost(post_id: string, react: string): Promise<any>{
+   return this.http.put(`${this.apiUrl}/posts/${post_id}/reacts`, {react: react}, this.jwt())
+       .toPromise()
+       .then(res => res.json() as Post)
+       .catch(err => console.log(err));
   }
 }
