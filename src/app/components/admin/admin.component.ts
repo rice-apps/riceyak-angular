@@ -23,9 +23,17 @@ export class AdminComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.postService.getReportedPosts()
-                .then(report => {
-                    this.reports = report;
+                .then(reports => {
+                    this.reports = reports;
                 });
         });
+    }
+
+    /**
+     * Mark a report as reviewed
+     */
+    ReportReviewed(result: boolean, report: Report){
+        this.postService.postReportReview(result, report)
+            .then(reports=>this.reports=reports)
     }
 }
