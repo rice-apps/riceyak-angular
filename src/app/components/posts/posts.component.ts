@@ -30,14 +30,14 @@ export class PostsComponent implements OnInit {
   /**
    * Is true iff the page is loading posts.
    */
-  private loading = true;
+  loading = true;
 
   /**
    * Is true iff the page is voting.
    * TODO: Use this value to animate pagewide vote loading, or create a new
    * value for a per-post voting basis.
    */
-  private voteLoading = false;
+  voteLoading = false;
 
   constructor(private postService: PostService, private authService: AuthService) {
   }

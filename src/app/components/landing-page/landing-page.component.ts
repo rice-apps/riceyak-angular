@@ -8,7 +8,7 @@ import {CONFIG} from '../../config';
 })
 export class LandingPageComponent implements OnInit {
 
-  private authUrl = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
+  authUrl = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
 
   constructor() { }
 
