@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../services/auth-service/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {AuthService} from '../../services/auth-service/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -18,9 +18,9 @@ export class AuthComponent implements OnInit {
         .then(() => {
 
           this.router.navigate(['/posts']);
-        })
+        });
 
-    })
+    });
   }
 
 }

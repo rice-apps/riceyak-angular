@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service/auth.service';
-import {PostService} from "../../services/post-service/post.service";
-import {Post} from "../../models/post";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Report} from "../../models/report";
+import {PostService} from '../../services/post-service/post.service';
+import {Post} from '../../models/post';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Report} from '../../models/report';
 
 @Component({
     selector: 'app-admin',

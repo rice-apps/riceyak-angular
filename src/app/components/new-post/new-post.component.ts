@@ -1,7 +1,7 @@
 import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {PostService} from "../../services/post-service/post.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {PostService} from '../../services/post-service/post.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-new-post',
@@ -13,10 +13,11 @@ export class NewPostComponent implements OnInit {
   @Output() submitted = new EventEmitter<any>();
 
   newPostForm: FormGroup;
-  loading: boolean = false;
-  submitButtonText: String = "Post!";
+  loading = false;
+  submitButtonText: String = 'Post!';
 
-  constructor(private postService: PostService, private fb: FormBuilder, private router: Router) { }
+  constructor(private postService: PostService, private fb: FormBuilder, private router: Router) {
+  }
 
   ngOnInit() {
     this.newPostForm = this.fb.group({
@@ -27,7 +28,7 @@ export class NewPostComponent implements OnInit {
 
   postPost() {
     this.loading = true;
-    this.submitButtonText = "Submitting...";
+    this.submitButtonText = 'Submitting...';
     this.postService.postPost(this.newPostForm.value['title'], this.newPostForm.value['body'])
       .then((post) => {
         this.loading = false;

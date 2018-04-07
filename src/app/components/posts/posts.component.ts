@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Post} from "../../models/post";
-import {PostService} from "../../services/post-service/post.service";
+import {Post} from '../../models/post';
+import {PostService} from '../../services/post-service/post.service';
 import {AuthService} from '../../services/auth-service/auth.service';
-import {reactCss} from "../../models/react";
+import {reactCss} from '../../models/react';
 
 @Component({
   selector: 'app-posts',
@@ -30,14 +30,14 @@ export class PostsComponent implements OnInit {
   /**
    * Is true iff the page is loading posts.
    */
-  private loading: boolean = true;
+  private loading = true;
 
   /**
    * Is true iff the page is voting.
    * TODO: Use this value to animate pagewide vote loading, or create a new
    * value for a per-post voting basis.
    */
-  private voteLoading: boolean = false;
+  private voteLoading = false;
 
   constructor(private postService: PostService, private authService: AuthService) {
   }
@@ -47,7 +47,7 @@ export class PostsComponent implements OnInit {
    * for each post.
    */
   ngOnInit() {
-    let curUser = JSON.parse(localStorage.getItem('currentUser'));
+    const curUser = JSON.parse(localStorage.getItem('currentUser'));
     if (curUser.user.isNew) {
       $('#agreementModal').modal('show');
       curUser.user.isNew = false;
@@ -67,8 +67,8 @@ export class PostsComponent implements OnInit {
 
   sortPost() {
     this.posts.sort(function (a, b) {
-      let time1 = new Date(a.date).getTime();
-      let time2 = new Date(b.date).getTime();
+      const time1 = new Date(a.date).getTime();
+      const time2 = new Date(b.date).getTime();
       return 100000000 * (1 / (Date.now() - time2) - 1 / (Date.now() - time1)) + (b.score - a.score);
     });
   }
@@ -87,7 +87,7 @@ export class PostsComponent implements OnInit {
     this.postService.voteOnPost(post._id, vote)
       .then(newPost => {
         this.voteLoading = false;
-        let idx = this.posts.findIndex(p => p._id === newPost._id);
+        const idx = this.posts.findIndex(p => p._id === newPost._id);
         this.posts[idx] = newPost;
         this.userVotes[newPost._id] = vote;
         // TODO: Use the actual vote in newPost
@@ -114,7 +114,7 @@ export class PostsComponent implements OnInit {
     this.posts.forEach(post => {
       this.userReacts[post._id] = post.reacts.hasOwnProperty(userID) ? post.reacts[userID] : null;
       this.reactCounts[post._id] = post.reactCounts;
-    })
+    });
   }
 
   private changeReact(emote: string, post_id: string) {
@@ -131,6 +131,6 @@ export class PostsComponent implements OnInit {
   }
 
   objectKeys(obj: Object) {
-    return Object.keys(obj)
+    return Object.keys(obj);
   }
 }

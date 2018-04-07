@@ -1,5 +1,5 @@
-import {User} from "./user";
-import {Post} from "./post";
+import {User} from './user';
+import {Post} from './post';
 
 export class Report {
     reason: string;

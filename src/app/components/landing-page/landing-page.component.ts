@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CONFIG} from "../../config";
+import {CONFIG} from '../../config';
 
 @Component({
   selector: 'app-landing-page',
@@ -8,7 +8,7 @@ import {CONFIG} from "../../config";
 })
 export class LandingPageComponent implements OnInit {
 
-  private authUrl: string = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
+  private authUrl = `${CONFIG.cas_auth_url}?service=${CONFIG.service_url}`;
 
   constructor() { }
 

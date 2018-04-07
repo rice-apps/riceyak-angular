@@ -1,5 +1,5 @@
-import { Comment } from "./comment";
-import {User} from "./user";
+import { Comment } from './comment';
+import {User} from './user';
 
 export class Post {
   _id: string;
@@ -11,5 +11,5 @@ export class Post {
   author: User;
   votes: [ { user: String, vote: Number } ];
   reacts: {};
-  reactCounts: {}
+  reactCounts: {};
 }

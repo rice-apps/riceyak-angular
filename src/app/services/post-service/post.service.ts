@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {Http, RequestOptions, Headers} from "@angular/http";
-import {CONFIG} from "../../config";
-import {Post} from "../../models/post";
-import {Report} from "../../models/report";
+import {Http, RequestOptions, Headers} from '@angular/http';
+import {CONFIG} from '../../config';
+import {Post} from '../../models/post';
+import {Report} from '../../models/report';
 
 @Injectable()
 export class PostService {
@@ -18,9 +18,9 @@ export class PostService {
    * @returns {RequestOptions}
    */
   private jwt(): RequestOptions {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.user.token) {
-      let headers = new Headers({'x-access-token': currentUser.user.token});
+      const headers = new Headers({'x-access-token': currentUser.user.token});
       return new RequestOptions({headers: headers});
     }
   }
@@ -75,7 +75,7 @@ export class PostService {
   }
 
     voteOnComment(comment_id: string, post_id: string, vote: number): Promise<any> {
-        return this.http.put(`${this.apiUrl}/posts/${post_id}/voteComment`, { vote: vote, comment_id:comment_id }, this.jwt())
+        return this.http.put(`${this.apiUrl}/posts/${post_id}/voteComment`, { vote: vote, comment_id: comment_id }, this.jwt())
             .toPromise()
             .then(res => res.json() as Comment)
             .catch(err => console.log(err));
@@ -98,8 +98,8 @@ export class PostService {
   postReportReview(result: boolean, report: Report): Promise<any>{
     return this.http.put(`${this.apiUrl}/reports`, {result: result, report: report}, this.jwt())
         .toPromise()
-        .then(res=>res.json())
-        .catch(err=>console.log(err));
+        .then(res => res.json())
+        .catch(err => console.log(err));
   }
 
   reactOnPost(post_id: string, react: string): Promise<any>{
