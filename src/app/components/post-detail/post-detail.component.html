@@ -78,26 +78,45 @@
 
     <!-- Post footer -->
     <div class="card-footer">
-      <button *ngIf="!isMyPost" title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
-        <i class="fa fa-exclamation-triangle"></i>
-      </button>
-      <button *ngIf="isMyPost && !isEdit" class="btn btn-sm btn-outline-danger pull-right ml-1" (click)="deletePost()">Delete</button>
+      <div class="row">
+        <div class="col-6 text-left">
 
-      <!-- Editing is not currently supported -->
+          <a [routerLink]="['/posts']" class="card-link">Back</a>
+          <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
+          <small class="text-muted">{{post.date | timeAgo}}</small>
 
-      <!--<button *ngIf="!isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">Edit</button>-->
-      <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-primary pull-right ml-1" (click)="submitChanges()">-->
-        <!--Submit-->
-        <!--<i *ngIf="!editLoading" class="fa fa-check"></i>-->
-        <!--<i *ngIf="editLoading" class="fa fa-circle-o-notch fa-spin fa-fw spinner"></i>-->
-      <!--</button>-->
-      <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">-->
-        <!--Cancel-->
-        <!--<i class="fa fa-times"></i>-->
-      <!--</button>-->
+        </div>
 
+        <div class="col-6">
+          <button *ngIf="!isMyPost" title="Report this post" class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal" data-target="#reportModal">
+            <i class="fa fa-exclamation-triangle"></i>
+          </button>
+          <button *ngIf="isMyPost && !isEdit" class="btn btn-sm btn-outline-danger pull-right ml-1" (click)="deletePost()">Delete</button>
 
-      <small class="text-muted">{{post.date | timeAgo}}</small>
+          <!-- Editing is not currently supported -->
+
+          <!--<button *ngIf="!isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">Edit</button>-->
+          <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-primary pull-right ml-1" (click)="submitChanges()">-->
+            <!--Submit-->
+            <!--<i *ngIf="!editLoading" class="fa fa-check"></i>-->
+            <!--<i *ngIf="editLoading" class="fa fa-circle-o-notch fa-spin fa-fw spinner"></i>-->
+          <!--</button>-->
+          <!--<button *ngIf="isEdit && isMyPost" class="btn btn-sm btn-outline-secondary pull-right" (click)="isEdit = !isEdit">-->
+            <!--Cancel-->
+            <!--<i class="fa fa-times"></i>-->
+          <!--</button>-->
+
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+
+      <ul class="nav nav-pills justify-content-sm-end">
+        <li class="nav-item" *ngFor="let key of objectKeys(post.reactCounts)">
+          <a class="nav-link"  (click)="changeReact(key)" [ngClass] = "{'active': (userReact == key)}"><i class="em {{reactCss[key]}}"></i><span class="badge">{{post.reactCounts[key]}}</span></a>
+        </li>
+      </ul>
     </div>
   </div>
 

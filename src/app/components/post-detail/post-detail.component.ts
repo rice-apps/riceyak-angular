@@ -5,75 +5,79 @@ import {Post} from "../../models/post";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Comment} from "../../models/comment";
 
+import {reactCss} from "../../models/react";
+
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.css']
 })
 export class PostDetailComponent implements OnInit {
-    @ViewChild('reportPopover') popover: ElementRef;
+  @ViewChild('reportPopover') popover: ElementRef;
 
-    /**
-     * The Post displayed in detail by the component.
-     */
-    post: Post;
+  /**
+   * The Post displayed in detail by the component.
+   */
+  post: Post;
 
-    /**
-     * The user's vote for this Post.
-     */
-    userVote: Number;
+  reactCss: Object;
+  /**
+   * The user's vote and react for this Post.
+   */
+  private userVote: Number;
+  private userReact: string;
+  /**
+   * Is true if the user created this post.
+   */
+  isMyPost: boolean = false;
 
-    /**
-     * Is true if the user created this post.
-     */
-    isMyPost: boolean = false;
+  /**
+   * True if the user has toggled the edit button 'on.'
+   */
+  isEdit: boolean = false;
 
-    /**
-     * True if the user has toggled the edit button 'on.'
-     */
-    isEdit: boolean = false;
+  /**
+   * True if the request to retrieve this post has not completed yet.
+   */
+  loading: boolean = true;
 
-    /**
-     * True if the request to retrieve this post has not completed yet.
-     */
-    loading: boolean = true;
+  editLoading: boolean = false;
 
-    editLoading: boolean = false;
+  constructor(private postService: PostService,
+              private route: ActivatedRoute,
+              private authService: AuthService,
+              private router: Router) {
+  }
 
-    constructor(private postService: PostService,
-                private route: ActivatedRoute,
-                private authService: AuthService,
-                private router: Router) {
-    }
-
-    /**
-     * Init lifecycle hook. Retrieves data.
-     */
-    ngOnInit() {
-        this.route.params.subscribe(params => {
-            this.postService.getPost(params['_id'])
-                .then(post => {
-                    this.initPostStatus(post);
-                    this.loading = false;
-                });
+  /**
+   * Init lifecycle hook. Retrieves data.
+   */
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.postService.getPost(params['_id'])
+        .then(post => {
+          this.initPostStatus(post);
+          this.loading = false;
         });
-    }
+    });
+  }
 
-    /**
-     * Helper fn for initializing the component.
-     * @param {Post} post - post object
-     */
-    initPostStatus(post: Post) {
-        this.post = post;
-        this.userVote = this.getVoted();
-        if (this.authService.userLoggedIn) {
-            this.isMyPost = this.authService.userLoggedIn.user.userID === this.post.author._id;
-        }
-        else {
-            this.isMyPost = false;
-        }
-    }
+  /**
+   * Helper fn for initializing the component.
+   * @param {Post} post - post object
+   */
+  initPostStatus(post: Post) {
+    this.post = post;
+    this.userVote = this.getVoted();
+    this.userReact = this.getReacted();
+    this.reactCss = reactCss;
 
+    if (this.authService.userLoggedIn) {
+      this.isMyPost = this.authService.userLoggedIn.user.userID === this.post.author._id;
+    } else {
+      this.isMyPost = false;
+    }
+  }
     /**
      * Deletes the post
      */
@@ -105,6 +109,14 @@ export class PostDetailComponent implements OnInit {
             });
     }
 
+    reactOnPost(post: Post, react: string){
+        this.userReact = react;
+        this.postService.reactOnPost(this.post._id, react)
+            .then(res => {
+                this.post = res;
+            });
+    }
+
     voteOnComment(vote, comment) {
         if (this.getVotedComment(comment) === vote) {
             vote = 0;
@@ -115,6 +127,7 @@ export class PostDetailComponent implements OnInit {
                 // comment.userVote = vote;
         });
     }
+
     /**
      * Returns the user's vote on Post.
      */
@@ -149,5 +162,31 @@ export class PostDetailComponent implements OnInit {
     postReport(reason: string) {
         this.postService.postReport(this.post._id, reason)
             .then(post => this.post = post);
+    }
+
+    private changeReact(emote: string){
+        if (this.userReact == emote){
+            this.post.reactCounts[this.userReact]-=1;
+            this.userReact = null;
+        }
+        else{
+            if(this.userReact != null) this.post.reactCounts[this.userReact]-=1;
+            this.userReact = emote;
+            this.post.reactCounts[emote]+=1;
+        }
+        this.postService.reactOnPost(this.post._id, emote);
+    }
+
+    /**
+     * Returns the user's react
+     */
+    private getReacted() {
+        const userID = this.authService.userLoggedIn.user.userID;
+        this.userReact = this.post.reacts.hasOwnProperty(userID) ? this.post.reacts[userID] : null
+        return this.userReact
+    }
+
+    objectKeys(obj: Object) {
+        return Object.keys(obj)
     }
 }

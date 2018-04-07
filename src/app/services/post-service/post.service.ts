@@ -11,6 +11,8 @@ export class PostService {
 
   constructor(private http: Http) {}
 
+  reacts: Object;
+
   /**
    * Creates headers with the user's access token. We attach these headers to each request.
    * @returns {RequestOptions}
@@ -98,5 +100,12 @@ export class PostService {
         .toPromise()
         .then(res=>res.json())
         .catch(err=>console.log(err));
+  }
+
+  reactOnPost(post_id: string, react: string): Promise<any>{
+   return this.http.put(`${this.apiUrl}/posts/${post_id}/reacts`, {react: react}, this.jwt())
+       .toPromise()
+       .then(res => res.json() as Post)
+       .catch(err => console.log(err));
   }
 }
