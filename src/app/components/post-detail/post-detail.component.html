@@ -81,7 +81,6 @@
       <div class="row">
         <div class="col-6 text-left">
 
-          <a [routerLink]="['/posts']" class="card-link">Back</a>
           <!-- <small class="text-muted">{{post.date | date: short}}</small> -->
           <small class="text-muted">{{post.date | timeAgo}}</small>
 
@@ -112,7 +111,8 @@
 
     <div class="card-footer">
 
-      <ul class="nav nav-pills justify-content-sm-end">
+      <a [routerLink]="['/posts']" class="card-link">Back</a>
+      <ul class="nav nav-pills justify-content-sm-end" style="font-size: 12px;">
         <li class="nav-item" *ngFor="let key of objectKeys(post.reactCounts)">
           <a class="nav-link"  (click)="changeReact(key)" [ngClass] = "{'active': (userReact == key)}"><i class="em {{reactCss[key]}}"></i><span class="badge">{{post.reactCounts[key]}}</span></a>
         </li>
