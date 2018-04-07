@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth-service/auth.service';
+import {PostService} from "../../services/post-service/post.service";
+import {Post} from "../../models/post";
+import {ActivatedRoute, Router} from "@angular/router";
+import {Report} from "../../models/report";
 
 @Component({
     selector: 'app-admin',
@@ -8,7 +12,20 @@ import { AuthService } from '../../services/auth-service/auth.service';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+    reports: Report[];
 
-  ngOnInit() { }
+    constructor(private postService: PostService,
+                private route: ActivatedRoute,
+                private authService: AuthService,
+                private router: Router) {
+    }
+
+    ngOnInit() {
+        this.route.params.subscribe(params => {
+            this.postService.getReportedPosts()
+                .then(report => {
+                    this.reports = report;
+                });
+        });
+    }
 }

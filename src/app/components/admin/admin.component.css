@@ -1,0 +1,16 @@
+.post-container {
+    width: 60%;
+    margin:0 auto;
+    max-width: 750px;
+}
+
+.post-card {
+    box-shadow: 0 10px 15px 0 rgba(136, 136, 136, 0.15);
+    border: 3px solid rgba(0,0,0,.125);
+}
+
+@media only screen and (max-width : 768px) {
+    .post-container {
+        width: 100%;
+    }
+}

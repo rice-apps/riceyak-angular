@@ -3,6 +3,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PostService} from "../../services/post-service/post.service";
 import {Post} from "../../models/post";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Comment} from "../../models/comment";
 
 import {reactCss} from "../../models/react";
 
@@ -73,98 +74,119 @@ export class PostDetailComponent implements OnInit {
 
     if (this.authService.userLoggedIn) {
       this.isMyPost = this.authService.userLoggedIn.user.userID === this.post.author._id;
-    }
-    else {
+    } else {
       this.isMyPost = false;
     }
   }
-
-  /**
-   * Deletes the post
-   */
-  deletePost() {
-    this.postService.deletePost(this.post._id)
-      .then(() => this.router.navigate(['/posts']));
-  }
-
-  /**
-   * Comments on the post
-   * @param {string} comment_entered
-   */
-  commentOnPost(comment_entered: string) {
-    this.postService.postComment(this.post._id, comment_entered)
-      .then(post => this.post = post);
-  }
-
-  /**
-   * Sends a request to change the user's vote to a given vote value.
-   */
-  voteOnPost(vote) {
-    if (this.userVote == vote) {
-      vote = 0;
+    /**
+     * Deletes the post
+     */
+    deletePost() {
+        this.postService.deletePost(this.post._id)
+            .then(() => this.router.navigate(['/posts']));
     }
-    this.postService.voteOnPost(this.post._id, vote)
-      .then(res => {
-        this.post = res;
-        this.userVote = vote;
-      });
-  }
 
-  reactOnPost(post: Post, react: string){
-      this.userReact = react;
-      this.postService.reactOnPost(this.post._id, react)
-          .then(res => {
-              this.post = res;
-          });
-  }
+    /**
+     * Comments on the post
+     * @param {string} comment_entered
+     */
+    commentOnPost(comment_entered: string) {
+        this.postService.postComment(this.post._id, comment_entered)
+            .then(post => this.post = post);
+    }
 
-  /**
-   * Returns the user's vote on Post.
-   */
-  getVoted() {
-    const userID = this.authService.userLoggedIn.user.userID;
-    const vote = this.post.votes.find(v => v.user === userID);
-    return vote ? vote.vote : 0;
-  }
+    /**
+     * Sends a request to change the user's vote to a given vote value.
+     */
+    voteOnPost(vote) {
+        if (this.userVote == vote) {
+            vote = 0;
+        }
+        this.postService.voteOnPost(this.post._id, vote)
+            .then(res => {
+                this.post = res;
+                this.userVote = vote;
+            });
+    }
 
-  /**
-   * Submits changes to the post.
-   */
-  submitChanges() {
-    this.post.title = this.post.title.trim();
-    this.editLoading = true;
-    this.postService.editPost(this.post._id, this.post)
-      .then(() => {
-        this.editLoading = false;
-        this.isEdit = !this.isEdit;
-      });
-  }
+    reactOnPost(post: Post, react: string){
+        this.userReact = react;
+        this.postService.reactOnPost(this.post._id, react)
+            .then(res => {
+                this.post = res;
+            });
+    }
 
-  private changeReact(emote: string){
-      if (this.userReact == emote){
-          this.post.reactCounts[this.userReact]-=1;
-          this.userReact = null;
-      }
-      else{
-          if(this.userReact != null) this.post.reactCounts[this.userReact]-=1;
-          this.userReact = emote;
-          this.post.reactCounts[emote]+=1;
-      }
-      this.postService.reactOnPost(this.post._id, emote);
-  }
+    voteOnComment(vote, comment) {
+        if (this.getVotedComment(comment) === vote) {
+            vote = 0;
+        }
+        this.postService.voteOnComment(comment._id, this.post._id, vote)
+            .then(res => {
+                this.post = res;
+                // comment.userVote = vote;
+        });
+    }
 
-  /**
-   * Returns the user's react
-   */
-  private getReacted() {
-      const userID = this.authService.userLoggedIn.user.userID;
-      this.userReact = this.post.reacts.hasOwnProperty(userID) ? this.post.reacts[userID] : null
-      return this.userReact
-  }
+    /**
+     * Returns the user's vote on Post.
+     */
+    getVoted() {
+        const userID = this.authService.userLoggedIn.user.userID;
+        const vote = this.post.votes.find(v => v.user === userID);
+        return vote ? vote.vote : 0;
+    }
 
-  objectKeys(obj: Object) {
-      return Object.keys(obj)
-  }
+    getVotedComment(comment: Comment) {
+        const userID = this.authService.userLoggedIn.user.userID;
+        const vote = comment.votes.find(v => v.user === userID);
+        return vote ? vote.vote : 0;
+    }
+
+    /**
+     * Submits changes to the post.
+     */
+    submitChanges() {
+        this.post.title = this.post.title.trim();
+        this.editLoading = true;
+        this.postService.editPost(this.post._id, this.post)
+            .then(() => {
+                this.editLoading = false;
+                this.isEdit = !this.isEdit;
+            });
+    }
+
+    /**
+     * Report this post
+     */
+    postReport(reason: string) {
+        this.postService.postReport(this.post._id, reason)
+            .then(post => this.post = post);
+    }
+
+    private changeReact(emote: string){
+        if (this.userReact == emote){
+            this.post.reactCounts[this.userReact]-=1;
+            this.userReact = null;
+        }
+        else{
+            if(this.userReact != null) this.post.reactCounts[this.userReact]-=1;
+            this.userReact = emote;
+            this.post.reactCounts[emote]+=1;
+        }
+        this.postService.reactOnPost(this.post._id, emote);
+    }
+
+    /**
+     * Returns the user's react
+     */
+    private getReacted() {
+        const userID = this.authService.userLoggedIn.user.userID;
+        this.userReact = this.post.reacts.hasOwnProperty(userID) ? this.post.reacts[userID] : null
+        return this.userReact
+    }
+
+    objectKeys(obj: Object) {
+        return Object.keys(obj)
+    }
 }
-
-

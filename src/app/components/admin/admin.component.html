@@ -1,1 +1,10 @@
-<div></div>
+<div class = "container post-container">
+    <div class = "card mb-4 post-card" *ngFor="let report of reports">
+        <div class = "card-body" *ngIf="!report.reviewed">
+       <p> reason:{{report.reason}}</p>
+        <p>reviewed:{{report.reviewed}}</p>
+        <p *ngIf="report.post">title:{{report.post.title}}</p>
+        <p *ngIf="report.post">body:{{report.post.body}}</p>
+        </div>
+    </div>
+</div>

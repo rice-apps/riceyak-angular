@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from "@angular/http";
 import {CONFIG} from "../../config";
 import {Post} from "../../models/post";
+import {Report} from "../../models/report";
 
 @Injectable()
 export class PostService {
@@ -73,18 +74,32 @@ export class PostService {
       .catch(err => console.log(err));
   }
 
+    voteOnComment(comment_id: string, post_id: string, vote: number): Promise<any> {
+        return this.http.put(`${this.apiUrl}/posts/${post_id}/voteComment`, { vote: vote, comment_id:comment_id }, this.jwt())
+            .toPromise()
+            .then(res => res.json() as Comment)
+            .catch(err => console.log(err));
+    }
+
   getReportedPosts(): Promise<any> {
-    return this.http.get(`${this.apiUrl}/reports/posts`, this.jwt())
+    return this.http.get(`${this.apiUrl}/reports`, this.jwt())
       .toPromise()
       .then(res => res.json() as Post[])
       .catch(err => console.log(err));
   }
 
   postReport(post_id: string, reason: string): Promise<any> {
-    return this.http.post(`${this.apiUrl}/reports/posts`, this.jwt())
+    return this.http.post(`${this.apiUrl}/reports`, {post_id: post_id, reason: reason}, this.jwt())
       .toPromise()
       .then(res => res.json())
       .catch(err => console.log(err));
+  }
+
+  postReportReview(result: boolean, report: Report): Promise<any>{
+    return this.http.put(`${this.apiUrl}/reports`, {result: result, report: report}, this.jwt())
+        .toPromise()
+        .then(res=>res.json())
+        .catch(err=>console.log(err));
   }
 
   reactOnPost(post_id: string, react: string): Promise<any>{

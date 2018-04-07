@@ -11,12 +11,13 @@
       <form role="form" #reportForm="ngForm" novalidate>
         <div class="modal-body">
           <p>Reporting this post alerts the moderators. Your report will be reviewed shortly.</p>
-            <input required placeholder="Tell us your reason for reporting this post..." class="form-control mb-5">
+            <input required placeholder="Tell us your reason for reporting this post..." id="reason" class="form-control mb-5" #reason>
           <small class="text-muted">Please note that abuse of this feature may result in a ban.</small>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" [disabled]="reportForm.form.invalid">Report post</button>
+          <button type="button" class="btn btn-danger" [disabled]="reportForm.form.invalid"
+                  (click)="postReport(reason.value)">Report post</button>
         </div>
       </form>
     </div>
@@ -141,14 +142,14 @@
     <div *ngFor="let comment of post.comments" class="card mb-2 p-3">
       <div class="row no-gutters">
         <div class="col-1 mx-auto" style="font-size: 15pt">
-          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up">
-                <!--[ngClass]="{'upvoted': (userVote === 1)}"-->
-                <!--(click)="voteOnPost(1)">-->
+          <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
+                [ngClass]="{'upvoted': (getVotedComment(comment) === 1)}"
+                (click)="voteOnComment(1, comment)">
           </span>
           <span class="row center-block" style="font-size: 10pt;">{{comment.score}}</span>
-          <span class="fa fa-caret-down row center-block vote-caret vote-caret-down">
-                <!--[ngClass]="{'downvoted': (userVote === -1)}"-->
-                <!--(click)="voteOnPost(-1)">-->
+          <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
+                [ngClass]="{'downvoted': (getVotedComment(comment) === -1)}"
+                (click)="voteOnComment(-1, comment)">
           </span>
         </div>
         <div class="media col-11 ">
