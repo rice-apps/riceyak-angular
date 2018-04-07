@@ -13,5 +13,4 @@ export class Post {
   removed: boolean;
   reacts: {};
   reactCounts: {};
-  removed: boolean
 }
