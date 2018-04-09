@@ -1,27 +1,36 @@
 <!-- Terms agreement modal -->
 <div class="modal fade" id="agreementModal" tabindex="-1" role="dialog" data-keyboard="false">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Terms and conditions</h5>
       </div>
       <div class="modal-body">
         <p>By using this application, you are agreeing to the following rules.</p>
+        <hr class="my-3">
+
         <ul>
-          <li>Be respectful of others at all times.</li>
-          <li>Do NOT use names. This is an anonymous service.</li>
+          <li class="font-weight-bold">Racism, sexism, homophobia, transphobia, ableism, or any other -ism is strictly not allowed. No exceptions.</li>
+          <li class="font-weight-bold">Do NOT use names in any sort of negative light. You can't use our service to bully others.</li>
+          <ul>
+            <li>Names used positively are entirely allowed. Shout-outs, compliments, etc.</li>
+            <li>You're welcome to complain about people on here, but keep their identity entirely private. <strong>If it's obvious to ANYONE who you're talking about, your post will be removed.</strong></li>
+          </ul>
+          <li class="font-weight-bold">Respect other users in all interactions.</li>
         </ul>
-        <p class="text-danger">Failure to follow the above will result in a ban.</p>
-        <p>Let's keep this place wholesome!</p>
+        <hr class="my-3">
+        <p class="text-danger font-weight-bold">Failure to follow the above will result in a ban.</p>
+        <p>We reserve the right to remove any post at any time.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">I agree</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">I agree!</button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="container post-container">
+
   <!-- This adds a post object to the posts array after the new post has been submitted -->
   <app-new-post (submitted)="reactCounts[$event._id] = {}; posts.unshift($event)"></app-new-post>
   <div *ngIf="loading" class="row">
