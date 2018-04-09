@@ -1,43 +1,12 @@
 <app-navbar></app-navbar>
 <router-outlet></router-outlet>
 
-<div class="container my-4">
-  <footer class="pt-4 my-md-5 pt-md-5">
-    <div class="row">
-      <div class="col-12 col-md">
-        <img class="mb-2" src="/assets/riceapps-logo-dark.svg" alt="" width="64" height="64" style="opacity: 0.8">
-        <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
-      </div>
-      <div class="col-6 col-md">
-        <h5>Features</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="#">Cool stuff</a></li>
-          <li><a class="text-muted" href="#">Random feature</a></li>
-          <li><a class="text-muted" href="#">Team feature</a></li>
-          <li><a class="text-muted" href="#">Stuff for developers</a></li>
-          <li><a class="text-muted" href="#">Another one</a></li>
-          <li><a class="text-muted" href="#">Last time</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md">
-        <h5>Resources</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="#">Resource</a></li>
-          <li><a class="text-muted" href="#">Resource name</a></li>
-          <li><a class="text-muted" href="#">Another resource</a></li>
-          <li><a class="text-muted" href="#">Final resource</a></li>
-        </ul>
-      </div>
-      <div class="col-6 col-md">
-        <h5>About</h5>
-        <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="#">Team</a></li>
-          <li><a class="text-muted" href="#">Locations</a></li>
-          <li><a class="text-muted" href="#">Privacy</a></li>
-          <li><a class="text-muted" href="#">Terms</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
+<footer class="my-5 pt-5 text-muted text-center text-small">
+  <img class="mb-2" src="/assets/riceapps-logo-dark.svg" alt="" width="64" height="64" style="opacity: 0.8">
+  <p class="mb-1">© 2017-2018 Rice Apps</p>
+  <ul class="list-inline">
+    <li class="list-inline-item"><a [routerLink]="['/about']">about</a></li>
+    <li class="list-inline-item"><a href="https://www.riceapps.org">riceapps.org</a></li>
+  </ul>
+</footer>
 
-</div>

@@ -6,6 +6,7 @@ import {PostsComponent} from './components/posts/posts.component';
 import { AdminComponent } from './components/admin/admin.component';
 import {AuthGuard} from './guards/auth.guard';
 import {PostDetailComponent} from './components/post-detail/post-detail.component';
+import {AboutComponent} from "./components/about/about.component";
 
 const routes: Routes = [
   {
@@ -45,6 +46,11 @@ const routes: Routes = [
       }
     ]
   },
+
+  {
+    path: 'about',
+    component: AboutComponent
+  }
 
 
 ];

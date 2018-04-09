@@ -1,10 +1,11 @@
-<div class="jumbotron jumbotron-fluid mb-0 text-center" style="background-color: #ffffff; padding: 150px 0 150px 0;">
+<div class="jumbotron jumbotron-fluid mb-0 text-center bg-white">
   <div class="container">
+    <img width=150 src="/assets/logo.svg">
     <h1 class="display-3" style="font-family: Helvetica">Beakspeak</h1>
     <p class="lead text-center">The anonymous social network for Rice</p>
     <hr class="my-4">
     <p class="lead ">
-      <a class="btn btn-primary btn-lg" [attr.href]="authUrl" role="button">Login with netID</a>
+      <a class="btn btn-primary btn-lg" *ngIf="!(loggedIn | async)" [attr.href]="authUrl" role="button">Login with netID</a>
     </p>
   </div>
 </div>
@@ -13,16 +14,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <h4>Totally anonymous</h4>
-        <p>text text text text text text text text text text text text text text text text text </p>
+        <h4>Completely anonymous</h4>
+        <p>Your net ID is obfuscated and stored as a salted SHA-256 hash. For those who haven't taken COMP 427, this means that no one can know who you are.</p>
       </div>
       <div class="col-md-4">
-        <h4>text text</h4>
-        <p>text text text text text text text text text text text text text text text text text text text text text text text </p>
+        <h4>Rice-only</h4>
+        <p>We authenticate through Rice, so only current Rice students, faculty, and employees can access the service.</p>
       </div>
       <div class="col-md-4">
-        <h4>text</h4>
-        <p>text text text text text text text text text text text text text text text text text text text </p>
+        <h4>Optimized for mobile</h4>
+        <p>We worked hard to make sure you'll get a great experience on our web app when you're using your phone.</p>
       </div>
     </div>
   </div>

@@ -17,6 +17,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import {AdminComponent} from './components/admin/admin.component';
 import {CookieModule} from "ngx-cookie";
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {CookieModule} from "ngx-cookie";
     NewPostComponent,
     PostDetailComponent,
     TimeAgoPipe,
-    AdminComponent
+    AdminComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
