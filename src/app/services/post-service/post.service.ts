@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
 import {CONFIG} from '../../config';
 import {Post} from '../../models/post';
 import {Report} from '../../models/report';
+import {CookieService} from "ngx-cookie";
 
 @Injectable()
 export class PostService {
 
   private apiUrl: string = CONFIG.api_url;
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private cookies: CookieService) {
+  }
 
   reacts: Object;
 
@@ -18,19 +20,20 @@ export class PostService {
    * @returns {RequestOptions}
    */
   private jwt(): RequestOptions {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser: any = this.cookies.getObject('usr');
     if (currentUser && currentUser.user.token) {
       const headers = new Headers({'x-access-token': currentUser.user.token});
       return new RequestOptions({headers: headers});
     }
   }
 
-    getPosts(): Promise<any> {
-      return this.http.get(`${this.apiUrl}/posts`, this.jwt())
-        .toPromise()
-        .then(res => res.json() as Post[])
-        .catch(err => console.log(err));
-    }
+  getPosts(): Promise<any> {
+    return this.http.get(`${this.apiUrl}/posts`, this.jwt())
+      .toPromise()
+      .then(res => res.json() as Post[])
+      .catch(err => console.log(err));
+  }
 
   postPost(title: string, body: string): Promise<any> {
     return this.http.post(`${this.apiUrl}/posts`, {title: title, body: body}, this.jwt())
@@ -74,12 +77,15 @@ export class PostService {
       .catch(err => console.log(err));
   }
 
-    voteOnComment(comment_id: string, post_id: string, vote: number): Promise<any> {
-        return this.http.put(`${this.apiUrl}/posts/${post_id}/voteComment`, { vote: vote, comment_id: comment_id }, this.jwt())
-            .toPromise()
-            .then(res => res.json() as Comment)
-            .catch(err => console.log(err));
-    }
+  voteOnComment(comment_id: string, post_id: string, vote: number): Promise<any> {
+    return this.http.put(`${this.apiUrl}/posts/${post_id}/voteComment`, {
+      vote: vote,
+      comment_id: comment_id
+    }, this.jwt())
+      .toPromise()
+      .then(res => res.json() as Comment)
+      .catch(err => console.log(err));
+  }
 
   getReportedPosts(): Promise<any> {
     return this.http.get(`${this.apiUrl}/reports`, this.jwt())
@@ -95,17 +101,17 @@ export class PostService {
       .catch(err => console.log(err));
   }
 
-  postReportReview(result: boolean, report: Report): Promise<any>{
+  postReportReview(result: boolean, report: Report): Promise<any> {
     return this.http.put(`${this.apiUrl}/reports`, {result: result, report: report}, this.jwt())
-        .toPromise()
-        .then(res => res.json())
-        .catch(err => console.log(err));
+      .toPromise()
+      .then(res => res.json())
+      .catch(err => console.log(err));
   }
 
-  reactOnPost(post_id: string, react: string): Promise<any>{
-   return this.http.put(`${this.apiUrl}/posts/${post_id}/reacts`, {react: react}, this.jwt())
-       .toPromise()
-       .then(res => res.json() as Post)
-       .catch(err => console.log(err));
+  reactOnPost(post_id: string, react: string): Promise<any> {
+    return this.http.put(`${this.apiUrl}/posts/${post_id}/reacts`, {react: react}, this.jwt())
+      .toPromise()
+      .then(res => res.json() as Post)
+      .catch(err => console.log(err));
   }
 }

@@ -54,7 +54,7 @@
         </div>
         <div class="media col-11">
           <div class="media-body">
-            <h5 class="mt-0 mb-1">{{post.title}}</h5>
+            <h5 class="mt-0 mb-1 post-title">{{post.title}}</h5>
             {{post.body}}
           </div>
           <img class="rounded" [src]="post.author.avatar_url" width="64" height="64" alt="Avatar">
@@ -62,27 +62,34 @@
       </div>
     </div>
 
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item py-2 text-muted" style="border-top: none;">{{post.comments.length}} comments</li>
-      <li *ngFor="let commentOnPost of post.comments.slice(0, 5)" class="list-group-item py-2">
-        <small>{{commentOnPost.body}}</small>
-      </li>
-    </ul>
 
-    <div class="card-footer">
-      <a [routerLink]="['/posts', post._id]" class="card-link">View</a>
-      <small class="text-muted pull-right">{{post.date | timeAgo}}</small>
-    </div>
+    <button type="button" class="close collapse-caret" data-toggle="collapse" [attr.data-target]="'#' + post._id" aria-expanded="false" aria-controls="collapseExample">
+      <i class="fa fa-caret-down"></i>
+    </button>
 
-    <div class="card-footer">
-    <ul class="nav nav-pills justify-content-sm-end" style="font-size: 12px;">
-        <li class="nav-item" *ngFor="let key of objectKeys(reactCss)">
-          <a class="nav-link"  (click)="changeReact(key,post._id)" [ngClass] = "{'active': (userReacts[post._id] == key)}">
-            <i class="em {{reactCss[key]}}"></i>
-            <span class="badge">{{reactCounts[post._id][key]}}</span>
-          </a>
+    <div class="collapse dont-collapse-sm" [id]="post._id">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item py-2 text-muted" style="border-top: none;">{{post.comments.length}} comments</li>
+        <li *ngFor="let comment of post.comments.slice(0, 3)" class="list-group-item py-2">
+          <small>{{comment.body}}</small>
         </li>
       </ul>
+
+      <div class="card-footer">
+        <a [routerLink]="['/posts', post._id]" class="card-link">View</a>
+        <small class="text-muted pull-right">{{post.date | timeAgo}}</small>
+      </div>
+
+      <div class="card-footer">
+      <ul class="nav nav-pills justify-content-sm-end" style="font-size: 12px;">
+          <li class="nav-item" *ngFor="let key of objectKeys(reactCss)">
+            <a class="nav-link"  (click)="changeReact(key,post._id)" [ngClass] = "{'active': (userReacts[post._id] == key)}">
+              <i class="em {{reactCss[key]}}"></i>
+              <span class="badge">{{reactCounts[post._id][key]}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

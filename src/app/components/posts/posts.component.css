@@ -38,7 +38,32 @@
   .avatar{
     max-width:140%;
   }
+  .collapse-caret {
+    display: block;
+    height: auto !important;
+    visibility: visible;
+  }
 }
+
+@media (min-width: 768px) {
+  .collapse.dont-collapse-sm {
+    display: block;
+    height: auto !important;
+    visibility: visible;
+  }
+
+  .collapse-caret {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+.collapse-caret {
+  color: lightgray;
+
+}
+
+
 
 .vote-caret {
   -webkit-transition: transform 0.3s;
