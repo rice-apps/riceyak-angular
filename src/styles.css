@@ -22,4 +22,20 @@ body {
   to { opacity: 1; }
 }
 
+@media only screen and (max-width : 768px) {
+  .post-title {
+    font-size: large;
+  }
+}
+
+.nav-link {
+  cursor: pointer;
+  filter: grayscale(1);
+  font-size: 12px;
+}
+
+.nav-link.active {
+  filter: none;
+}
+
 
