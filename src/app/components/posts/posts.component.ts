@@ -3,6 +3,7 @@ import {Post} from '../../models/post';
 import {PostService} from '../../services/post-service/post.service';
 import {AuthService} from '../../services/auth-service/auth.service';
 import {reactCss} from '../../models/react';
+import {CookieService} from "ngx-cookie";
 
 @Component({
   selector: 'app-posts',
@@ -39,7 +40,7 @@ export class PostsComponent implements OnInit {
    */
   voteLoading = false;
 
-  constructor(private postService: PostService, private authService: AuthService) {
+  constructor(private postService: PostService, private authService: AuthService, private cookies: CookieService) {
   }
 
   /**
@@ -47,7 +48,7 @@ export class PostsComponent implements OnInit {
    * for each post.
    */
   ngOnInit() {
-    const curUser = JSON.parse(localStorage.getItem('currentUser'));
+    let curUser: any = this.cookies.getObject('usr');
     if (curUser.user.isNew) {
       $('#agreementModal').modal('show');
       curUser.user.isNew = false;

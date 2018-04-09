@@ -15,7 +15,7 @@
             <label class="col-form-label" for="inputTitle">Title</label>
             <input [ngClass]="{'is-invalid': title.invalid && (title.dirty || title.touched)}"
                    formControlName="title" type="text" class="form-control form-control-lg"
-                   id="inputTitle" placeholder="Your hoot title" required>
+                   id="inputTitle" placeholder="Your post title" required>
             <div *ngIf="title.errors" class="invalid-feedback">Title is required</div>
           </div>
           <div class="form-group">

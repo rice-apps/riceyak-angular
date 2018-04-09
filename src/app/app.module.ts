@@ -16,6 +16,7 @@ import { PostDetailComponent } from './components/post-detail/post-detail.compon
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TimeAgoPipe} from 'time-ago-pipe';
 import {AdminComponent} from './components/admin/admin.component';
+import {CookieModule} from "ngx-cookie";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {AdminComponent} from './components/admin/admin.component';
     AppRoutingModule,
     HttpModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CookieModule.forRoot()
   ],
   providers: [
     AuthService,

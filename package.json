@@ -27,6 +27,7 @@
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "jquery": "^3.2.1",
+    "ngx-cookie": "^3.0.1",
     "popper.js": "^1.12.6",
     "rxjs": "^5.5.8",
     "time-ago-pipe": "^1.2.1",

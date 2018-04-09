@@ -117,10 +117,10 @@
 
         <div class="card-footer">
             <div class="row">
-                <div class="col-6">
+                <div class="col-3">
                     <a [routerLink]="['/posts']" class="card-link text-left">Back</a>
                 </div>
-                <div class="col-6">
+                <div class="col-9">
                     <ul class="nav nav-pills justify-content-sm-end" style="font-size: 15px;">
                         <li class="nav-item" *ngFor="let key of objectKeys(post.reactCounts)">
                             <a class="nav-link" (click)="changeReact(key)" [ngClass]="{'active': (userReact == key)}"><i

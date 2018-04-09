@@ -3,6 +3,8 @@ import {Http} from '@angular/http';
 import {Router} from '@angular/router';
 import {Observable, Subject, BehaviorSubject} from 'rxjs';
 import {CONFIG} from '../../config';
+import {CookieService} from "ngx-cookie";
+import {User} from "../../models/user";
 
 @Injectable()
 export class AuthService {
@@ -13,8 +15,8 @@ export class AuthService {
 
   public loggedInUser: Subject<any> = new Subject<any>();
 
-  constructor(private http: Http, private router: Router) {
-    const usr = localStorage.getItem('currentUser');
+  constructor(private http: Http, private router: Router, private cookies: CookieService) {
+    const usr = this.cookies.getObject('usr');
     if (usr) {
       this.loggedIn.next(true);
       this.loggedInUser.next(usr);
@@ -30,9 +32,9 @@ export class AuthService {
       .then(res => {
         const result = res.json();
         if (result && result.success) {
-          localStorage.setItem('currentUser', JSON.stringify(result));
+          this.cookies.putObject('usr', result);
           this.loggedIn.next(true);
-          this.userLoggedIn.next(result);
+          this.loggedInUser.next(result);
         } else {
           console.log('Authentication failed');
         }
@@ -42,16 +44,17 @@ export class AuthService {
 
   public logout(): Promise<any> {
     return new Promise((resolve, reject) => {
-      localStorage.removeItem('currentUser');
+      this.cookies.remove('usr');
       this.loggedIn.next(false);
-      this.router.navigate(['/']);
+      this.loggedInUser.next({});
+      this.router.navigate(['/home']);
       return resolve('Logged out');
     });
 
   }
 
   get isLoggedIn() {
-    if (localStorage.getItem('currentUser')) {
+    if (this.cookies.getObject('usr')) {
       this.loggedIn.next(true);
     } else {
       this.loggedIn.next(false);
@@ -59,8 +62,8 @@ export class AuthService {
     return this.loggedIn.asObservable();
   }
 
-  get userLoggedIn() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  get userLoggedIn(): any {
+    const currentUser = this.cookies.getObject('usr');
     if (currentUser) {
       return currentUser;
     } else {
