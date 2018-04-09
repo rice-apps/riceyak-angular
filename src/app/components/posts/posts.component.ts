@@ -52,7 +52,7 @@ export class PostsComponent implements OnInit {
     if (curUser.user.isNew) {
       $('#agreementModal').modal('show');
       curUser.user.isNew = false;
-      localStorage.setItem('currentUser', JSON.stringify(curUser));
+      this.cookies.putObject('usr', curUser);
     }
 
     this.reactCss = reactCss;
