@@ -9,7 +9,11 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto"></ul>
+      <ul class="navbar-nav mr-auto">
+        <li *ngIf="loggedIn | async" class="nav-item">
+          <a class="nav-link" [routerLink]="['/posts']">Posts<span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
 
       <button *ngIf="loggedIn | async" (click)="logout()" class="btn btn-outline-secondary my-2 my-sm-0">Log out</button>
       <img class="rounded ml-2" *ngIf="loggedIn | async" [src]="avatarURL" width="36" height="36">

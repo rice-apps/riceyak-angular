@@ -123,7 +123,7 @@
                 <div class="col-9">
                     <ul class="nav nav-pills justify-content-sm-end" style="font-size: 15px;">
                         <li class="nav-item" *ngFor="let key of objectKeys(post.reactCounts)">
-                            <a class="nav-link" (click)="changeReact(key)" [ngClass]="{'active': (userReact == key)}"><i
+                            <a class="nav-link react" (click)="changeReact(key)" [ngClass]="{'active': (userReact == key)}"><i
                                     class="em {{reactCss[key]}}"></i><span
                                     class="badge">{{post.reactCounts[key]}}</span></a>
                         </li>

@@ -28,13 +28,13 @@ body {
   }
 }
 
-.nav-link {
+.react {
   cursor: pointer;
   filter: grayscale(1);
   font-size: 12px;
 }
 
-.nav-link.active {
+.react.active {
   filter: none;
 }
 
