@@ -1,16 +1,20 @@
-<div class = "container post-container">
-    <div class = "card mb-4 post-card" *ngFor="let report of reports">
-        <div class = "card-body" >
-       <p> reason: {{report.reason}}</p>
-        <p>reviewed: {{report.reviewed}}</p>
-            <p>review result: {{report.post.removed}}</p>
-            <div class = "card my-4">
-            <div class = "card-body">
-                <p *ngIf="report.post">title:{{report.post.title}}</p>
-                <p *ngIf="report.post">body:{{report.post.body}}</p>
-            </div></div>
-        <button type="button" class="btn btn-outline-secondary" (click)="ReportReviewed(true, report)">Good Post</button>
-            <button type="button" class="btn btn-outline-secondary" (click)="ReportReviewed(false, report)">Bad Post</button>
+<div class="container post-container">
+    <div class="card my-4 post-card" *ngFor="let report of reports"
+         [ngClass]="{'reviewed-success': !report.post?.removed && report.reviewed, 'reviewed-failure': report.post?.removed}">
+        <div class="card-body">
+            <p><strong>Reason</strong>: {{report.reason}}</p>
+            <p><strong>Reviewed</strong>: {{report.reviewed}}</p>
+            <p><strong>Removed</strong>: {{report.post?.removed}}</p>
+            <div class="card my-4">
+                <div class="card-body">
+                    <p class="font-weight-bold" *ngIf="report.post">{{report.post.title}}</p>
+                    <p *ngIf="report.post">{{report.post.body}}</p>
+                </div>
+            </div>
+            <div *ngIf="!report.reviewed">
+                <button type="button" class="btn btn-outline-success" (click)="ReportReviewed(true, report)">Don't remove</button>
+                <button type="button" class="btn btn-outline-danger" (click)="ReportReviewed(false, report)">Remove</button>
+            </div>
         </div>
     </div>
 </div>

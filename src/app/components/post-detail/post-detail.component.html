@@ -17,7 +17,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" [disabled]="reportForm.form.invalid"
+                    <button type="button" data-dismiss="modal" class="btn btn-danger" [disabled]="reportForm.form.invalid"
                             (click)="postReport(reason.value)">Report post
                     </button>
                 </div>
@@ -92,7 +92,7 @@
                     <button *ngIf="!isMyPost" title="Report this post"
                             class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal"
                             data-target="#reportModal">
-                        <i class="fa fa-exclamation-triangle"></i>
+                        <small><i class="fa fa-exclamation-triangle"></i> Report</small>
                     </button>
                     <button *ngIf="isMyPost && !isEdit" class="btn btn-sm btn-outline-danger pull-right ml-1"
                             (click)="deletePost()">Delete

@@ -43,11 +43,11 @@
     <!-- <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Little_Owl-2.jpg/220px-Little_Owl-2.jpg" alt="Card image cap"> -->
     <div class="card-body">
       <div class="row no-gutters">
-        <div class="col-1 mx-auto" style="font-size: 20pt">
+        <div class="col-1 mx-auto" style="font-size: 15pt">
           <span class="fa fa-caret-up row center-block vote-caret vote-caret-up"
                 [ngClass]="{'upvoted': (userVotes[post._id] === 1)}"
                 (click)="voteOnPost(post, 1)"></span>
-          <span class="row center-block" style="font-size: 15pt;">{{post.score}}</span>
+          <span class="row center-block" style="font-size: 10pt;">{{post.score}}</span>
           <span class="fa fa-caret-down row center-block vote-caret vote-caret-down"
                 [ngClass]="{'downvoted': (userVotes[post._id] === -1)}"
                 (click)="voteOnPost(post, -1)"></span>

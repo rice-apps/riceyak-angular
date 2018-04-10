@@ -16,10 +16,8 @@ export class AuthComponent implements OnInit {
       this.authService.authenticate(params['ticket'])
         .catch(err => console.log(err))
         .then(() => {
-
           this.router.navigate(['/posts']);
         });
-
     });
   }
 

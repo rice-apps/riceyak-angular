@@ -14,3 +14,11 @@
         width: 100%;
     }
 }
+
+.reviewed-success {
+    border-color: green;
+}
+
+.reviewed-failure {
+    border-color: red;
+}

@@ -39,7 +39,6 @@ export class AuthService {
           console.log('Authentication failed');
         }
       })
-      .catch(err => console.log(err));
   }
 
   public logout(): Promise<any> {

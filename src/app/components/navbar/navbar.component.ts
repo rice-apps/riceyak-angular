@@ -41,6 +41,6 @@ export class NavbarComponent implements OnInit {
    * Logs user out and redirects to CAS logout page.
    */
   logout() {
-    this.authService.logout();
+    this.authService.logout().then(() => window.location.href = CONFIG.cas_logout_url);
   }
 }

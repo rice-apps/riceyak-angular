@@ -20,7 +20,6 @@ export class PostService {
    * @returns {RequestOptions}
    */
   private jwt(): RequestOptions {
-    // const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const currentUser: any = this.cookies.getObject('usr');
     if (currentUser && currentUser.user.token) {
       const headers = new Headers({'x-access-token': currentUser.user.token});
