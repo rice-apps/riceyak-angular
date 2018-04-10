@@ -147,6 +147,9 @@
                     Comment
                 </button>
             </form>
+            <div *ngIf="errorText">
+                <p class="text-danger">{{errorText}}</p>
+            </div>
         </div>
     </div>
 

@@ -43,6 +43,8 @@ export class PostDetailComponent implements OnInit {
 
   editLoading = false;
 
+  errorText: string;
+
   constructor(private postService: PostService,
               private route: ActivatedRoute,
               private authService: AuthService,
@@ -93,7 +95,14 @@ export class PostDetailComponent implements OnInit {
    */
   commentOnPost(comment_entered: string) {
     this.postService.postComment(this.post._id, comment_entered)
-      .then(post => this.post = post);
+      .catch(err => {
+        if (err.status == 429) {
+          this.errorText = 'You are commenting too much. Please try again later.';
+        }
+      })
+      .then(post => {
+        this.post = post;
+      });
   }
 
   /**

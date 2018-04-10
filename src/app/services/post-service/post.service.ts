@@ -38,14 +38,12 @@ export class PostService {
     return this.http.post(`${this.apiUrl}/posts`, {title: title, body: body}, this.jwt())
       .toPromise()
       .then(res => res.json() as Post)
-      .catch(err => console.log(err));
   }
 
   postComment(id: string, comment: string): Promise<any> {
     return this.http.post(`${this.apiUrl}/posts/${id}/comments`, {id: id, comment: comment}, this.jwt())
       .toPromise()
       .then(res => res.json() as Post)
-      .catch(err => console.log(err));
   }
 
   getPost(id: string): Promise<any> {
