@@ -39,10 +39,12 @@
     <div class="col-5"></div>
   </div>
   <!-- Sort Bar -->
-  <ul class="nav nav-tabs nav-fill"
+  <ul id="sort-bar"
+      class="nav nav-pills nav-fill mb-4"
       *ngIf="!loading">
     <li class="nav-item">
       <a class="nav-link"
+         href="#" onclick="return false;"
          (click)="sortingFn = sortPost1; posts.sort(sortingFn);"
          [ngClass]="{active: sortingFn === sortPost1}">
           Hot
@@ -50,6 +52,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link"
+          href="#" onclick="return false;"
           (click)="sortingFn = sortPost2; posts.sort(sortingFn);"
           [ngClass]="{active: sortingFn === sortPost2}">
           New
@@ -57,6 +60,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link"
+          href="#" onclick="return false;"
           (click)="sortingFn = sortPost3; posts.sort(sortingFn);"
           [ngClass]="{active: sortingFn === sortPost3}">
           Top

@@ -98,3 +98,7 @@
 .downvoted {
   color: #535353;
 }
+
+#sort-bar>.nav-item {
+  cursor: pointer;
+}
