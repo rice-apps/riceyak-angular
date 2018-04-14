@@ -38,6 +38,11 @@
     <div class="col-2"><i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw spinner"></i></div>
     <div class="col-5"></div>
   </div>
+  <!-- Sort Bar -->
+  <button class="btn btn-sm btn-outline" (click)="sortPost1()">Default</button>
+  <button class="btn btn-sm btn-outline" (click)="sortPost2()">Newest</button>
+  <button class="btn btn-sm btn-outline" (click)="sortPost3()">Hottest</button>
+  
 
   <div *ngFor="let post of posts" class="card mb-4 post-card">
     <!-- <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Little_Owl-2.jpg/220px-Little_Owl-2.jpg" alt="Card image cap"> -->

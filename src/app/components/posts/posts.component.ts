@@ -60,19 +60,33 @@ export class PostsComponent implements OnInit {
       .then(posts => {
         this.loading = false;
         this.posts = posts;
-        this.sortPost();
+        this.sortPost1();
         this.getAllVotes();
         this.getAllReacts();
       });
   }
 
-  sortPost() {
+  sortPost1() {
     this.posts.sort(function (a, b) {
       const time1 = new Date(a.date).getTime();
       const time2 = new Date(b.date).getTime();
       return 100000000 * (1 / (Date.now() - time2) - 1 / (Date.now() - time1)) + (b.score - a.score);
     });
   }
+
+  sortPost2(){
+    this.posts.sort(function(a,b){
+        const time1 = new Date(a.date).getTime();
+        const time2 = new Date(b.date).getTime();
+        return time2-time1;
+    })
+  };
+
+  sortPost3(){
+    this.posts.sort(function (a,b) {
+      return b.score-a.score
+    })
+  };
 
   /**
    * Sends a request to change the user's vote for a given post to a given vote
