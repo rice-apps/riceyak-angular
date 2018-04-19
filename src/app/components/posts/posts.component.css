@@ -98,11 +98,7 @@
 .downvoted {
   color: #535353;
 }
-.nav>li>a {
-  padding: 4px;
-  margin: 1px;
-}
-.nav>li>a>span{
-  margin-left: 1px;
-}
 
+#sort-bar>.nav-item {
+  cursor: pointer;
+}

@@ -40,6 +40,32 @@ export class PostsComponent implements OnInit {
    */
   voteLoading = false;
 
+  /**
+   * This points to the sorting function we are using:
+   * (sortPost1, sortPost2, sortPost3)
+   * The sorting bar uses this to see what sorting function we're using.
+   */
+  sortingFn: (a: Post, b: Post) => number;
+
+  sortPost1 = function (a, b) {
+    const time1 = new Date(a.date).getTime();
+    const time2 = new Date(b.date).getTime();
+    return 100000000 * (1 / (Date.now() - time2) - 1 / (Date.now() - time1)) + (b.score - a.score);
+  }
+
+  sortPost2 = function(a,b){
+    const time1 = new Date(a.date).getTime();
+    const time2 = new Date(b.date).getTime();
+    return time2-time1;
+  };
+
+  sortPost3 = function (a, b) {
+    if (b.score === a.score) {
+      return b.date - a.date;
+    }
+    return b.score-a.score
+  };
+
   constructor(private postService: PostService, private authService: AuthService, private cookies: CookieService) {
   }
 
@@ -56,22 +82,15 @@ export class PostsComponent implements OnInit {
     }
 
     this.reactCss = reactCss;
+    this.sortingFn = this.sortPost1;
     this.postService.getPosts()
       .then(posts => {
         this.loading = false;
         this.posts = posts;
-        this.sortPost();
+        this.posts.sort(this.sortingFn);
         this.getAllVotes();
         this.getAllReacts();
       });
-  }
-
-  sortPost() {
-    this.posts.sort(function (a, b) {
-      const time1 = new Date(a.date).getTime();
-      const time2 = new Date(b.date).getTime();
-      return 100000000 * (1 / (Date.now() - time2) - 1 / (Date.now() - time1)) + (b.score - a.score);
-    });
   }
 
   /**
