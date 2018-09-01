@@ -31,7 +31,6 @@
     "popper.js": "^1.12.6",
     "rxjs": "^5.5.8",
     "time-ago-pipe": "^1.2.1",
-    "typescript": "^2.4.2",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {
@@ -54,6 +53,6 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.3.2",
-    "typescript": "~2.3.3"
+    "typescript": "^2.6.2"
   }
 }

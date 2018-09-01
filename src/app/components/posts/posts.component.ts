@@ -60,6 +60,7 @@ export class PostsComponent implements OnInit {
       .then(posts => {
         this.loading = false;
         this.posts = posts;
+        console.log(this.posts)
         this.sortPost();
         this.getAllVotes();
         this.getAllReacts();

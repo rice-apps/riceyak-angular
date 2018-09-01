@@ -4,6 +4,7 @@ import {CONFIG} from '../../config';
 import {Post} from '../../models/post';
 import {Report} from '../../models/report';
 import {CookieService} from "ngx-cookie";
+import {User} from "../../models/user";
 
 @Injectable()
 export class PostService {
@@ -35,6 +36,8 @@ export class PostService {
   }
 
   postPost(title: string, body: string): Promise<any> {
+    console.log("header")
+    console.log(this.jwt())
     return this.http.post(`${this.apiUrl}/posts`, {title: title, body: body}, this.jwt())
       .toPromise()
       .then(res => res.json() as Post)
@@ -110,5 +113,17 @@ export class PostService {
       .toPromise()
       .then(res => res.json() as Post)
       .catch(err => console.log(err));
+  }
+  getBannedUsers(): Promise<any> {
+    return this.http.get(`${this.apiUrl}/users/ban`,this.jwt())
+        .toPromise()
+        .then(res => res.json() as User[])
+        .catch(err => console.log(err))
+  }
+  sendBan(user: User, ban: Number): Promise<any> {
+    return this.http.put(`${this.apiUrl}/users/ban`,{user: user._id, ban: ban}, this.jwt())
+        .toPromise()
+        .then(res => res.json() as User[])
+        .catch(err => console.log(err));
   }
 }

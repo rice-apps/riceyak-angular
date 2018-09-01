@@ -1,19 +1,67 @@
-<div class="container post-container">
-    <div class="card my-4 post-card" *ngFor="let report of reports"
-         [ngClass]="{'reviewed-success': !report.post?.removed && report.reviewed, 'reviewed-failure': report.post?.removed}">
-        <div class="card-body">
-            <p><strong>Reason</strong>: {{report.reason}}</p>
-            <p><strong>Reviewed</strong>: {{report.reviewed}}</p>
-            <p><strong>Removed</strong>: {{report.post?.removed}}</p>
-            <div class="card my-4">
-                <div class="card-body">
-                    <p class="font-weight-bold" *ngIf="report.post">{{report.post.title}}</p>
-                    <p *ngIf="report.post">{{report.post.body}}</p>
+
+<div class="col-6" style="float: left">
+    <div class="container post-container">
+        <div class="card my-4 post-card" *ngFor="let report of reports"
+             [ngClass]="{'reviewed-success': !report.post?.removed && report.reviewed, 'reviewed-failure': report.post?.removed}">
+            <div class="card-body">
+                <p><strong>Reason</strong>: {{report.reason}}</p>
+                <p><strong>Reviewed</strong>: {{report.reviewed}}</p>
+                <p><strong>Removed</strong>: {{report.post?.removed}}</p>
+                <div class="card my-4">
+                    <div class="card-body">
+                        <p class="font-weight-bold" *ngIf="report.post">{{report.post.title}}</p>
+                        <p *ngIf="report.post">{{report.post.body}}</p>
+                    </div>
+                </div>
+                <div *ngIf="!report.reviewed">
+                    <button type="button" class="btn btn-outline-success" (click)="ReportReviewed(true, report)">Don't remove</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="ReportReviewed(false, report)">Remove</button>
+                </div>
+                <div *ngIf="!report.post.author.is_banned;else unban">
+                    <button class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal"
+                            data-target="#banModal" (click)="banAction = 'ban';" ><span #banbutton>Ban User</span></button>
+                </div>
+                <ng-template #unban>
+                    <button class="btn btn-sm btn-outline-danger pull-right ml-1" data-toggle="modal"
+                            data-target="#banModal" (click)="banAction = 'unban';"><span #unbanbutton>Unban User</span>
+                    </button>
+                </ng-template>
+
+            </div>
+            <div class="modal fade" id="banModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Are you sure you want to {{banAction}} this user?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" align="center">
+                            <button type="button" class="btn btn-outline-danger" style="margin: 15px" data-dismiss="modal" (click)="onBan(report.post.author)">Yes</button>
+                            <button type="button" class="btn btn-outline-secondary" style="margin: 15px" data-dismiss="modal">No</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            <div *ngIf="!report.reviewed">
-                <button type="button" class="btn btn-outline-success" (click)="ReportReviewed(true, report)">Don't remove</button>
-                <button type="button" class="btn btn-outline-danger" (click)="ReportReviewed(false, report)">Remove</button>
+
+        </div>
+    </div>
+</div>
+<div class="col-6" style="float: right">
+    <div class="container post-container">
+        <div class="card my-4 post-card">
+            <span class="badge badge-danger">
+                <h1>Ban List</h1>
+            </span>
+        </div>
+        <div class="card-columns" align="center" *ngFor="let user of banList">
+            <div class="card"><p class="card-text">{{user._id}}</p></div>
+            <div class="card" >
+                <button class="btn btn-sm btn-outline-danger ml-1" data-toggle="modal"
+                        data-target="#banModal" (click)="banAction = 'unban';"><span #unbanbutton>Unban User</span>
+                </button>
             </div>
         </div>
     </div>
